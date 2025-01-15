@@ -1,0 +1,2 @@
+﻿Constants class and database constants
+https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/database-sqlite?view=net-maui-9.0#install-the-sqlite-nuget-package
