@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VarsityMetrics.SignUpPage"
+             Title="SignUpPage"
+             xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel"
+             x:DataType="viewmodel:SignInViewModel">
+
+    <Grid RowDefinitions="100, Auto, Auto, Auto, Auto, Auto"
+          ColumnDefinitions=".5*, .25*, .5*"
+          Padding="10"
+          ColumnSpacing="10"
+          RowSpacing="10">
+
+        <Label Text="Sign Up"
+               Grid.Row="1"
+               Grid.Column="1"/>
+
+
+        <Entry Placeholder="Enter Username"
+               Text="{Binding Username}"
+               Grid.Row="2"
+               Grid.Column="1"/>
+
+        <Entry Placeholder="Enter Password"
+               Text="{Binding Password}"
+               Grid.Row="3"
+               Grid.Column="1"/>
+
+        <Button Text="Sign Up"
+                Command="{Binding AddCommand}"
+                Grid.Row="4"
+                Grid.Column="1"/>
+
+        <Button Text="Login"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:SignInViewModel}}, Path=ClickCommand}"
+                CommandParameter="{Binding .}"
+                Grid.Row="5"
+                Grid.Column="1"/>
+
+        <CollectionView Grid.Row="6"
+                        Grid.Column="1"
+                        ItemsSource="{Binding Items}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type x:String}">
+                    <Grid Padding="0,5">
+                        <Frame>
+                            <Label Text="{Binding .}"
+                                   FontSize="24"/>
+                        </Frame>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
+
+    </Grid>
+
+</ContentPage>
