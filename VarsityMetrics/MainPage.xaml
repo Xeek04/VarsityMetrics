@@ -8,20 +8,23 @@
             Padding="30,0"
             Spacing="25">
             <Label
-                Text="Home Test"
+                Text="VarsityMetrics"
                 Style="{StaticResource Headline}"
             />
 
             <Label
-                Text="Hello, World!"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
+                Text="Recent Games"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level1" 
+                HorizontalOptions="Start"
+            />
 
             <Label
-                Text="Welcome to &#10;.NET Multi-platform App UI"
+                Text="Top Players"
                 Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I" />
+                SemanticProperties.HeadingLevel="Level2" 
+                HorizontalOptions="Start"
+            />
 
         </VerticalStackLayout>
     </ScrollView>
