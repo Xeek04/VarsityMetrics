@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using SQLite;
 namespace VarsityMetrics.DB_Models
 {
-    internal class Class2
-    {
+    [Table("Opponent")]
+    public class Opponent {
+        [PrimaryKey]
+        [NotNull]
+        [AutoIncrement]
+        [Column("Pk")]
+        public int Id { get; set; }
+        [Column("gid")]
+        public int GameId { get; set; }
+        [Column("opponent_name")]
+        public String OpponentName { get; set; }
+
     }
 }
