@@ -32,10 +32,5 @@
             Route="GameLogPage" />
         </Tab>
 
-        <Tab Title="Login" >
-            <ShellContent
-            ContentTemplate="{DataTemplate local:LoginPage}"
-            Route="LoginPage" />
-        </Tab>
     </TabBar>
 </Shell>

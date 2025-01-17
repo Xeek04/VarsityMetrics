@@ -12,47 +12,30 @@
           RowSpacing="10">
 
         <Label Text="Login"
-               Grid.Row="0"
+               FontSize="Header"
+               HorizontalTextAlignment="Center"
+               Grid.Row="1"
                Grid.Column="1"/>
 
         <Entry Placeholder="Enter Username"
                Text="{Binding Username}"
-               Grid.Row="1"
+               Grid.Row="2"
                Grid.Column="1"/>
 
         <Entry Placeholder="Enter Password"
                Text="{Binding Password}"
-               Grid.Row="2"
+               Grid.Row="3"
                Grid.Column="1"/>
 
         <Button Text="Login"
-                Command="{Binding AddCommand}"
-                Grid.Row="3"
-                Grid.Column="1"/>
-
-        <Button Text="Sign Up"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LoginViewModel}}, Path=ClickCommand}"
-                CommandParameter="{Binding .}"
+                Clicked="LoginClicked"
                 Grid.Row="4"
                 Grid.Column="1"/>
 
-        <CollectionView Grid.Row="5"
-                        Grid.Column="1"
-                        ItemsSource="{Binding Items}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type x:String}">
-                    <Grid Padding="0,5">
-                        <Frame>
-                            <Label Text="{Binding .}"
-                                   FontSize="24"/>
-                        </Frame>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
-
-
+        <Button Text="Sign Up"
+                Clicked="SignUpClicked"
+                Grid.Row="5"
+                Grid.Column="1"/>
 
     </Grid>
 
