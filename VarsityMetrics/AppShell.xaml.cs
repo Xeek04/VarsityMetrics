@@ -8,6 +8,8 @@
 
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+
+            GoToAsync("//LoginPage");
         }
     }
 }

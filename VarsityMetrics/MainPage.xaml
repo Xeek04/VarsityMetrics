@@ -6,7 +6,7 @@
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
-            Spacing="25">
+            Spacing="10">
             <Label
                 Text="VarsityMetrics"
                 Style="{StaticResource Headline}"
@@ -20,10 +20,24 @@
             />
 
             <Label
+                Text="  My Team vs. Team 2"    
+            />
+            <Label
+                Text="  My Team vs. Team 47"    
+            />
+
+            <Label
                 Text="Top Players"
                 Style="{StaticResource SubHeadline}"
                 SemanticProperties.HeadingLevel="Level2" 
                 HorizontalOptions="Start"
+            />
+
+            <Label
+                Text="  Hingle McCringleberry | HB | 2000 Rushing Yards"
+            />
+            <Label
+                Text="  Mclovin | QB | 4000 Passing Yards"
             />
 
         </VerticalStackLayout>
