@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿using SQLite;
 namespace VarsityMetrics.DB_Models
 {
-    internal class Class1
+    [Table("Game")]
+    public class Game
     {
+        [PrimaryKey]
+        [NotNull]
+        [AutoIncrement]
+        [Column("Pk")]
+        public int Pk { get; set; }
+        [Column("fname")]
+        public String Fname { get; set; }
+        [Column("lname")]
+        public String Lname { get; set; }
+        [Column("position")]
+        public String Position { get; set; }
+        [Column("running_yards")]
+        public int RunningYards { get; set; }
+
     }
 }
