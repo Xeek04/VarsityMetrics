@@ -25,9 +25,13 @@
                Grid.Column="1"/>
 
         <Entry Placeholder="Enter Password"
+               IsPassword="true"
                Text="{Binding Password}"
                Grid.Row="3"
                Grid.Column="1"/>
+        <CheckBox x:Name="HidePassword"
+          Grid.Row="3"
+          Grid.Column="2"/>
 
         <Entry Placeholder="Enter Email"
                Grid.Row="4"
