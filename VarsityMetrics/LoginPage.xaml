@@ -23,12 +23,14 @@
                Grid.Column="1"/>
 
         <Entry Placeholder="Enter Password"
-               IsPassword="true"
+               IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
                x:Name="password"
                Text="{Binding Password}"
                Grid.Row="3"
                Grid.Column="1"/>
+
         <CheckBox x:Name="HidePassword"
+                  IsChecked="True"
                   Grid.Row="3"
                   Grid.Column="2"/>
 
