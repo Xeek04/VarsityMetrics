@@ -32,5 +32,11 @@
             Route="GameLogPage" />
         </Tab>
 
+        <Tab Title="Account Profile">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:AccountPage}"
+            Route="AccountPage" />
+        </Tab>
+
     </TabBar>
 </Shell>
