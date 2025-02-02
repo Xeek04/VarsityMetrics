@@ -24,6 +24,9 @@ public partial class SignInViewModel : ObservableObject
     [ObservableProperty]
     string password;
 
+    [ObservableProperty]
+    string emale;
+
     [RelayCommand]
     void Add()
     {
@@ -39,6 +42,12 @@ public partial class SignInViewModel : ObservableObject
 
         Items.Add(Password);
         Password = string.Empty;
+
+        if(string.IsNullOrWhiteSpace(emale))
+            return;
+
+        Items.Add(Emale);
+        Emale = string.Empty;
     }
 
     [RelayCommand]

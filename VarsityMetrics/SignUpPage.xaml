@@ -6,50 +6,60 @@
              xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel"
              x:DataType="viewmodel:SignInViewModel">
 
-    <Grid RowDefinitions="100, Auto, Auto, Auto, Auto, Auto, Auto"
+    <Grid RowDefinitions="50, Auto"
           ColumnDefinitions=".5*, .25*, .5*"
           Padding="10"
           ColumnSpacing="10"
           RowSpacing="10">
 
-        <Label Text="Sign Up"
-               FontSize="Header"
-               HorizontalTextAlignment="Center"
-               Grid.Row="1"
-               Grid.Column="1"/>
+        <StackLayout Spacing="10"
+                     Grid.Column="1"
+                     Grid.Row="1">
+            
+
+            <Label Text="Sign Up"
+                   FontSize="Header"
+                   HorizontalTextAlignment="Center"/>
 
 
-        <Entry Placeholder="Enter Username"
-               Text="{Binding Username}"
-               Grid.Row="2"
-               Grid.Column="1"/>
+            <Entry Placeholder="Enter Username"
+                   x:Name="username"
+                   Text="{Binding Username}"/>
 
-        <Entry Placeholder="Enter Password"
-               IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
-               x:Name="password"
-               Text="{Binding Password}"
-               Grid.Row="3"
-               Grid.Column="1"/>
+            <Label x:Name="usernameError"
+                   TextColor="Red"
+                   IsVisible="False"/>
 
-        <CheckBox x:Name="HidePassword"
-          IsChecked="True"
-          Grid.Row="3"
-          Grid.Column="2"/>
+            <Grid>
+                <Entry Placeholder="Enter Password"
+                       IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
+                       x:Name="password"
+                       Text="{Binding Password}"/>
 
-        <Entry Placeholder="Enter Email"
-               Grid.Row="4"
-               Grid.Column="1"/>
+                <CheckBox x:Name="HidePassword"
+                          IsChecked="True"
+                          HorizontalOptions="End"/>
+            </Grid>
 
-        <Button Text="Sign Up"
-                Clicked="SignInClicked"
-                Grid.Row="5"
-                Grid.Column="1"/>
+            <Label x:Name="passwordError"
+                   TextColor="Red"
+                   IsVisible="False"/>
 
-        <Button Text="Login"
-                Clicked="LoginClicked"
-                Grid.Row="6"
-                Grid.Column="1"/>
+            <Entry Placeholder="Enter Email"
+                   x:Name="email"
+                   Text="{Binding Emale}"/>
 
+            <Label x:Name="emailError"
+                   TextColor="Red"
+                   IsVisible="False"/>
+
+            <Button Text="Sign Up"
+                    Clicked="SignInClicked"/>
+
+            <Button Text="Login"
+                    Clicked="LoginClicked"/>
+
+        </StackLayout>
     </Grid>
 
 </ContentPage>
