@@ -14,7 +14,7 @@ namespace VarsityMetrics
             // enable multi-threaded database access
             SQLite.SQLiteOpenFlags.SharedCache;
 
-        public static string DatabasePath = Path.Combine(FileSystem.AppDataDirectory, DBFilename);
+        public readonly static string DatabasePath = Path.Combine(FileSystem.AppDataDirectory, DBFilename);
 
         // Create statements for database
         public const String CreateGame = $"CREATE TABLE \"Game\" (\r\n\t\"Pk\"\tINTEGER NOT NULL,\r\n\t\"opponent\"\tTEXT,\r\n\t\"date\"\tTEXT,\r\n\tPRIMARY KEY(\"Pk\" AUTOINCREMENT)\r\n)";
@@ -23,5 +23,14 @@ namespace VarsityMetrics
         public const String CreateRoster = $"CREATE TABLE \"Roster\" (\r\n\t\"Pk\"\tINTEGER NOT NULL,\r\n\t\"game_id\"\tINTEGER,\r\n\t\"player_id\"\tINTEGER,\r\n\tPRIMARY KEY(\"Pk\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"game_id\") REFERENCES \"Game\"(\"Pk\"),\r\n\tFOREIGN KEY(\"player_id\") REFERENCES \"Player\"(\"Pk\")\r\n)";
         public const String CreateFootage = $"CREATE TABLE \"Footage\" (\r\n\t\"Pk\"\tINTEGER NOT NULL,\r\n\t\"url\"\tTEXT,\r\n\t\"game_id\"\tINTEGER,\r\n\t\"play_id\"\tINTEGER,\r\n\tPRIMARY KEY(\"Pk\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"game_id\") REFERENCES \"Game\"(\"Pk\"),\r\n\tFOREIGN KEY(\"play_id\") REFERENCES \"Play\"(\"Pk\")\r\n)";
         //public const String Create = $"";
+
+        //role enum
+        public enum Role
+        {
+            // higher access levels should go at the top
+            Coach,
+            Statistician,
+            Player
+        }
     }
 }

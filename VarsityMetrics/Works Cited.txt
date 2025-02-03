@@ -3,3 +3,5 @@ https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/database-sqlite?view=ne
 https://www.youtube.com/watch?v=nK0rtoU_D2Q
 https://www.reddit.com/r/csharp/comments/1bziaox/how_do_you_create_multiple_tables_in_sqlite_local/
 https://github.com/praeclarum/sqlite-net/wiki/Getting-Started
+list of SQLITE-pcl attributes
+https://github.com/praeclarum/sqlite-net/wiki/Features#orm

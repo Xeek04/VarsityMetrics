@@ -15,10 +15,10 @@ namespace VarsityMetrics.DB_Models
         public int Pk { get; set; }
 
         [Indexed, Column("game_id")]
-        public int GameId { get; set; }
+        public String? GameId { get; set; }
 
         [Indexed, Column("player_id")]
-        public String PlayerId { get; set; }
+        public String? PlayerId { get; set; }
 
     }
 }
