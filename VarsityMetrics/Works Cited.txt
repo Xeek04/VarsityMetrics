@@ -1,2 +1,5 @@
 ﻿Constants class and database constants
 https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/database-sqlite?view=net-maui-9.0#install-the-sqlite-nuget-package
+https://www.youtube.com/watch?v=X1BA2ncLa0c
+https://www.reddit.com/r/csharp/comments/1bziaox/how_do_you_create_multiple_tables_in_sqlite_local/
+https://github.com/praeclarum/sqlite-net/wiki/Getting-Started
