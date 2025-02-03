@@ -9,29 +9,22 @@ namespace VarsityMetrics.DB_Models
 {
     public class DBAccess {
 
-        SQLiteAsyncConnection connection;
+        private SQLiteAsyncConnection conn;
 
         public async Task Init()
         {
-            if (connection is not null)
+            if (conn is not null)
             {
                 return;
             }
 
-            connection = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-            await connection.CreateTablesAsync<Game, Opponent, Player>();
+            conn = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+            // create all tables
+            await conn.CreateTablesAsync<Game, Play, Player, Accounts>();
         }
+         
 
-        // From a silly youtube video that is probably wrong
-        public SQLiteAsyncConnection Connect()
-        {
-            return new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
-            connection.QueryAsync(map)
-        }
-
-        //Change this function so that its useful, all the tables are made in init
-
-        //private async Task MakeTable<T>() where T : class, new() // only for use in Connect()
+        //private async Task Function<T>() where T : class, new() // use for new functions which return object T
         //{
         //  
         //}
