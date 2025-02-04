@@ -6,10 +6,31 @@
     xmlns:local="clr-namespace:VarsityMetrics"
     Shell.FlyoutBehavior="Disabled"
     Title="VarsityMetrics">
+    
+    <TabBar>
+        <Tab Title="VarsityMetrics">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+        </Tab>
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        <Tab Title="Playbook">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:PlaybookPage}"
+            Route="PlaybookPage" />
+        </Tab>
 
+        <Tab Title="Stats">
+            <ShellContent 
+            ContentTemplate="{DataTemplate local:StatsPage}"
+            Route="StatsPage" />
+        </Tab>
+
+        <Tab Title="Game Log">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:GameLogPage}"
+            Route="GameLogPage" />
+        </Tab>
+
+    </TabBar>
 </Shell>
