@@ -5,3 +5,10 @@ https://www.reddit.com/r/csharp/comments/1bziaox/how_do_you_create_multiple_tabl
 https://github.com/praeclarum/sqlite-net/wiki/Getting-Started
 list of SQLITE-pcl attributes
 https://github.com/praeclarum/sqlite-net/wiki/Features#orm
+string interpolation
+https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/tokens/interpolated
+database implementation
+https://learn.microsoft.com/en-us/training/modules/store-local-data/4-exercise-store-data-locally-with-sqlite
+https://github.com/MicrosoftDocs/mslearn-dotnetmaui-store-local-data/tree/main
+print to console
+https://stackoverflow.com/questions/74798921/write-to-the-console-in-net-maui

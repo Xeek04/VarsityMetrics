@@ -18,7 +18,10 @@ namespace VarsityMetrics.DB_Models
         public String? Position { get; set; }
 
         [Column("rushing_yards")]
-        public int RushingYards { get; set; }
+        public int? RushingYards { get; set; }
+
+        [Column("passing_yards")]
+        public int? PassingYards { get; set; }
         //TODO implement stats tracked
 
     }
