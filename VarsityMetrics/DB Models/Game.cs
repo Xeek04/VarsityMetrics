@@ -4,19 +4,14 @@ namespace VarsityMetrics.DB_Models
     [Table("Game")]
     public class Game
     {
-        [PrimaryKey]
-        [NotNull]
-        [AutoIncrement]
-        [Column("Pk")]
-        public int Pk { get; set; }
-        [Column("fname")]
-        public String Fname { get; set; }
-        [Column("lname")]
-        public String Lname { get; set; }
-        [Column("position")]
-        public String Position { get; set; }
-        [Column("running_yards")]
-        public int RunningYards { get; set; }
 
+        [PrimaryKey, AutoIncrement, Column("Pk")]
+        public int Pk { get; set; }
+
+        [Column("opponent")]
+        public String? Opponent { get; set; }
+
+        [Column("date")]
+        public String? Date { get; set; }
     }
 }

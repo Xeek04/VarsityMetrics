@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics
 {
@@ -18,6 +19,7 @@ namespace VarsityMetrics
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<DBAccess>(s => ActivatorUtilities.CreateInstance<DBAccess>(s, Constants.DatabasePath));
 
             return builder.Build();
         }

@@ -11,6 +11,7 @@ public partial class SignUpPage : ContentPage
 
     private void SignInClicked(object sender, EventArgs e)
     {
+
         int err = 0;
         passwordError.IsVisible = false;
         usernameError.IsVisible = false;
