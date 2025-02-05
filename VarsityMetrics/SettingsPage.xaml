@@ -12,8 +12,20 @@
         Text="Change Color" 
         Clicked="ColorChange"/>
         <Button
-        Text="Football Team Decor" 
+        Text="Change Team Decor"
         Clicked="TeamDecor"/>
+        <Label Text="{Binding thematic}" />
+        <Picker x:Name="picker"
+        Title="Select your football team theme! (Nonfunctional at the moment)">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>None</x:String>
+                    <x:String>Ruston High</x:String>
+                    <x:String>Saints</x:String>
+                    <x:String>LSU</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
         <Label Text="This text is green in light mode, and red in dark mode."
            TextColor="{AppThemeBinding Light=Green, Dark=Red}" />
     </VerticalStackLayout>

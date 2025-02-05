@@ -1,11 +1,13 @@
-namespace VarsityMetrics;
+using System.Runtime.CompilerServices;
 
+namespace VarsityMetrics;
 public partial class SettingsPage : ContentPage
 {
 	public SettingsPage()
 	{
 		InitializeComponent();
-	}
+
+    }
 
     private void LightDark (object sender, EventArgs e)
     {
@@ -27,6 +29,18 @@ public partial class SettingsPage : ContentPage
 
     private void TeamDecor (object sender, EventArgs e)
     {
-
+        string thematic = "Ruston High";
+        if (thematic == "Ruston High")
+        {
+            thematic = "Saints";
+        }
+        else if (thematic == "Saints")
+        {
+            thematic = "LSU";
+        }
+        else if(thematic == "LSU")
+        {
+            thematic = "Ruston High";
+        }
     }
 }
