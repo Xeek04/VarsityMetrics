@@ -39,38 +39,68 @@
             Clicked="AddStats"
         />
 
-        <Grid x:Name="StatLine" IsVisible="False" RowSpacing="10" RowDefinitions="*,*">
-
-            <!--<Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>-->
+        <Grid x:Name="StatLine" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*">
+            
             <Label
-                Text="Name"
+                Text="Player"
                 Grid.Row="0"
                 Grid.Column="0"
+            />
+            <Label
+                Text="Completions"
+                Grid.Row="0"
+                Grid.Column="1"
+            />
+            <Label
+                Text="Attempts"
+                Grid.Row="0"
+                Grid.Column="2"
             />
             <Label
                 Text="Passing Yards"
                 Grid.Row="0"
-                Grid.Column="1"
+                Grid.Column="3"
             />
             <Label
                 Text="Passing TDs"
                 Grid.Row="0"
-                Grid.Column="2"
+                Grid.Column="4"
+            />
+            <Label
+                Text="Interceptions"
+                Grid.Row="0"
+                Grid.Column="5"
             />
 
             <Entry
+                x:Name="player"
                 Grid.Row="1"
                 Grid.Column="0"
             />
             <Entry
+                x:Name="comps"
                 Grid.Row="1"
                 Grid.Column="1"
             />
             <Entry
+                x:Name="atts"
                 Grid.Row="1"
                 Grid.Column="2"
+            />
+            <Entry
+                x:Name="passyds"
+                Grid.Row="1"
+                Grid.Column="3"
+            />
+            <Entry
+                x:Name="passtds"
+                Grid.Row="1"
+                Grid.Column="4"
+            />
+            <Entry
+                x:Name="ints"
+                Grid.Row="1"
+                Grid.Column="5"
             />
         </Grid>
 

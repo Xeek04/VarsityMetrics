@@ -32,11 +32,18 @@
             Route="GameLogPage" />
         </Tab>
 
+        <Tab Title="Roster">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:Roster}"
+            Route="Roster" />   
+        </Tab>
+
         <Tab Title="Account Profile">
             <ShellContent
             ContentTemplate="{DataTemplate local:AccountPage}"
             Route="AccountPage" />
         </Tab>
+        
         <Tab Title="Settings">
             <ShellContent
                 ContentTemplate="{DataTemplate local:SettingsPage}"
