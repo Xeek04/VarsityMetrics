@@ -10,5 +10,6 @@
             Text="Game Log"
             Style="{StaticResource Headline}"
         />
+        <Label BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" />
     </VerticalStackLayout>
 </ContentPage>
