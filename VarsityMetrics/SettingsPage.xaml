@@ -14,7 +14,7 @@
         <Button
         Text="Change Team Decor"
         Clicked="TeamDecor"/>
-        <Label Text="{Binding thematic}" />
+        <Label x:Name="whatever" />
         <Picker x:Name="picker"
         Title="Select your football team theme! (Nonfunctional at the moment)">
             <Picker.ItemsSource>
