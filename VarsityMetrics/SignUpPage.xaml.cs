@@ -11,6 +11,7 @@ public partial class SignUpPage : ContentPage
 
     private void SignInClicked(object sender, EventArgs e)
     {
+        // TODO App.db.InsertAccountAsync("Sam", "Vandiver", "sjv008");
         App.Current.MainPage = new AppShell();
     }
 

@@ -20,6 +20,9 @@ namespace VarsityMetrics.DB_Models
         [NotNull, Column("password")]
         public String Password { get; set; }
 
+        [NotNull, Column("email")]
+        public String Email { get; set; }
+
         [NotNull, Column("role")]
         public Constants.Role Role { get; set; }
     }
