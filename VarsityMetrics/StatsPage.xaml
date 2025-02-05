@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VarsityMetrics.StatsPage">
+
+    <VerticalStackLayout
+        Padding="30,0"
+        Spacing="25">
+        <Label
+            Text="Statistics"
+            Style="{StaticResource Headline}"
+        />
+
+        <Grid x:Name="statnav" IsVisible="false">
+            <Button
+                x:Name="back"
+                Text="Back"
+                HorizontalOptions="Start"
+                Clicked="BackButton"
+                Grid.Row="1"
+                Grid.Column="0"
+            />
+
+            <Button
+                x:Name="confirm"
+                Text="Confirm"
+                HorizontalOptions="End"
+                Clicked="ConfirmAdd"
+                Grid.Row="1"
+                Grid.Column="1"
+            />
+        </Grid>
+
+        <Button
+            x:Name="addplayerstat"
+            IsEnabled="True"
+            Text="Add Player Stats"
+            HorizontalOptions="End"
+            Clicked="AddStats"
+        />
+
+        <Grid x:Name="StatLine" IsVisible="False" RowSpacing="10" RowDefinitions="*,*">
+
+            <!--<Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>-->
+            <Label
+                Text="Name"
+                Grid.Row="0"
+                Grid.Column="0"
+            />
+            <Label
+                Text="Passing Yards"
+                Grid.Row="0"
+                Grid.Column="1"
+            />
+            <Label
+                Text="Passing TDs"
+                Grid.Row="0"
+                Grid.Column="2"
+            />
+
+            <Entry
+                Grid.Row="1"
+                Grid.Column="0"
+            />
+            <Entry
+                Grid.Row="1"
+                Grid.Column="1"
+            />
+            <Entry
+                Grid.Row="1"
+                Grid.Column="2"
+            />
+        </Grid>
+
+        <Button
+            IsVisible="True"
+            Text="Search Stats"
+            HorizontalOptions="End"
+        />
+    </VerticalStackLayout>
+    
+</ContentPage>

@@ -10,10 +10,46 @@
         <ShellContent
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" />
+<<<<<<< Updated upstream
     </Tab>
     <Tab Title="Test">
         <ShellContent
             ContentTemplate="{DataTemplate local:TestPage}"
             Route="TestPage" />
     </Tab>
+=======
+        </Tab>
+
+        <Tab Title="Playbook">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:PlaybookPage}"
+            Route="PlaybookPage" />
+        </Tab>
+
+        <Tab Title="Stats">
+            <ShellContent 
+            ContentTemplate="{DataTemplate local:StatsPage}"
+            Route="StatsPage" />
+        </Tab>
+
+        <Tab Title="Game Log">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:GameLogPage}"
+            Route="GameLogPage" />
+        </Tab>
+
+        <Tab Title="Roster">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:Roster}"
+            Route="Roster" />      
+        </Tab>
+
+        <Tab Title="Account Profile">
+            <ShellContent
+            ContentTemplate="{DataTemplate local:AccountPage}"
+            Route="AccountPage" />
+        </Tab>
+
+    </TabBar>
+>>>>>>> Stashed changes
 </Shell>
