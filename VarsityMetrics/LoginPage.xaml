@@ -10,6 +10,7 @@
           Padding="10"
           ColumnSpacing="10"
           RowSpacing="10">
+        <Label BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" />
 
         <Label Text="Login"
                FontSize="Header"
