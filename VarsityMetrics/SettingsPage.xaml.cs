@@ -9,6 +9,14 @@ public partial class SettingsPage : ContentPage
 
     private void LightDark (object sender, EventArgs e)
     {
+        if (Application.Current.UserAppTheme == AppTheme.Dark)
+        {
+            Application.Current.UserAppTheme = AppTheme.Light;
+        }
+        else
+        {
+            Application.Current.UserAppTheme = AppTheme.Dark;
+        }
 
     }
 
