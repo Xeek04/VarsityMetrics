@@ -15,7 +15,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task Init()
         {
-            Trace.WriteLine("DBAccess: Init()");
+            Trace.WriteLine($"DBAccess: Init() (file path: {path}");
             if (conn is not null)
             {
                 return;
@@ -47,6 +47,7 @@ namespace VarsityMetrics.DB_Models
             return matches.Any(); // if the list is length 0 then return false else true
         }
 
+        // returns true if there are no duplicates and a nonzero amount of records were inserted
         public async Task<bool> InsertAccountAsync(string username, string password, string email)
         {
             // returning an empty task is the async equivalent of void
@@ -57,12 +58,12 @@ namespace VarsityMetrics.DB_Models
 
             if (matches.Any())
             {
-                await conn.InsertAsync(new Accounts { Username = username, Password = password, Email = email, Role = Constants.Role.Coach }); //insert record with identical person
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                int addedRecords = await conn.InsertAsync(new Accounts { Username = username, Password = password, Email = email, Role = Constants.Role.Coach }); //insert record with identical person
+                if (addedRecords != 0) { return true; } else { return false; }
             }
         }
     }
