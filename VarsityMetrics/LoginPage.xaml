@@ -5,43 +5,50 @@
              xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel"
              x:DataType="viewmodel:LoginViewModel">
 
-    <Grid RowDefinitions="100, Auto, Auto, Auto, Auto, Auto"
+    <Grid RowDefinitions="50, Auto"
           ColumnDefinitions=".5*, .25*, .5*"
           Padding="10"
           ColumnSpacing="10"
           RowSpacing="10">
+        
+        <StackLayout Spacing="10"
+            Grid.Column="1"
+            Grid.Row="1">
 
-        <Label Text="Login"
-               FontSize="Header"
-               HorizontalTextAlignment="Center"
-               Grid.Row="1"
-               Grid.Column="1"/>
+            <Label Text="Login"
+                    FontSize="Header"
+                    HorizontalTextAlignment="Center"/>
+            
+            <Entry Placeholder="Enter Username"
+                   x:Name="username"
+                    Text="{Binding Username}"/>
 
-        <Entry Placeholder="Enter Username"
-               Text="{Binding Username}"
-               Grid.Row="2"
-               Grid.Column="1"/>
+            <Label x:Name="usernameError"
+                   TextColor="Red"
+                   IsVisible="False"/>
 
-        <Entry Placeholder="Enter Password"
-               IsPassword="true"
-               x:Name="password"
-               Text="{Binding Password}"
-               Grid.Row="3"
-               Grid.Column="1"/>
-        <CheckBox x:Name="HidePassword"
-                  Grid.Row="3"
-                  Grid.Column="2"/>
+            <Grid>
+                <Entry Placeholder="Enter Password"
+                        IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
+                        x:Name="password"
+                        Text="{Binding Password}"/>
 
-        <Button Text="Login"
-                Clicked="LoginClicked"
-                Grid.Row="4"
-                Grid.Column="1"/>
+                <CheckBox x:Name="HidePassword"
+                        IsChecked="True"
+                        HorizontalOptions="End"/>
+            </Grid>
 
-        <Button Text="Sign Up"
-                Clicked="SignUpClicked"
-                Grid.Row="5"
-                Grid.Column="1"/>
+            <Label x:Name="passwordError"
+                   TextColor="Red"
+                   IsVisible="False"/>
 
+            <Button Text="Login"
+                    Clicked="LoginClicked"/>
+
+            <Button Text="Sign Up"
+                    Clicked="SignUpClicked"/>
+
+        </StackLayout>
     </Grid>
 
 </ContentPage>
