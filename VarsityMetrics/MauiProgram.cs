@@ -19,8 +19,7 @@ namespace VarsityMetrics
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
-
-            builder.Services.AddSingleton<DBAccess>();
+            builder.Services.AddSingleton<DBAccess>(s => ActivatorUtilities.CreateInstance<DBAccess>(s, Constants.DatabasePath));
 
             return builder.Build();
         }
