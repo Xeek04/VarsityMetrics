@@ -45,6 +45,11 @@
             <Button Text="Login"
                     Clicked="LoginClicked"/>
 
+            <Label x:Name="LoginError"
+                   Text="Login failed."
+                   TextColor="Red"
+                   IsVisible="False"/>
+            
             <Button Text="Sign Up"
                     Clicked="SignUpClicked"/>
 

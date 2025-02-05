@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task Init()
         {
+            Trace.WriteLine("DBAccess: Init()");
             if (conn is not null)
             {
                 return;
@@ -27,6 +29,7 @@ namespace VarsityMetrics.DB_Models
 
         public DBAccess(String databasePath)
         {
+            Trace.WriteLine($"Database Constructor used with path {databasePath}");
             path = databasePath;
         }
          

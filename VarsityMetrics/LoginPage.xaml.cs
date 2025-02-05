@@ -8,7 +8,7 @@ public partial class LoginPage : ContentPage
 	{
 		InitializeComponent();
     }
-    private void LoginClicked(object sender, EventArgs e)
+    private async void LoginClicked(object sender, EventArgs e)
     {
         int err = 0;
         passwordError.IsVisible = false;
@@ -22,14 +22,22 @@ public partial class LoginPage : ContentPage
         }
         if(username.Text == null | String.Equals(username.Text, ""))
         {
-            usernameError.Text = "Pleas fill in";
+            usernameError.Text = "Please fill in";
             usernameError.IsVisible = true;
             err = 1;
         }
         
         if(err == 0)
         {
-            App.Current.MainPage = new AppShell();
+            bool isSignedUp = await App.db.CheckLoginAsync(username.Text, password.Text);
+            if (isSignedUp)
+            {
+                App.Current.MainPage = new AppShell();
+            }
+            else
+            {
+                LoginError.IsVisible = true;
+            }
         }
     }
 

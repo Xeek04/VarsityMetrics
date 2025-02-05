@@ -9,7 +9,7 @@ public partial class SignUpPage : ContentPage
 		InitializeComponent();
     }
 
-    private void SignInClicked(object sender, EventArgs e)
+    private async void SignInClicked(object sender, EventArgs e)
     {
 
         int err = 0;
@@ -38,6 +38,7 @@ public partial class SignUpPage : ContentPage
 
         if (err == 0)
         {
+            await App.db.InsertAccountAsync(username.Text, password.Text, email.Text);
             App.Current.MainPage = new AppShell();
         }
     }
