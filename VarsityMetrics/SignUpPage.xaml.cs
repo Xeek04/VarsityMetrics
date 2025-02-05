@@ -38,8 +38,16 @@ public partial class SignUpPage : ContentPage
 
         if (err == 0)
         {
-            await App.db.InsertAccountAsync(username.Text, password.Text, email.Text);
-            App.Current.MainPage = new AppShell();
+            bool createAccount = await App.db.InsertAccountAsync(username.Text, password.Text, email.Text);
+            if (!createAccount)
+            {
+                AccountPage.Username = username.Text;
+                App.Current.MainPage = new AppShell();
+            }
+            else
+            {
+                accountError.IsVisible = true;
+            }
         }
     }
 

@@ -36,7 +36,7 @@ public partial class LoginPage : ContentPage
             }
             else
             {
-                LoginError.IsVisible = true;
+                loginError.IsVisible = true;
             }
         }
     }

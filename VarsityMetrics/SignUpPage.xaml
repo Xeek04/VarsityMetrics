@@ -56,6 +56,11 @@
             <Button Text="Sign Up"
                     Clicked="SignInClicked"/>
 
+            <Label x:Name="accountError"
+                   Text="Account already exists with this username"
+                   TextColor="Red"
+                   IsVisible="False"/>
+
             <Button Text="Login"
                     Clicked="LoginClicked"/>
 

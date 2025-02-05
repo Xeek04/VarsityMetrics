@@ -47,15 +47,23 @@ namespace VarsityMetrics.DB_Models
             return matches.Any(); // if the list is length 0 then return false else true
         }
 
-        public async Task InsertAccountAsync(string username, string password, string email)
+        public async Task<bool> InsertAccountAsync(string username, string password, string email)
         {
             // returning an empty task is the async equivalent of void
             await Init();
 
             // TODO add validation
+            var matches = await conn.Table<Accounts>().Where(a => (a.Username == username)).ToListAsync();
 
-            await conn.InsertAsync(new Accounts { Username = username, Password = password, Email = email, Role = Constants.Role.Coach}); //insert record with identical person
-            return;
+            if (matches.Any())
+            {
+                await conn.InsertAsync(new Accounts { Username = username, Password = password, Email = email, Role = Constants.Role.Coach }); //insert record with identical person
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
