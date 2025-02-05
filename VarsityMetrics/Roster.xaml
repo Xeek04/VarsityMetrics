@@ -2,14 +2,243 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.Roster">
-    <VerticalStackLayout
-        Padding="30,0"
-        Spacing="25">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
 
-        <Label
-            Text="Roster"
-            Style="{StaticResource Headline}"
-        />  
+            <Label
+                Text="Roster"
+                Style="{StaticResource Headline}"
+            />
 
-    </VerticalStackLayout>
+            <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Offense"
+                    Style="{StaticResource SubHeadline}"
+                />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Text="Defense"
+                    Style="{StaticResource SubHeadline}"
+                />
+
+                <Grid Grid.Row="1" RowSpacing="10" Grid.Column="0" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
+                    <Label
+                        Grid.Row="0"
+                        Text="QB"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="1">
+                        <Label
+                            Text="QB1"
+                        />
+                        <Label
+                            Text="QB2"
+                        />
+                        <Label
+                            Text="QB3"
+                        />
+                    </VerticalStackLayout>
+
+                    <Label
+                        Grid.Row="2"
+                        Text="RB"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="3">
+                        <Label
+                            Text="RB1"
+                        />
+                        <Label
+                            Text="RB2"
+                        />
+                    </VerticalStackLayout>
+
+                    <Label
+                        Grid.Row="4"
+                        Text="WR"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="5">
+                        <Label
+                            Text="WR1"
+                        />
+                        <Label
+                            Text="WR2"
+                        />
+                        <Label
+                            Text="WR3"
+                        />
+                        <Label
+                            Text="WR4"
+                        />
+                    </VerticalStackLayout>
+
+                    <Label
+                        Grid.Row="6"
+                        Text="TE"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="7">
+                        <Label
+                            Text="TE1"
+                        />
+                        <Label
+                            Text="TE2"
+                        />
+                    </VerticalStackLayout>
+
+                    <Label
+                        Grid.Row="8"
+                        Text="OL"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="9">
+                        <Label
+                            Text="OT1"
+                        />
+                        <Label
+                            Text="OT2"
+                        />
+                        <Label
+                            Text="OT3"
+                        />
+                        <Label
+                            Text="OT4"
+                        />
+                        <Label
+                            Text="OG1"
+                        />
+                        <Label
+                            Text="OG2"
+                        />
+                        <Label
+                            Text="OG3"
+                        />
+                        <Label
+                            Text="OG4"
+                        />
+                        <Label
+                            Text="C1"
+                        />
+                        <Label
+                            Text="C2"
+                        />
+                    </VerticalStackLayout>
+
+                </Grid>
+                <Grid Grid.Row="1" RowSpacing="10" Grid.Column="1" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
+                    <Label
+                        Grid.Row="0"
+                        Text="DE"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="1">
+                        <Label
+                            Text="DE1"
+                        />
+                        <Label
+                            Text="DE2"
+                        />
+                        <Label
+                            Text="DE3"
+                        />
+                        <Label
+                            Text="DE4"
+                        />
+                    </VerticalStackLayout>
+                    
+                    <Label
+                        Grid.Row="2"
+                        Text="DT"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="3">
+                        <Label
+                            Text="DT1"
+                        />
+                        <Label
+                            Text="DT2"
+                        />
+                        <Label
+                            Text="DT3"
+                        />
+                        <Label
+                            Text="DT4"
+                        />
+                    </VerticalStackLayout>
+                    
+                    <Label
+                        Grid.Row="4"
+                        Text="LB"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="5">
+                        <Label
+                            Text="LB1"
+                        />
+                        <Label
+                            Text="LB2"
+                        />
+                        <Label
+                            Text="LB3"
+                        />
+                        <Label
+                            Text="LB4"
+                        />
+                    </VerticalStackLayout>
+                    
+                    <Label
+                        Grid.Row="6"
+                        Text="CB"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="7">
+                        <Label
+                            Text="CB1"
+                        />
+                        <Label
+                            Text="CB2"
+                        />
+                        <Label
+                            Text="CB3"
+                        />
+                        <Label
+                            Text="CB4"
+                        />
+                        <Label
+                            Text="CB5"
+                        />
+                        <Label
+                            Text="CB6"
+                        />
+                    </VerticalStackLayout>
+                    
+                    <Label
+                        Grid.Row="8"
+                        Text="S"
+                        FontSize="Medium"
+                    />
+                    <VerticalStackLayout Grid.Row="9">
+                        <Label
+                            Text="FS1"
+                        />
+                        <Label
+                            Text="FS2"
+                        />
+                        <Label
+                            Text="SS1"
+                        />
+                        <Label
+                            Text="SS2"
+                        />
+                    </VerticalStackLayout>
+                </Grid>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
