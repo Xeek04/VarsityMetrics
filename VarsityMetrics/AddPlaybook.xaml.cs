@@ -7,7 +7,7 @@ public partial class AddPlaybook : ContentPage
 		InitializeComponent();
 	}
 
-    private async void Button_Clicked(object sender, EventArgs e)
+    private async void Upload_Clicked(object sender, EventArgs e)
     {
 		var result = await FilePicker.PickAsync(new PickOptions
 		{
@@ -18,9 +18,18 @@ public partial class AddPlaybook : ContentPage
 		{
 			var filePath = result.FullPath;
 			apple.IsVisible = true;
-			button.IsVisible = false;
 			apple.Source = filePath;
 		}
 		
+    }
+
+    private void cancel_Clicked(object sender, EventArgs e)
+    {
+		Navigation.PopAsync();
+    }
+
+    private void confirm_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PopAsync();
     }
 }
