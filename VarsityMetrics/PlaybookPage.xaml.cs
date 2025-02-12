@@ -1,3 +1,5 @@
+using Microsoft.UI.Xaml;
+
 namespace VarsityMetrics;
 
 public partial class PlaybookPage : ContentPage
@@ -6,4 +8,10 @@ public partial class PlaybookPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+		Navigation.PushAsync(new AddPlaybook());
+    }
 }

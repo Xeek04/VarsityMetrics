@@ -2,13 +2,36 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.PlaybookPage">
-    
-    <VerticalStackLayout
-        Padding="30,0"
-        Spacing="25">
-        <Label
-            Text="Playbook"
-            Style="{StaticResource Headline}"
-        />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="50, Auto"
+          ColumnDefinitions=".5*, .25*, .5*"
+          Padding="10"
+          ColumnSpacing="10"
+          RowSpacing="10">
+        
+        <VerticalStackLayout Spacing="10"
+                             Grid.Column="1"
+                             Grid.Row="0">
+            <Label
+                Text="Playbook"
+                Style="{StaticResource Headline}"/>
+
+            <CollectionView x:Name="PlaybookImages"
+                            ItemsSource="{Binding ImageList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding ImagePath}"
+                               Aspect="AspectFill"
+                               HeightRequest="200"/>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+        <Button Grid.Column="2"
+                HorizontalOptions="End"
+                Clicked="Button_Clicked"/>
+
+
+    </Grid>
 </ContentPage>
