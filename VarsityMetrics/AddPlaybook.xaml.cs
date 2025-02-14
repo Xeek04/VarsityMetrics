@@ -2,6 +2,7 @@ namespace VarsityMetrics;
 
 public partial class AddPlaybook : ContentPage
 {
+		public static string filePath;
 	public AddPlaybook()
 	{
 		InitializeComponent();
@@ -16,7 +17,7 @@ public partial class AddPlaybook : ContentPage
 
 		if(result != null)
 		{
-			var filePath = result.FullPath;
+			filePath = result.FullPath;
 			apple.IsVisible = true;
 			apple.Source = filePath;
 		}
@@ -28,8 +29,12 @@ public partial class AddPlaybook : ContentPage
 		Navigation.PopAsync();
     }
 
-    private void confirm_Clicked(object sender, EventArgs e)
+    private async void confirm_Clicked(object sender, EventArgs e)
     {
-        Navigation.PopAsync();
+		bool uploadPlay = await App.db.UploadPictureAsync(filePath, name.Text);
+		if (uploadPlay)
+		{
+			Navigation.PopAsync();
+		}
     }
 }

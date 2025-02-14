@@ -66,5 +66,13 @@ namespace VarsityMetrics.DB_Models
                 if (addedRecords != 0) { return true; } else { return false; }
             }
         }
+
+        public async Task<bool> UploadPictureAsync(string path, string name)
+        {
+            await Init();
+
+            int addedPlays = await conn.InsertAsync(new Play { PlayName = name, ImageSource =  path});
+            if (addedPlays != 0) {return true;} else { return false; }
+        }
     }
 }
