@@ -13,9 +13,16 @@ namespace VarsityMetrics.DB_Models
 
         string path;
         private SQLiteAsyncConnection conn;
+        private bool modified = true; //set this to true if the database tables have been modified. If you don't change it back then
+        // the database will keep deleting itself on startup
 
         public async Task Init()
         {
+            if (modified)
+            {
+                File.Delete(path);
+                modified = false;
+            }
             Trace.WriteLine($"DBAccess: Init() (file path: {path}");
             if (conn is not null)
             {
