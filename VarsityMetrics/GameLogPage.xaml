@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.GameLogPage">
 
-    <Grid RowDefinitions=".1*,*,*" ColumnDefinitions=".2*,*,*,*" RowSpacing="5"
-          ColumnSpacing="5" Margin="2">
+    <Grid RowDefinitions=".2*,*,*" ColumnDefinitions="240,*,*,*" RowSpacing="0"
+          ColumnSpacing="0" Margin="2">
         <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4"/> <!-- Game Timeline -->
         <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/> <!-- Selected Game Banner -->
     </Grid>
