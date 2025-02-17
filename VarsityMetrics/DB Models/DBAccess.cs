@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Microsoft.Maui.ApplicationModel.Communication;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -65,6 +66,40 @@ namespace VarsityMetrics.DB_Models
                 int addedRecords = await conn.InsertAsync(new Accounts { Username = username, Password = password, Email = email, Role = Constants.Role.Coach }); //insert record with identical person
                 if (addedRecords != 0) { return true; } else { return false; }
             }
+        }
+
+        public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {
+            
+            await Init();
+            // input validation
+            // if date is invalid return false
+            if ((1000 < year) || (year > 9999))
+            {
+                return false;
+            }
+            if ((1 > month) || (12 < month))
+            {
+                return false;
+            }
+            if ((1 > day) || (31 < day))
+            {
+                return false;
+            }
+            // if ourScore and theirScore are not both null or both ints return false
+            if ((ourScore == null) ^ (theirScore == null))
+            {
+                return false;
+            }
+
+            string date = year + "-" + month + "-" + day;
+            int addedRecords = await conn.InsertAsync(new Game { Opponent = opponent, Date = date, OurScore = ourScore, TheirScore = theirScore }); //insert record with identical person
+            if (addedRecords != 0) { return true; } else { return false; }
+        }
+
+        public async Task<List<Game>> GetGamesAsync()
+        {
+            await Init();
+            return await conn.Table<Game>().ToListAsync();
         }
     }
 }
