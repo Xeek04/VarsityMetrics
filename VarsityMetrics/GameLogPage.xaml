@@ -2,11 +2,64 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.GameLogPage">
+    <ContentPage.Resources>
+        <Style TargetType="Frame" x:Key="HistoryFrame">
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+            <!--<Setter Property="Padding" Value="10"/>-->
+        </Style>
 
-    <Grid RowDefinitions=".2*,*,*" ColumnDefinitions="240,*,*,*" RowSpacing="0"
-          ColumnSpacing="0" Margin="2">
-        <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="0" Grid.RowSpan="4"/> <!-- Game Timeline -->
-        <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/> <!-- Selected Game Banner -->
+        <Style TargetType="Label" x:Key="HistoryTitle">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
+            <Setter Property="FontSize" Value="32" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
+    
+    
+
+    <Grid RowDefinitions=".2*,100,*"
+          ColumnDefinitions="auto,*,*,*"
+          RowSpacing="0"
+          ColumnSpacing="0"
+          Margin="10">
+        <CollectionView 
+            x:Name="HistoryCollection"
+            Grid.Row="0" Grid.RowSpan="3"
+            Grid.Column="0"
+            WidthRequest="240"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600} }"
+            SelectionMode="Single"
+            SelectionChanged="OnHistorySelectionChanged"> <!-- Game Timeline -->
+            <CollectionView.ItemTemplate> <!-- Template for Timeline Cards -->
+                <DataTemplate>
+                    <Frame Style="{DynamicResource HistoryFrame}">
+                        <VerticalStackLayout>
+                            <Label Style="{DynamicResource HistoryTitle}"
+                                   Text="{Binding Opponent}"/>
+                            <FlexLayout JustifyContent="SpaceBetween">
+                                <Label Text="{Binding Date}"/>
+                                <Label Text="{Binding ScoreDisplay}"/>
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <!-- Selected Game Banner -->
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="1"/>
+        <!-- Team Score -->
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="2"/>
+        <!-- Box Score -->
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="3"/>
+        <!-- Film -->
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <!-- Selected Game Banner -->
     </Grid>
     
 </ContentPage>

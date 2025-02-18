@@ -19,5 +19,8 @@ namespace VarsityMetrics.DB_Models
 
         [Column("their_score")]
         public int? TheirScore { get; set; }
+
+        public string ScoreDisplay => OurScore.HasValue && TheirScore.HasValue ? $"{OurScore} - {TheirScore}" : "";
+
     }
 }
