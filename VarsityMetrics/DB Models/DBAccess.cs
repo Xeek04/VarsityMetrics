@@ -74,5 +74,26 @@ namespace VarsityMetrics.DB_Models
             int addedPlays = await conn.InsertAsync(new Play { PlayName = name, ImageSource =  path});
             if (addedPlays != 0) {return true;} else { return false; }
         }
+
+        public async Task<List<Player>> GetRoster()
+        {
+            return await conn.Table<Player>().ToListAsync();
+        }
+
+        public async Task<bool> AddPlayer(string firstName, string lastName, string position)
+        {
+            await Init();
+
+            int addedRecords = await conn.InsertAsync(new Player { Fname = firstName, Lname = lastName, Position = position, RushingYards = 0, PassingYards = 0 });
+            return true;
+        }
+
+        public async Task<bool> ClearRoster()
+        {
+            await Init();
+
+            await conn.DeleteAllAsync<Player>();
+            return true;
+        }
     }
 }
