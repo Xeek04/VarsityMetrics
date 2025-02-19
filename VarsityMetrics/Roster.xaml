@@ -58,7 +58,7 @@
                             Text="QB3"
                         />-->
                         <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.4*" IsVisible="False">
-                            <Label
+                            <!--<Label
                                 HorizontalOptions="Start"
                                 Text="First Name"
                                 Grid.Row="0"
@@ -118,12 +118,13 @@
                                 Grid.Row="1"
                                 Grid.Column="4"
                                 Placeholder="0"
-                            />
+                            />-->
                             <Button
+                                x:Name="QBButton"
                                 Grid.Row="1"
                                 Grid.Column="5"
                                 Text="+"
-                                Clicked="addPlayer"
+                                Clicked="entryLine"
                                 CommandParameter="QB"
                             />
                         </Grid>

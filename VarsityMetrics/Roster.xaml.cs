@@ -4,17 +4,18 @@ namespace VarsityMetrics;
 
 public partial class Roster : ContentPage
 {
-    private Entry input = new Entry { 
-        
-    };
-	public Roster()
+    private Label input = new Label { Text = "testing" };
+    private Dictionary<Button, Grid> gridKey = new Dictionary<Button, Grid>();
+    
+    public Roster()
 	{
 		InitializeComponent();
+        gridKey.Add(QBButton, addQB);
 	}
     private async void addPlayer(object sender, EventArgs e)
     {
         Button test = (Button)sender;
-        await App.db.AddPlayer(Fname.Text, Lname.Text, test.CommandParameter.ToString());
+        //await App.db.AddPlayer(Fname.Text, Lname.Text, test.CommandParameter.ToString());
         List<Player> something = await App.db.GetRoster();
 
         //test11.Text = something[0].Position;
@@ -24,6 +25,12 @@ public partial class Roster : ContentPage
     {
         await App.db.ClearRoster();
         var something = await App.db.GetRoster();
+    }
+
+    private void entryLine(object sender, EventArgs e)
+    {
+        Grid view = gridKey.GetValueOrDefault((Button)sender);
+        view.Add(input);
     }
 
     private void openEditRoster(object sender, EventArgs e)
