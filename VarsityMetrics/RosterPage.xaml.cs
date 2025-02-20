@@ -2,7 +2,7 @@ using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics;
 
-public partial class Roster : ContentPage
+public partial class RosterPage : ContentPage
 {
     private Label FnameLabel = new Label { Text = "First Name" };
     private Label LnameLabel = new Label { Text = "Last Name" };
@@ -19,7 +19,7 @@ public partial class Roster : ContentPage
 
     private Dictionary<Button, Grid> gridKey = new Dictionary<Button, Grid>();
     
-    public Roster()
+    public RosterPage()
 	{
 		InitializeComponent();
 
@@ -39,7 +39,7 @@ public partial class Roster : ContentPage
     private async void addPlayer(string position)
     {
         await App.db.AddPlayer(Fname.Text, Lname.Text, position, HeightP.Text, Weight.Text, Number.Text);
-        List<Player> something = await App.db.GetRoster();
+        List<Roster> something = await App.db.GetRoster();
 
         clearEntries();
     }

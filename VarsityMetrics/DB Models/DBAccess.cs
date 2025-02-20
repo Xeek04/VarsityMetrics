@@ -75,9 +75,9 @@ namespace VarsityMetrics.DB_Models
             if (addedPlays != 0) {return true;} else { return false; }
         }
 
-        public async Task<List<Player>> GetRoster()
+        public async Task<List<Roster>> GetRoster()
         {
-            return await conn.Table<Player>().ToListAsync();
+            return await conn.Table<Roster>().ToListAsync();
         }
 
         public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, string number)
@@ -92,7 +92,7 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            await conn.DeleteAllAsync<Player>();
+            await conn.DeleteAllAsync<Roster>();
             return true;
         }
     }

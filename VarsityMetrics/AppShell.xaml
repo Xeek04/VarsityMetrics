@@ -34,8 +34,8 @@
 
         <Tab Title="Roster">
             <ShellContent
-            ContentTemplate="{DataTemplate local:Roster}"
-            Route="Roster" />   
+            ContentTemplate="{DataTemplate local:RosterPage}"
+            Route="RosterPage" />   
         </Tab>
 
         <Tab Title="Account Profile">
