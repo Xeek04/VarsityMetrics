@@ -48,77 +48,7 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="1">
-                        <!--<Label
-                            Text="QB1"
-                        />
-                        <Label
-                            Text="QB2"
-                        />
-                        <Label
-                            Text="QB3"
-                        />-->
-                        <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.4*" IsVisible="False">
-                            <!--<Label
-                                HorizontalOptions="Start"
-                                Text="First Name"
-                                Grid.Row="0"
-                                Grid.Column="0"
-                            />
-                            <Label
-                                HorizontalOptions="Start"
-                                Text="Last Name"
-                                Grid.Row="0"
-                                Grid.Column="1"
-                            />
-                            <Label
-                                HorizontalOptions="Start"
-                                Text="Height"
-                                Grid.Row="0"
-                                Grid.Column="2"
-                            />
-                            <Label
-                                HorizontalOptions="Start"
-                                Text="Weight"
-                                Grid.Row="0"
-                                Grid.Column="3"
-                            />
-                            <Label
-                                HorizontalOptions="Start"
-                                Text="No."
-                                Grid.Row="0"
-                                Grid.Column="4"
-                            />
-
-                            <Entry
-                                x:Name="Fname"
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                Placeholder="First Name"
-                            />
-                            <Entry
-                                x:Name="Lname"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Placeholder="Last Name"
-                            />
-                            <Entry
-                                x:Name="Height"
-                                Grid.Row="1"
-                                Grid.Column="2"
-                                Placeholder="ft,in"
-                            />
-                            <Entry
-                                x:Name="Weight"
-                                Grid.Row="1"
-                                Grid.Column="3"
-                                Placeholder="lbs."
-                            />
-                            <Entry
-                                x:Name="Number"
-                                Grid.Row="1"
-                                Grid.Column="4"
-                                Placeholder="0"
-                            />-->
+                        <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="QBButton"
                                 Grid.Row="1"
@@ -136,20 +66,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="3">
-                        <!--<Label
-                            Text="RB1"
-                        />
-                        <Label
-                            Text="RB2"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addRB"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="RB"
-                        />
+                        <Grid x:Name="addRB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="RBButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="RB"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                     <Label
@@ -158,26 +84,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="5">
-                        <!--<Label
-                            Text="WR1"
-                        />
-                        <Label
-                            Text="WR2"
-                        />
-                        <Label
-                            Text="WR3"
-                        />
-                        <Label
-                            Text="WR4"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addWR"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="WR"
-                        />
+                        <Grid x:Name="addWR" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="WRButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="WR"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                     <Label
@@ -186,20 +102,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="7">
-                        <!--<Label
-                            Text="TE1"
-                        />
-                        <Label
-                            Text="TE2"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addTE"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="TE"
-                        />
+                        <Grid x:Name="addTE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="TEButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="TE"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                     <Label
@@ -208,44 +120,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="9">
-                        <!--<Label
-                            Text="OT1"
-                        />
-                        <Label
-                            Text="OT2"
-                        />
-                        <Label
-                            Text="OT3"
-                        />
-                        <Label
-                            Text="OT4"
-                        />
-                        <Label
-                            Text="OG1"
-                        />
-                        <Label
-                            Text="OG2"
-                        />
-                        <Label
-                            Text="OG3"
-                        />
-                        <Label
-                            Text="OG4"
-                        />
-                        <Label
-                            Text="C1"
-                        />
-                        <Label
-                            Text="C2"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addOL"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="OL"
-                        />
+                        <Grid x:Name="addOL" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="OLButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="OL"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                 </Grid>
@@ -256,26 +140,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="1">
-                        <!--<Label
-                            Text="DE1"
-                        />
-                        <Label
-                            Text="DE2"
-                        />
-                        <Label
-                            Text="DE3"
-                        />
-                        <Label
-                            Text="DE4"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addDE"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="DE"
-                        />
+                        <Grid x:Name="addDE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="DEButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="DE"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                     <Label
@@ -284,26 +158,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="3">
-                        <!--<Label
-                            Text="DT1"
-                        />
-                        <Label
-                            Text="DT2"
-                        />
-                        <Label
-                            Text="DT3"
-                        />
-                        <Label
-                            Text="DT4"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addDT"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="DT"
-                        />
+                        <Grid x:Name="addDT" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="DTButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="DT"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                     <Label
@@ -312,26 +176,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="5">
-                        <!--<Label
-                            Text="LB1"
-                        />
-                        <Label
-                            Text="LB2"
-                        />
-                        <Label
-                            Text="LB3"
-                        />
-                        <Label
-                            Text="LB4"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addLB"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="LB"
-                        />
+                        <Grid x:Name="addLB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="LBButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="LB"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                     <Label
@@ -340,32 +194,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="7">
-                        <!--<Label
-                            Text="CB1"
-                        />
-                        <Label
-                            Text="CB2"
-                        />
-                        <Label
-                            Text="CB3"
-                        />
-                        <Label
-                            Text="CB4"
-                        />
-                        <Label
-                            Text="CB5"
-                        />
-                        <Label
-                            Text="CB6"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addCB"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="CB"
-                        />
+                        <Grid x:Name="addCB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="CBButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="CB"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
 
                     <Label
@@ -374,26 +212,16 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="9">
-                        <!--<Label
-                            Text="FS1"
-                        />
-                        <Label
-                            Text="FS2"
-                        /> 
-                        <Label
-                            Text="SS1"
-                        />
-                        <Label
-                            Text="SS2"
-                        />-->
-                        <Button
-                            IsVisible="False"
-                            x:Name="addS"
-                            Text="+"
-                            HorizontalOptions="End"
-                            Clicked="addPlayer"
-                            CommandParameter="S"
-                        />
+                        <Grid x:Name="addS" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                            <Button
+                                x:Name="SButton"
+                                Grid.Row="1"
+                                Grid.Column="5"
+                                Text="+"
+                                Clicked="entryLine"
+                                CommandParameter="S"
+                            />
+                        </Grid>
                     </VerticalStackLayout>
                 </Grid>
             </Grid>

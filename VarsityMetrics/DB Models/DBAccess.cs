@@ -80,11 +80,11 @@ namespace VarsityMetrics.DB_Models
             return await conn.Table<Player>().ToListAsync();
         }
 
-        public async Task<bool> AddPlayer(string firstName, string lastName, string position)
+        public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, string number)
         {
             await Init();
 
-            int addedRecords = await conn.InsertAsync(new Player { Fname = firstName, Lname = lastName, Position = position, RushingYards = 0, PassingYards = 0 });
+            int addedRecords = await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
             return true;
         }
 
