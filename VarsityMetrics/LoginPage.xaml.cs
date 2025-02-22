@@ -1,3 +1,4 @@
+using Microsoft.Maui.ApplicationModel.Communication;
 using VarsityMetrics.ViewModel;
 
 namespace VarsityMetrics;
@@ -10,6 +11,7 @@ public partial class LoginPage : ContentPage
     }
     private async void LoginClicked(object sender, EventArgs e)
     {
+
         int err = 0;
         passwordError.IsVisible = false;
         usernameError.IsVisible = false;
@@ -32,6 +34,8 @@ public partial class LoginPage : ContentPage
             bool isSignedUp = await App.db.CheckLoginAsync(username.Text, password.Text);
             if (isSignedUp)
             {
+                AccountPage.Username = username.Text;
+                MainPage.Username = username.Text;
                 App.Current.MainPage = new AppShell();
             }
             else

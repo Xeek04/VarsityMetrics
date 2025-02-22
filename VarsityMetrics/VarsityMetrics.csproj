@@ -80,9 +80,6 @@
 	  <MauiXaml Update="LoginPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SettingsPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="PlaybookPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -7,11 +7,14 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
+            <Label x:Name="username"
+                   Text =" John"
+                   />
             <Image
                 Source="football.png"
                 HeightRequest="500"
                 Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+                SemanticProperties.Description="a man in football gear catching a football on a field" />
 
         </VerticalStackLayout>
     </ScrollView>
