@@ -48,6 +48,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="1">
+                        <VerticalStackLayout x:Name="QBList">
+                            
+                        </VerticalStackLayout>
                         <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="QBButton"
@@ -66,6 +69,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="3">
+                        <VerticalStackLayout x:Name="RBList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addRB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="RBButton"
@@ -84,6 +90,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="5">
+                        <VerticalStackLayout x:Name="WRList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addWR" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="WRButton"
@@ -102,6 +111,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="7">
+                        <VerticalStackLayout x:Name="TEList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addTE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="TEButton"
@@ -120,6 +132,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="9">
+                        <VerticalStackLayout x:Name="OLList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addOL" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="OLButton"
@@ -140,6 +155,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="1">
+                        <VerticalStackLayout x:Name="DEList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addDE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="DEButton"
@@ -158,6 +176,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="3">
+                        <VerticalStackLayout x:Name="DTList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addDT" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="DTButton"
@@ -176,6 +197,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="5">
+                        <VerticalStackLayout x:Name="LBList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addLB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="LBButton"
@@ -194,6 +218,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="7">
+                        <VerticalStackLayout x:Name="CBList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addCB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="CBButton"
@@ -212,6 +239,9 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="9">
+                        <VerticalStackLayout x:Name="SList">
+
+                        </VerticalStackLayout>
                         <Grid x:Name="addS" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="SButton"

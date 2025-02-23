@@ -80,6 +80,11 @@ namespace VarsityMetrics.DB_Models
             return await conn.Table<Roster>().ToListAsync();
         }
 
+        public async Task<List<Roster>> GetRosterByPosition(string position)
+        {
+            return await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
+        }
+
         public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, string number)
         {
             await Init();

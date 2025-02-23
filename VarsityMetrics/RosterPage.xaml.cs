@@ -18,7 +18,7 @@ public partial class RosterPage : ContentPage
     private Entry Number = new Entry();
 
     private Dictionary<Button, Grid> gridKey = new Dictionary<Button, Grid>();
-    
+    private Dictionary<VerticalStackLayout, string> viewKey = new Dictionary<VerticalStackLayout, string>();
     public RosterPage()
 	{
 		InitializeComponent();
@@ -33,6 +33,22 @@ public partial class RosterPage : ContentPage
         gridKey.Add(LBButton, addLB);
         gridKey.Add(CBButton, addCB);
         gridKey.Add(SButton, addS);
+
+        viewKey.Add(QBList, "QB");
+        viewKey.Add(RBList, "RB");
+        viewKey.Add(WRList, "WR");
+        viewKey.Add(TEList, "TE");
+        viewKey.Add(OLList, "OL");
+        viewKey.Add(DEList, "DE");
+        viewKey.Add(DTList, "DT");
+        viewKey.Add(LBList, "LB");
+        viewKey.Add(CBList, "CB");
+        viewKey.Add(SList, "S");
+
+        foreach (VerticalStackLayout positionView in viewKey.Keys)
+        {
+            populateRoster(positionView);
+        }
 
         Confirm.Clicked += async (sender, args) => addPlayer(Confirm.CommandParameter.ToString());
 	}
@@ -121,5 +137,10 @@ public partial class RosterPage : ContentPage
 
         if ((Grid)Fname.Parent != null) { clearGrid((Grid)Fname.Parent); }
         clearEntries();
+    }
+
+    private async void populateRoster(VerticalStackLayout positionView)
+    {
+        List<Roster> positionRoster = await App.db.GetRosterByPosition(viewKey.GetValueOrDefault(positionView));
     }
 }
