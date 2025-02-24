@@ -22,7 +22,7 @@ namespace VarsityMetrics
         public const String CreatePlay = $"CREATE TABLE \"Play\" (\r\n\t\"Pk\"\tINTEGER NOT NULL,\r\n\t\"play_name\"\tTEXT,\r\n\t\"imgsrc\"\tTEXT,\r\n\tPRIMARY KEY(\"Pk\" AUTOINCREMENT)\r\n)";
         public const String CreateRoster = $"CREATE TABLE \"Roster\" (\r\n\t\"Pk\"\tINTEGER NOT NULL,\r\n\t\"game_id\"\tINTEGER,\r\n\t\"player_id\"\tINTEGER,\r\n\tPRIMARY KEY(\"Pk\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"game_id\") REFERENCES \"Game\"(\"Pk\"),\r\n\tFOREIGN KEY(\"player_id\") REFERENCES \"Player\"(\"Pk\")\r\n)";
         public const String CreateFootage = $"CREATE TABLE \"Footage\" (\r\n\t\"Pk\"\tINTEGER NOT NULL,\r\n\t\"url\"\tTEXT,\r\n\t\"game_id\"\tINTEGER,\r\n\t\"play_id\"\tINTEGER,\r\n\tPRIMARY KEY(\"Pk\" AUTOINCREMENT),\r\n\tFOREIGN KEY(\"game_id\") REFERENCES \"Game\"(\"Pk\"),\r\n\tFOREIGN KEY(\"play_id\") REFERENCES \"Play\"(\"Pk\")\r\n)";
-        public const String CreatePlaterStats = $"CREATE TABLE \"PlayerStats\" (\r\n\t\"Pk\"\tINTEGER NOT NULL)";
+        public const String CreatePlaterStats = $"CREATE TABLE \"PlayerStats\" (\r\n\t\"Pk\"\tINTEGER NOT NULL),\r\n\t\"fname\"\tTEXT,\r\n\t\"lname\"\tTEXT";
         //public const String Create = $"";
 
         //role enum

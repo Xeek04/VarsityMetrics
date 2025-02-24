@@ -58,6 +58,7 @@ public partial class RosterPage : ContentPage
         List<Roster> something = await App.db.GetRoster();
 
         populateRoster(viewKey.FirstOrDefault(x => x.Value == position).Key);
+        var test = await App.db.StatQuery(Fname.Text, Lname.Text);
         clearEntries();
     }
 
@@ -65,6 +66,10 @@ public partial class RosterPage : ContentPage
     {
         await App.db.ClearRoster();
         var something = await App.db.GetRoster();
+        foreach (Grid positionView in viewKey.Keys)
+        {
+            populateRoster(positionView);
+        }
     }
 
     private void entryLine(object sender, EventArgs e)

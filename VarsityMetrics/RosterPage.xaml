@@ -21,6 +21,7 @@
                 Text="Clear"
                 HorizontalOptions="End"
                 Clicked="clearRoster"
+                BackgroundColor="Red"
             />
             <Label
                 x:Name="test11"
