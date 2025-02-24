@@ -42,6 +42,7 @@ public partial class SignUpPage : ContentPage
             if (createAccount)
             {
                 AccountPage.Username = username.Text;
+                MainPage.Username = username.Text;
                 App.Current.MainPage = new AppShell();
             }
             else

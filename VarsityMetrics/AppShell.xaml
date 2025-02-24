@@ -43,11 +43,6 @@
             ContentTemplate="{DataTemplate local:AccountPage}"
             Route="AccountPage" />
         </Tab>
-        
-        <Tab Title="Settings">
-            <ShellContent
-                ContentTemplate="{DataTemplate local:SettingsPage}"
-                Route="SettingsPage" />
-        </Tab>
+       
     </TabBar>
 </Shell>
