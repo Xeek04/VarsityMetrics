@@ -48,9 +48,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="1">
-                        <VerticalStackLayout x:Name="QBList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="QBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
                             
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="QBButton"
@@ -69,9 +83,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="3">
-                        <VerticalStackLayout x:Name="RBList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="RBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addRB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="RBButton"
@@ -90,9 +118,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="5">
-                        <VerticalStackLayout x:Name="WRList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="WRList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addWR" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="WRButton"
@@ -111,9 +153,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="7">
-                        <VerticalStackLayout x:Name="TEList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="TEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addTE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="TEButton"
@@ -132,9 +188,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="9">
-                        <VerticalStackLayout x:Name="OLList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="OLList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addOL" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="OLButton"
@@ -155,9 +225,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="1">
-                        <VerticalStackLayout x:Name="DEList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="DEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addDE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="DEButton"
@@ -176,9 +260,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="3">
-                        <VerticalStackLayout x:Name="DTList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="DTList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addDT" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="DTButton"
@@ -197,9 +295,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="5">
-                        <VerticalStackLayout x:Name="LBList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="LBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addLB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="LBButton"
@@ -218,9 +330,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="7">
-                        <VerticalStackLayout x:Name="CBList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="CBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addCB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="CBButton"
@@ -239,9 +365,23 @@
                         FontSize="Medium"
                     />
                     <VerticalStackLayout Grid.Row="9">
-                        <VerticalStackLayout x:Name="SList">
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                            <Label
+                                Text="Name"
+                            />
+                            <Label
+                                Text="Height"
+                            />
+                            <Label
+                                Text="Weight"
+                            />
+                            <Label
+                                Text="Number"
+                            />
+                        </HorizontalStackLayout>
+                        <Grid x:Name="SList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                        </VerticalStackLayout>
+                        </Grid>
                         <Grid x:Name="addS" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
                             <Button
                                 x:Name="SButton"

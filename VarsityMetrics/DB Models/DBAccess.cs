@@ -82,14 +82,16 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Roster>> GetRosterByPosition(string position)
         {
-            return await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
+            var test = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
+            return test.OrderBy(x => x.Number).ToList();
         }
 
-        public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, string number)
+        public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, int number)
         {
             await Init();
 
-            int addedRecords = await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
+            await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
+            await conn.InsertAsync(new PlayerStats { Fname = firstName, Lname = lastName, Position = position });
             return true;
         }
 
@@ -98,6 +100,7 @@ namespace VarsityMetrics.DB_Models
             await Init();
 
             await conn.DeleteAllAsync<Roster>();
+            await conn.DeleteAllAsync<PlayerStats>();
             return true;
         }
     }

@@ -18,7 +18,7 @@ public partial class RosterPage : ContentPage
     private Entry Number = new Entry();
 
     private Dictionary<Button, Grid> gridKey = new Dictionary<Button, Grid>();
-    private Dictionary<VerticalStackLayout, string> viewKey = new Dictionary<VerticalStackLayout, string>();
+    private Dictionary<Grid, string> viewKey = new Dictionary<Grid, string>();
     public RosterPage()
 	{
 		InitializeComponent();
@@ -45,7 +45,7 @@ public partial class RosterPage : ContentPage
         viewKey.Add(CBList, "CB");
         viewKey.Add(SList, "S");
 
-        foreach (VerticalStackLayout positionView in viewKey.Keys)
+        foreach (Grid positionView in viewKey.Keys)
         {
             populateRoster(positionView);
         }
@@ -54,9 +54,10 @@ public partial class RosterPage : ContentPage
 	}
     private async void addPlayer(string position)
     {
-        await App.db.AddPlayer(Fname.Text, Lname.Text, position, HeightP.Text, Weight.Text, Number.Text);
+        await App.db.AddPlayer(Fname.Text, Lname.Text, position, HeightP.Text, Weight.Text, int.Parse(Number.Text));
         List<Roster> something = await App.db.GetRoster();
 
+        populateRoster(viewKey.FirstOrDefault(x => x.Value == position).Key);
         clearEntries();
     }
 
@@ -139,8 +140,42 @@ public partial class RosterPage : ContentPage
         clearEntries();
     }
 
-    private async void populateRoster(VerticalStackLayout positionView)
+    private async void populateRoster(Grid positionView)
     {
         List<Roster> positionRoster = await App.db.GetRosterByPosition(viewKey.GetValueOrDefault(positionView));
+        int i = 0;
+        if (positionView.RowDefinitions.Count>0)
+        {
+            for (int j = positionView.Count; j > -1; j--)
+            {
+                positionView.RemoveAt(j);
+            }
+            positionView.RowDefinitions = new RowDefinitionCollection();
+        }
+        foreach (Roster player in positionRoster)
+        {
+            positionView.AddRowDefinition(new RowDefinition());
+            positionView.Add(new Entry 
+            {
+                Text = player.Fname + " " + player.Lname,
+                IsReadOnly = true
+            },0,i);
+            positionView.Add(new Entry 
+            {
+                Text = player.Height,
+                IsReadOnly = true
+            },1,i);
+            positionView.Add(new Entry 
+            {
+                Text = player.Weight,
+                IsReadOnly = true
+            },2,i);
+            positionView.Add(new Entry 
+            {
+                Text = player.Number.ToString(),
+                IsReadOnly = true
+            },3,i);
+            i++;
+        }
     }
 }

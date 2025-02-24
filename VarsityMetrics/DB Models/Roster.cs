@@ -30,7 +30,7 @@ namespace VarsityMetrics.DB_Models
         public String? Weight { get; set; }
 
         [Column("number")]
-        public String? Number { get; set; }
+        public int? Number { get; set; }
 
         [Column("depth")]
         public int Depth { get; set; } = 0;
