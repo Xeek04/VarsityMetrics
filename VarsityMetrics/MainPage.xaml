@@ -2,21 +2,43 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.MainPage">
-    
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <Label x:Name="username"
-                   Text =" John"
-                   />
-            <Image
-                Source="football.png"
-                HeightRequest="500"
-                Aspect="AspectFit"
-                SemanticProperties.Description="a man in football gear catching a football on a field" />
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout
+            Padding="10,0"
+            Spacing="10">
+                
+                <Label Text="Welcome back"
+                   Style="{StaticResource Headline}"/>
+                <Label x:Name="username" 
+                   Style="{StaticResource Headline}"/>
+                <Grid>
+                    <Label Text="Upcoming Games" 
+                           Style="{StaticResource SubHeadline}"
+                           HorizontalOptions="Start"
+                           Margin="10,10,0,0"/>
+                    
+                    <Frame BorderColor="Aquamarine" BackgroundColor="Transparent">
+                          <Label Text="September 5, RH vs LSU (Home) &#10;September 12, RH vs Louisiana Tech (Home) &#10;September 19, RH vs UNO (Away)"
+                           Margin="0,35,0,0"
+                           FontSize="18"
+                           HorizontalOptions="Fill" />
+                    </Frame>
+                    <Button BackgroundColor="Transparent"
+                        Clicked="Button_Clicked"
+                    />
+                    <Label Text="Current Top Players"
+                           Style="{StaticResource SubHeadline}"
+                           HorizontalOptions="End" 
+                           Margin="0,10,10,0"/>
+                    <Label Text="1. Jason Statham (QB 1) &#10; 2. Thomas Bowman Jr. (OL 3) &#10; 3. Zachary Browning (Punter)"
+                           Margin="0,56,10,0"
+                           FontSize="18"
+                           HorizontalOptions="End" 
+                           HorizontalTextAlignment="End"/>
+                </Grid>
 
-        </VerticalStackLayout>
-    </ScrollView>
-
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

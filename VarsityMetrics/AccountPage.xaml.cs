@@ -7,6 +7,7 @@ public partial class AccountPage : ContentPage
 	{
 		InitializeComponent();
         username.Text = Username;
+        Application.Current.UserAppTheme = AppTheme.Dark;
 	}
     private void LightDark(object sender, EventArgs e)
     {
@@ -18,7 +19,6 @@ public partial class AccountPage : ContentPage
         {
             Application.Current.UserAppTheme = AppTheme.Dark;
         }
-
     }
 
     private void Config(object sender, EventArgs e)

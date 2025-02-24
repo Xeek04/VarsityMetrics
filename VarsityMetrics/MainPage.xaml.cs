@@ -9,4 +9,8 @@ public partial class MainPage : ContentPage
             username.Text = Username;
         }
 
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }

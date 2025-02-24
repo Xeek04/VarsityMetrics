@@ -6,48 +6,59 @@
 
 
     <Grid RowDefinitions="Auto"
-          ColumnDefinitions=".5*, .5*, .5*"
-          ColumnSpacing="10"
-          RowSpacing="10">
+      ColumnSpacing="10"
+      RowSpacing="10">
+        <ScrollView>
+            <VerticalStackLayout Padding="30,0"
+                         Spacing="20"
+                         Grid.Column="1">
 
-        <VerticalStackLayout Padding="30,0"
-                             Spacing="25"
-                             Grid.Column="1">
+                <Label x:Name="username"
+        Style="{StaticResource Headline}"
+                       HorizontalOptions="Center"/>
 
-            <Label x:Name="username"
-            Text="John"
-            Style="{StaticResource Headline}"/>
+                <Label Text="School"
+               FontSize="24"
+                       HorizontalOptions="Start"/>
+                
+                <Entry x:Name="school"
+            Text ="Ruston High"
+               IsReadOnly="true"
+                       HorizontalOptions="Start"
+               />
+                <Label Text="Division"
+   FontSize="24"
+                       HorizontalOptions="Start"/>
+                <Entry x:Name="division"
+            Text="D1 Nonselect"
+               IsReadOnly="true"
+                       HorizontalOptions="Start"
+               />
+                <Label Text="City"
+   FontSize="24"
+                       HorizontalOptions="Start"/>
+                <Entry x:Name="city"
+            Text="Ruston, LA"
+               IsReadOnly="true" 
+                       HorizontalOptions="Start"
+               />
 
-            <Label Text="School"
-                   FontSize="24"/>
-            <Entry x:Name="school"
-                Text ="Ruston High"
-                   IsReadOnly="true"
-                   />
-            <Label Text="Division"
-       FontSize="24"/>
-            <Entry x:Name="division"
-                Text="Division: D1 Nonselect"
-                   IsReadOnly="true"
-                   />
-            <Label Text="City"
-       FontSize="24"/>
-            <Entry x:Name="city"
-                Text="City: Ruston, Louisiana"
-                   IsReadOnly="true"
-                   
-                   />
-            <ImageButton
+                <ImageButton
                 Source="gearicon.png"
                 Clicked="Config"
+                HorizontalOptions="Start"
+                    HeightRequest="16" WidthRequest="16"
                 />
-
-            <Button
-            Text="Light/Dark" 
-            Clicked="LightDark"/>
-            <Label Text="This text is green in light mode, and red in dark mode."
-            TextColor="{AppThemeBinding Light=Green, Dark=Red}" />
-
-        </VerticalStackLayout>
+                <Label Text="Tap gear icon to edit personal information!"
+                       HorizontalOptions="End"/>
+                
+                <Button
+        Text="Light/Dark" 
+        Clicked="LightDark"
+/>
+                <Label Text="This text is green in light mode, and red in dark mode."
+        TextColor="{AppThemeBinding Light=Green, Dark=Red}" />
+            </VerticalStackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>
