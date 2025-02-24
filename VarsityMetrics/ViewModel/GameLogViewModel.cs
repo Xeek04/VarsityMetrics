@@ -20,6 +20,7 @@ public partial class GameLogViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy = false;
+    
 
     public GameLogViewModel()
     {
@@ -53,6 +54,7 @@ public partial class GameLogViewModel : ObservableObject
     // when the game is changed
     partial void OnSelectedGameChanged(Game? value)
     {
+        //OnPropertyChanged(nameof(BannerText)); may be necessary????
         if (value != null)
         {
             Trace.WriteLine($"Selected game: {value.Opponent} - {value.ScoreDisplay}");
