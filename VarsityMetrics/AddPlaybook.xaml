@@ -12,8 +12,9 @@
         <Image x:Name="apple"
                Grid.Column="1"
                Grid.Row="1"
-               HeightRequest="1000"
-               WidthRequest="700"
+               MaximumHeightRequest="400"
+               WidthRequest="600"
+               HeightRequest="400"
                IsVisible="Hidden"/>
 
         <VerticalStackLayout Padding="30,0"

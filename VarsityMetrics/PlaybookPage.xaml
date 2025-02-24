@@ -15,20 +15,38 @@
                 Text="Playbook"
                 Style="{StaticResource Headline}"/>
 
-            <CollectionView x:Name="PlaybookImages"
-                            ItemsSource="{Binding ImageList}">
-                <CollectionView.ItemTemplate>
+            <ListView ItemsSource="{Binding Plays}"
+                      x:Name="PlaysList">
+                <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Image Source="{Binding ImagePath}"
-                               Aspect="AspectFill"
-                               HeightRequest="200"/>
+                        <ViewCell>
+                            <Grid Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2"
+                                       Source="{Binding ImagePath}"
+                                       Aspect="AspectFill"
+                                       HeightRequest="100"
+                                       WidthRequest="100"/>
+                                <Label Grid.Row="1"
+                                       Grid.Column="1"
+                                       Text="{Binding Name}"/>
+                            </Grid>
+                        </ViewCell>
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                </ListView.ItemTemplate>
+            </ListView>
 
         </VerticalStackLayout>
 
         <Button Grid.Column="2"
+                x:Name="Button"
                 HorizontalOptions="End"
                 Clicked="Button_Clicked"/>
 

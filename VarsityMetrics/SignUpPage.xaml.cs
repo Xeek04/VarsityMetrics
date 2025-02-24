@@ -39,7 +39,7 @@ public partial class SignUpPage : ContentPage
         if (err == 0)
         {
             bool createAccount = await App.db.InsertAccountAsync(username.Text, password.Text, email.Text);
-            if (!createAccount)
+            if (createAccount)
             {
                 AccountPage.Username = username.Text;
                 App.Current.MainPage = new AppShell();

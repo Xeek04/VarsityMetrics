@@ -1,5 +1,3 @@
-using Microsoft.UI.Xaml;
-
 namespace VarsityMetrics;
 
 public partial class PlaybookPage : ContentPage
@@ -9,8 +7,14 @@ public partial class PlaybookPage : ContentPage
 		InitializeComponent();
 	}
 
+	/*protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+		PlaysList.ItemsSource = await App.db.RequestPictureAsync();
+	}*/
 
-    private async void Button_Clicked(object sender, EventArgs e)
+
+	private void Button_Clicked(object sender, EventArgs e)
     {
 		Navigation.PushAsync(new AddPlaybook());
     }

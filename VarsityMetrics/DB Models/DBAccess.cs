@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -74,5 +75,12 @@ namespace VarsityMetrics.DB_Models
             int addedPlays = await conn.InsertAsync(new Play { PlayName = name, ImageSource =  path});
             if (addedPlays != 0) {return true;} else { return false; }
         }
+        /*public async Task<List<Play>> RequestPictureAsync()
+        {
+            await Init();
+
+            return await conn.Table<Play>().ToListAsync();
+
+        }*/
     }
 }
