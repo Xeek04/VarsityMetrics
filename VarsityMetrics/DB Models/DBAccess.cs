@@ -13,7 +13,7 @@ namespace VarsityMetrics.DB_Models
 
         string path;
         private SQLiteAsyncConnection conn;
-        private bool modified = true; //set this to true if the database tables have been modified. If you don't change it back then
+        private bool modified = false; //set this to true if the database tables have been modified. If you don't change it back then
         // the database will keep deleting itself on startup
 
         public async Task Init()
@@ -107,6 +107,20 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
             return await conn.Table<Game>().ToListAsync();
+        }
+
+        public async Task<Footage> getFootageByGameId(int gameId)
+        {
+            await Init();
+            var footage = await conn.Table<Footage>().Where(f => (f.GameId == gameId)).ToListAsync();
+            if (footage == null)
+            {
+                return new Footage();
+            }
+            else
+            {
+                return footage[0];
+            }
         }
     }
 }

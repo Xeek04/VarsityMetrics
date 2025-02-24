@@ -72,14 +72,22 @@
         <!-- Box Score -->
         <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="3"/>
         <!-- Film -->
-        <toolkit:MediaElement 
+        <WebView x:Name="YouTubePlayer"
+                 WidthRequest="400"
+                 HeightRequest="300"
+                 Source="{Binding YtSource}"
+                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <!--<toolkit:MediaElement 
             x:Name="GameVideoPlayer"
-            Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            Source="https://www.youtube.com/watch?v=Z2DTio1-HMY"
             HeightRequest="300"
             WidthRequest="500"
-            Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
-        
-        
+            Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>-->
+
+
+        <!--Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"-->
+
+
         <!--<Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>-->
         <!-- Selected Game Banner -->
         

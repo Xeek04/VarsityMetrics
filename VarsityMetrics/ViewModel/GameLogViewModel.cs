@@ -7,6 +7,7 @@ using System.Windows.Input;
 namespace VarsityMetrics.ViewModels;
 
 using System.Diagnostics.CodeAnalysis;
+using System.Web;
 using VarsityMetrics.DB_Models;
 
 public partial class GameLogViewModel : ObservableObject
@@ -20,7 +21,17 @@ public partial class GameLogViewModel : ObservableObject
 
     [ObservableProperty]
     private bool isBusy = false;
-    
+
+    [ObservableProperty]
+    private HtmlWebViewSource ytSource = new HtmlWebViewSource { Html = $@"
+    <html>
+    <body style='margin:0;padding:0;'>
+        <iframe width='100%' height='100%' 
+                src='https://www.youtube.com/embed/KoGKdLR-kc0?autoplay=1&controls=1'
+                frameborder='0' allowfullscreen>
+        </iframe>
+    </body>
+    </html>" };
 
     public GameLogViewModel()
     {
@@ -58,8 +69,22 @@ public partial class GameLogViewModel : ObservableObject
         if (value != null)
         {
             Trace.WriteLine($"Selected game: {value.Opponent} - {value.ScoreDisplay}");
-            // TODO: Perform additional logic, like navigation or updating details
+            //ytSource = ;
         }
+    }
+
+    private async Task<HtmlWebViewSource> getHtmlSourceByGameIdAsync(int gameId)
+    {
+        Footage footage = await App.db.getFootageByGameId(gameId);
+        return new HtmlWebViewSource { Html = $@"
+    <html>
+    <body style='margin:0;padding:0;'>
+        <iframe width='100%' height='100%' 
+                src='https://www.youtube.com/embed/{footage.YtId}?autoplay=1&controls=1'
+                frameborder='0' allowfullscreen>
+        </iframe>
+    </body>
+    </html>" };
     }
 }
 
