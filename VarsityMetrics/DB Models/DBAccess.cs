@@ -13,9 +13,16 @@ namespace VarsityMetrics.DB_Models
 
         string path;
         private SQLiteAsyncConnection conn;
+        private bool modified = false;
 
         public async Task Init()
         {
+            if(modified)
+            {
+                File.Delete(path);
+                modified = false;
+            }
+            
             Trace.WriteLine($"DBAccess: Init() (file path: {path}");
             if (conn is not null)
             {
