@@ -1,15 +1,96 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VarsityMetrics.GameLogPage">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:VarsityMetrics.ViewModels"
+             x:Class="VarsityMetrics.GameLogPage"
+             >
+    <ContentPage.BindingContext>
+        <vm:GameLogViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style TargetType="Frame" x:Key="HistoryFrame">
+            <Setter Property="HasShadow" Value="False" />
+            <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+            <!--<Setter Property="Padding" Value="10"/>-->
+        </Style>
+
+        <Style TargetType="Label" x:Key="HistoryTitle">
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource MidnightBlue}, Dark={StaticResource White}}" />
+            <Setter Property="FontSize" Value="32" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+    </ContentPage.Resources>
     
-    <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-        <Label
-            Text="Game Log"
-            Style="{StaticResource Headline}"
-        />
-        <Label BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" />
-    </VerticalStackLayout>
+    
+
+    <Grid RowDefinitions="100,100,*"
+          ColumnDefinitions="auto,*,*,*"
+          RowSpacing="0"
+          ColumnSpacing="0"
+          Margin="10">
+        <CollectionView 
+            ItemsSource="{Binding Games}"
+            SelectedItem="{Binding SelectedGame, Mode=TwoWay}"  
+            x:Name="HistoryCollection"
+            Grid.Row="0" Grid.RowSpan="3"
+            Grid.Column="0"
+            WidthRequest="240"
+            BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600} }"
+            SelectionMode="Single"
+            EmptyView="No games loaded"> <!-- Game Timeline -->
+            <CollectionView.ItemTemplate> <!-- Template for Timeline Cards -->
+                <DataTemplate>
+                    <Frame Style="{DynamicResource HistoryFrame}">
+                        <VerticalStackLayout>
+                            <Label Style="{DynamicResource HistoryTitle}"
+                                   Text="{Binding Opponent}"/>
+                            <FlexLayout JustifyContent="SpaceBetween">
+                                <Label Text="{Binding Date}"/>
+                                <Label Text="{Binding ScoreDisplay}"/>
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <!-- Selected Game Banner -->
+        <Label Text="{Binding SelectedGame.BannerText}"
+               Style="{DynamicResource Headline}"
+               VerticalOptions="Center"
+               Grid.Row="0"
+               Grid.Column="1"
+               Grid.ColumnSpan="3"/>
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="1"/>
+        <!-- Team Score -->
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="2"/>
+        <!-- Box Score -->
+        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="3"/>
+        <!-- Film -->
+        <WebView x:Name="YouTubePlayer"
+                 WidthRequest="400"
+                 HeightRequest="300"
+                 Source="{Binding YtSource}"
+                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <!--<toolkit:MediaElement 
+            x:Name="GameVideoPlayer"
+            Source="https://www.youtube.com/watch?v=Z2DTio1-HMY"
+            HeightRequest="300"
+            WidthRequest="500"
+            Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>-->
+
+
+        <!--Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"-->
+
+
+        <!--<Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>-->
+        <!-- Selected Game Banner -->
+        
+    </Grid>
+    
 </ContentPage>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using VarsityMetrics.DB_Models;
+using CommunityToolkit.Maui;
 
 namespace VarsityMetrics
 {
@@ -10,6 +11,7 @@ namespace VarsityMetrics
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkitMediaElement()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
