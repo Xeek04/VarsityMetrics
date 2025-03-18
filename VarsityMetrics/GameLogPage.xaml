@@ -23,6 +23,17 @@
             <Setter Property="HorizontalOptions" Value="Center" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
         </Style>
+
+        <Style TargetType="Button" x:Key="GameLogTab">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+
+        <Style TargetType="Border" x:Key="GridBorder">
+            <Setter Property="Stroke" Value="Black"/>
+            <Setter Property="StrokeThickness" Value="3"/>
+            <Setter Property="IsVisible" Value="{Binding ViewGrid}"/>
+        </Style>
     </ContentPage.Resources>
     
     
@@ -58,21 +69,45 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-        <Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>
-        <!-- Selected Game Banner -->
+        
+        <Border Style="{DynamicResource GridBorder}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/> <!-- Selected Game Banner -->
         <Label Text="{Binding SelectedGame.BannerText}"
                Style="{DynamicResource Headline}"
                VerticalOptions="Center"
                Grid.Row="0"
                Grid.Column="1"
                Grid.ColumnSpan="3"/>
-        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="1"/>
-        <!-- Team Score -->
-        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="2"/>
-        <!-- Box Score -->
-        <Border Stroke="Black" StrokeThickness="3" Grid.Row="1" Grid.Column="3"/>
+
+        <!-- Team Score Button -->
+        <Border Style="{DynamicResource GridBorder}" Grid.Row="1" Grid.Column="1"/>
+        <Button x:Name="teamScoreButton"
+                Command="{Binding SetTeamModeCommand}"
+                Style="{DynamicResource GameLogTab}"
+                Text="Team Score"
+                Grid.Row="1"
+                Grid.Column="1"/>
+
+        <!-- Box Score Button -->
+        <Border Style="{DynamicResource GridBorder}" Grid.Row="1" Grid.Column="2"/>
+        <Button x:Name="boxScoreButton"
+                Command="{Binding SetBoxModeCommand}"
+                Style="{DynamicResource GameLogTab}"
+                Text="Box Score"
+                Grid.Row="1"
+                Grid.Column="2"/>
+
+        <!-- Film Button -->
+        <Border Style="{DynamicResource GridBorder}" Grid.Row="1" Grid.Column="3"/>
+        <Button x:Name="filmButton"
+                Command="{Binding SetFilmModeCommand}"
+                Style="{DynamicResource GameLogTab}"
+                Text="Review Film"
+                Grid.Row="1"
+                Grid.Column="3"/>
+        
         <!-- Film -->
         <WebView x:Name="YouTubePlayer"
+                 IsVisible="{Binding FilmMode, Mode=TwoWay}"
                  WidthRequest="400"
                  HeightRequest="300"
                  Source="{Binding YtSource}"
@@ -86,10 +121,7 @@
 
 
         <!--Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"-->
-
-
-        <!--<Border Stroke="Black" StrokeThickness="3" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/>-->
-        <!-- Selected Game Banner -->
+        
         
     </Grid>
     

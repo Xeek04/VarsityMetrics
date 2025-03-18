@@ -23,6 +23,18 @@ public partial class GameLogViewModel : ObservableObject
     private bool isBusy = false;
 
     [ObservableProperty]
+    private bool viewGrid;
+
+    [ObservableProperty]
+    private bool teamMode;
+
+    [ObservableProperty]
+    private bool boxMode;
+
+    [ObservableProperty]
+    private bool filmMode;
+
+    [ObservableProperty]
     private HtmlWebViewSource ytSource = new HtmlWebViewSource { Html = $@"
     <html>
     <body style='margin:0;padding:0;'>
@@ -36,6 +48,12 @@ public partial class GameLogViewModel : ObservableObject
     public GameLogViewModel()
     {
         LoadGamesCommand = new AsyncRelayCommand(LoadGames);
+
+        // default mode is TeamMode
+        TeamMode = true;
+
+        // set this to true to see the main grid
+        ViewGrid = true;
     }
 
     private async Task LoadGames()
@@ -51,6 +69,9 @@ public partial class GameLogViewModel : ObservableObject
                 Games.Add(game);
             }
             Trace.WriteLine("GameLogViewModel: Games loaded successfully");
+            if (Games.Count > 0) { 
+                SelectedGame = Games.Last();
+            }
         }
         catch (Exception ex)
         {
@@ -73,6 +94,34 @@ public partial class GameLogViewModel : ObservableObject
         }
     }
 
+    // when the tabs are clicked
+    partial void OnTeamModeChanged(bool value)
+    {
+        if (value)
+        {
+            BoxMode = false;
+            FilmMode = false;
+        }
+    }
+
+    partial void OnBoxModeChanged(bool value)
+    {
+        if (value)
+        {
+            TeamMode = false;
+            FilmMode = false;
+        }
+    }
+
+    partial void OnFilmModeChanged(bool value)
+    {
+        if (value)
+        {
+            TeamMode = false;
+            BoxMode = false;
+        }
+    }
+
     private async Task<HtmlWebViewSource> getHtmlSourceByGameIdAsync(int gameId)
     {
         Footage footage = await App.db.getFootageByGameId(gameId);
@@ -85,6 +134,23 @@ public partial class GameLogViewModel : ObservableObject
         </iframe>
     </body>
     </html>" };
+    }
+
+    //tab button commands
+    [RelayCommand]
+    private void SetTeamMode()
+    {
+        TeamMode = true;
+    }
+    [RelayCommand]
+    private void SetBoxMode()
+    {
+        BoxMode = true;
+    }
+    [RelayCommand]
+    private void SetFilmMode()
+    {
+        FilmMode = true;
     }
 }
 
