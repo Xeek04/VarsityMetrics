@@ -69,6 +69,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="ViewModel\MyTeam.xaml.cs">
+	    <DependentUpon>MyTeam.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="RosterPage.xaml.cs">
 	    <DependentUpon>RosterPage.xaml</DependentUpon>
 	  </Compile>
@@ -79,6 +82,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="AddPlaybook.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ViewModel\MyTeam.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="GameLogPage.xaml">

@@ -43,6 +43,11 @@
             ContentTemplate="{DataTemplate local:AccountPage}"
             Route="AccountPage" />
         </Tab>
+        <Tab Title="My Team">
+            <ShellContent
+                ContentTemplate="{DataTemplate local:MyTeam}"
+                Route="MyTeam"/>
+        </Tab>
        
     </TabBar>
 </Shell>

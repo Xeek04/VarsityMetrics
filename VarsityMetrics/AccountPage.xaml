@@ -4,11 +4,11 @@
              x:Class="VarsityMetrics.AccountPage"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
-
-    <Grid RowDefinitions="Auto"
+    <ScrollView>
+        <Grid RowDefinitions="Auto"
       ColumnSpacing="10"
       RowSpacing="10">
-        <ScrollView>
+       
             <VerticalStackLayout Padding="30,0"
                          Spacing="20"
                          Grid.Column="1">
@@ -50,7 +50,7 @@
                     HeightRequest="16" WidthRequest="16"
                 />
                 <Label Text="Tap gear icon to edit personal information!"
-                       HorizontalOptions="End"/>
+                       HorizontalOptions="Start"/>
                 
                 <Button
         Text="Light/Dark" 
@@ -59,6 +59,7 @@
                 <Label Text="This text is green in light mode, and red in dark mode."
         TextColor="{AppThemeBinding Light=Green, Dark=Red}" />
             </VerticalStackLayout>
-        </ScrollView>
+        
     </Grid>
+    </ScrollView>
 </ContentPage>
