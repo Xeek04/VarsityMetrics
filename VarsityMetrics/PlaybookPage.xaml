@@ -4,61 +4,88 @@
              x:Class="VarsityMetrics.PlaybookPage">
     <ScrollView>
         
-    <Grid RowDefinitions="50, Auto"
+    <Grid RowDefinitions="55, Auto, Auto"
           ColumnDefinitions=".5*, Auto, .5*"
           Padding="10"
-          ColumnSpacing="10"
-          RowSpacing="10">
+          ColumnSpacing="10">
         
         <VerticalStackLayout Spacing="10"
                              Grid.Column="1"
                              Grid.Row="0">
-            <Label
-                Text="Playbook"
-                Style="{StaticResource Headline}"/>
+            <Label Text="Playbook"
+                   Style="{StaticResource Headline}"/>
 
         </VerticalStackLayout>
-        
-            <ListView Grid.Row="1"
-                      Grid.Column="1"
-                      x:Name="PlaysList">
+
+        <Label Text="Offense"
+               Style="{StaticResource SubHeadline}"
+               Grid.Column="1"
+               Grid.Row="1"/>
+            <ListView Grid.Row="2"
+                  Grid.Column="0"
+                  x:Name="PlaysList">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <Grid Padding="10">
+                            <Grid Padding="10"
+                              ColumnSpacing="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                                
-                            <Image Grid.Row="0"
-                                       Source="{Binding ImageSource}"
-                                       Aspect="AspectFill"
-                                       HeightRequest="400"
-                                       WidthRequest="400"/>
-                            <Label Grid.Column="1"
-                                   FontSize="Header"
-                                   Text="{Binding PlayName}"/>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
-                        </Grid>
+                                <Image Grid.Row="0"
+                                   Source="{Binding ImageSource}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="500"
+                                   WidthRequest="500"/>
+
+                                <Label Grid.Column="1"
+                                   Text="{Binding PlayName}"
+                                   Style="{StaticResource SubHeadline}"/>
+
+                            </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+        
+            <HorizontalStackLayout Grid.Column="2"
+                                   HorizontalOptions="EndAndExpand"
+                                   Spacing="20">
+                
+                <Picker x:Name="OrderPicker"
+                        Title="Select the order">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Default</x:String>
+                            <x:String>Name</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+                
+                <Picker x:Name="TypePicker"
+                        Title="Select a play type">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Offense</x:String>
+                            <x:String>Defense</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
 
-        <Button Grid.Column="2"
-                Grid.Row="0"
-                x:Name="Button"
-                Text="Add"
-                HorizontalOptions="EndAndExpand"
-                Clicked="Button_Clicked"/>
+                <Button x:Name="Button"
+                        Text="Add"
+                        Clicked="Button_Clicked"/>
+                    
+            </HorizontalStackLayout>
 
 
     </Grid>
-
     </ScrollView>
+
 </ContentPage>

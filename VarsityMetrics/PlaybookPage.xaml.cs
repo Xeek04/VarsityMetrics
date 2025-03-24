@@ -18,4 +18,9 @@ public partial class PlaybookPage : ContentPage
     {
 		Navigation.PushAsync(new AddPlaybook());
     }
+
+	/*void OnPickerSelected(object sender, EventArgs e)
+	{
+
+	}*/
 }
