@@ -1,5 +1,7 @@
 ﻿using Microsoft.Maui.ApplicationModel.Communication;
 using SQLite;
+using Supabase;
+using Supabase.Postgrest.Responses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,8 @@ namespace VarsityMetrics.DB_Models
         private bool modified = false; //set this to true if the database tables have been modified. If you don't change it back then
         // the database will keep deleting itself on startup
 
+        private Supabase.Client client;
+
         public async Task Init()
         {
             if (modified)
@@ -33,11 +37,18 @@ namespace VarsityMetrics.DB_Models
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
             await conn.CreateTablesAsync<Game, Play, Player, Accounts>();
-            await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
+            //await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
+            await conn.CreateTablesAsync<Footage, PlayerStats>(); // tables with foreign keys
         }
 
         public DBAccess(String databasePath)
         {
+            var options = new SupabaseOptions
+            {
+                AutoConnectRealtime = true
+            };
+            client = new Client(Constants.supabaseURL, Constants.supabaseKey, options);
+
             Trace.WriteLine($"Database Constructor used with path {databasePath}");
             path = databasePath;
         }
@@ -86,21 +97,35 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Roster>> GetRoster()
         {
-            return await conn.Table<Roster>().ToListAsync();
+            //return await conn.Table<Roster>().ToListAsync();
+            var result = await client.From<Roster>().Get();
+            return result.Models;
         }
 
         public async Task<List<Roster>> GetRosterByPosition(string position)
         {
-            List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
-            return result.OrderBy(x => x.Number).ToList();
+            //List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
+            //return result.OrderBy(x => x.Number).ToList();
+            var result = await client.From<Roster>().Where(x => x.Position == position).Get();
+            return result.Models;
         }
 
         public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, int number)
         {
-            await Init();
+            //await Init();
 
-            await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
-            await conn.InsertAsync(new PlayerStats { Fname = firstName, Lname = lastName, Position = position });
+            //await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
+            //await conn.InsertAsync(new PlayerStats { Fname = firstName, Lname = lastName, Position = position });
+            Roster model = new Roster
+            {
+                Fname = firstName,
+                Lname = lastName,
+                Position = position,
+                Height = height,
+                Weight = weight,
+                Number = number,
+            };
+            await client.From<Roster>().Insert(model);
             return true;
         }
 
