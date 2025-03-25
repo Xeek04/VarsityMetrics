@@ -1,8 +1,8 @@
 namespace VarsityMetrics;
 
-public partial class Roster : ContentPage
+public partial class MyTeam : ContentPage
 {
-	public Roster()
+	public MyTeam()
 	{
 		InitializeComponent();
 	}

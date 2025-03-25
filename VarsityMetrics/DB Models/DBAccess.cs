@@ -2,6 +2,7 @@
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,7 @@ namespace VarsityMetrics.DB_Models
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
             await conn.CreateTablesAsync<Game, Play, Player, Accounts>();
-            await conn.CreateTablesAsync<Footage, Roster>(); // tables with foreign keys
+            await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
         }
 
         public DBAccess(String databasePath)
@@ -73,6 +74,74 @@ namespace VarsityMetrics.DB_Models
                 int addedRecords = await conn.InsertAsync(new Accounts { Username = username, Password = password, Email = email, Role = Constants.Role.Coach }); //insert record with identical person
                 if (addedRecords != 0) { return true; } else { return false; }
             }
+        }
+
+        public async Task<bool> UploadPictureAsync(string path, string name)
+        {
+            await Init();
+
+            int addedPlays = await conn.InsertAsync(new Play { PlayName = name, ImageSource =  path});
+            if (addedPlays != 0) {return true;} else { return false; }
+        }
+
+        public async Task<List<Roster>> GetRoster()
+        {
+            return await conn.Table<Roster>().ToListAsync();
+        }
+
+        public async Task<List<Roster>> GetRosterByPosition(string position)
+        {
+            List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
+            return result.OrderBy(x => x.Number).ToList();
+        }
+
+        public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, int number)
+        {
+            await Init();
+
+            await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
+            await conn.InsertAsync(new PlayerStats { Fname = firstName, Lname = lastName, Position = position });
+            return true;
+        }
+
+        public async Task<bool> AddPlayerStats(PlayerStats stats)
+        {
+            await Init();
+            await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
+            return true;
+        }
+
+        public async Task<PlayerStats> StatQuery(string fname, string lname)
+        {
+            return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
+        }
+
+        public async Task<List<string>> GetPlayerList()
+        {
+            List<Roster> roster = await conn.Table<Roster>().ToListAsync();
+            roster.OrderBy(x => x.Lname).ToList();
+            List<string> result = new List<string>();
+            foreach(Roster player in roster)
+            {
+                result.Add(player.Lname + ", " + player.Fname + " | " + player.Position);
+            }
+            return result;
+        }
+
+        public async Task<bool> ClearRoster()
+        {
+            await Init();
+
+            await conn.DeleteAllAsync<Roster>();
+            await conn.DeleteAllAsync<PlayerStats>();
+            return true;
+        }
+        public async Task<List<Play>> RequestPictureAsync()
+        {
+            await Init();
+
+            return await conn.Table<Play>().ToListAsync();
+
         }
 
         public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {

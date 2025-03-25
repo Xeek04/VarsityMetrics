@@ -2,15 +2,15 @@
 
 public partial class MainPage : ContentPage
 {
-
+    public static String Username;
         public MainPage()
         {
             InitializeComponent();
+            username.Text = Username;
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
+    private void Button_Clicked(object sender, EventArgs e)
+    {
 
-        }
-
+    }
 }
