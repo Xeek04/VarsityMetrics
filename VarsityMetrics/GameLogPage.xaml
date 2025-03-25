@@ -109,20 +109,20 @@
         <Border Style="{DynamicResource GridBorder}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
 
         <!-- Film -->
-        <!--<WebView x:Name="YouTubePlayer"
-                 IsVisible="{Binding FilmMode, Mode=TwoWay}"
-                 WidthRequest="400"
-                 HeightRequest="300"
-                 Source="{Binding YtSource}"
-                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>-->
-        <toolkit:MediaElement 
-            x:Name="GameVideoPlayer"
+        <Grid 
             IsVisible="{Binding FilmMode, Mode=TwoWay}"
-            Source="{Binding MediaSource, Mode=TwoWay}"
-            HeightRequest="300"
-            WidthRequest="500"
-            Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
-        
+            Grid.Row="2"
+            Grid.Column="1" Grid.ColumnSpan="3">
+            
+            <toolkit:MediaElement 
+                x:Name="GameVideoPlayer"
+                IsVisible="{Binding NotNullVideo, Mode=TwoWay}"
+                Source="{Binding MediaSource, Mode=TwoWay}"
+                HeightRequest="300"
+                WidthRequest="500"
+                Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+            
+        </Grid>
         <!-- Team Score -->
         <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
               RowDefinitions="*,*,*"

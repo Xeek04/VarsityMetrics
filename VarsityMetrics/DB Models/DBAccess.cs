@@ -86,6 +86,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Roster>> GetRoster()
         {
+            await Init();
             return await conn.Table<Roster>().ToListAsync();
         }
 
@@ -178,18 +179,21 @@ namespace VarsityMetrics.DB_Models
             return await conn.Table<Game>().ToListAsync();
         }
 
-        public async Task<Footage> getFootageByGameId(int gameId)
+        public async Task<Footage> GetFootageByGameIdAsync(int gameId)
         {
+            Trace.WriteLine($"DBAccess: Fetching footage for game {gameId}");
             await Init();
-            var footage = await conn.Table<Footage>().Where(f => (f.GameId == gameId)).ToListAsync();
+
+            var footage = await conn.Table<Footage>().FirstOrDefaultAsync(f => f.GameId == gameId);
+
             if (footage == null)
             {
+                Trace.WriteLine("DBAccess: No footage found.");
                 return new Footage();
             }
-            else
-            {
-                return footage[0];
-            }
+
+            Trace.WriteLine("DBAccess: Footage found.");
+            return footage;
         }
     }
 }

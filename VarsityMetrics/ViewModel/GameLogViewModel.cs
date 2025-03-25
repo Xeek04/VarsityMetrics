@@ -19,6 +19,7 @@ public partial class GameLogViewModel : ObservableObject
     [ObservableProperty]
     private Game? selectedGame;
     public IAsyncRelayCommand LoadGamesCommand { get; }
+    public IAsyncRelayCommand GetVideoCommand { get; }
 
     [ObservableProperty]
     private bool isBusy = false;
@@ -36,29 +37,16 @@ public partial class GameLogViewModel : ObservableObject
     private bool filmMode;
 
     [ObservableProperty]
-    private bool filmModeNullVideo;
+    private bool notNullVideo;
 
     [ObservableProperty]
-    private bool filmModeVideo;
+    private string? mediaSource;
 
-    [ObservableProperty]
-    private HtmlWebViewSource ytSource = new HtmlWebViewSource { Html = $@"
-    <html>
-    <body style='margin:0;padding:0;'>
-        <iframe width='100%' height='100%' 
-                src='https://www.youtube.com/embed/KoGKdLR-kc0?autoplay=1&controls=1'
-                frameborder='0' allowfullscreen>
-        </iframe>
-    </body>
-    </html>
-        " };
-
-    [ObservableProperty]
-    private string mediaSource = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
     public GameLogViewModel()
     {
         LoadGamesCommand = new AsyncRelayCommand(LoadGames);
+        GetVideoCommand = new AsyncRelayCommand(GetVideo);
 
         // default mode is TeamMode
         TeamMode = true;
@@ -82,6 +70,7 @@ public partial class GameLogViewModel : ObservableObject
             Trace.WriteLine("GameLogViewModel: Games loaded successfully");
             if (Games.Count > 0) { 
                 SelectedGame = Games.Last();
+
             }
         }
         catch (Exception ex)
@@ -90,16 +79,50 @@ public partial class GameLogViewModel : ObservableObject
         }
         finally
         {
+            Trace.WriteLine($"GameLogViewModel: LoadGames complete");
             IsBusy = false;
         }
+    }
+
+    private async Task GetVideo()
+    {
+        Trace.WriteLine($"GameLogViewModel: starting GetVideo");
+        if (IsBusy) return;
+        try
+        {
+            IsBusy = true;
+            Trace.WriteLine($"GameLogViewModel: selected game is {SelectedGame}");
+            if (SelectedGame != null)
+            {
+                Trace.WriteLine($"GameLogViewModel: selected game not null");
+                int selectedGamePk = SelectedGame.Pk;
+                Footage film = await App.db.GetFootageByGameIdAsync(selectedGamePk);
+                MediaSource = film?.Uri;
+            } else
+            {
+                Trace.WriteLine($"GameLogViewModel: selected game null");
+                NotNullVideo = false;
+            }
+        }
+        catch (Exception ex)
+        {
+            Trace.WriteLine($"GameLogViewModel: Error loading footage - {ex.Message}");
+        }
+        finally
+        {
+            IsBusy = false;
+        }
+
     }
 
     // when the game is changed
     partial void OnSelectedGameChanged(Game? value)
     {
+        Trace.WriteLine($"GameLogViewModel: selected game changed");
         //OnPropertyChanged(nameof(BannerText)); may be necessary????
         if (value != null)
         {
+            GetVideoCommand.ExecuteAsync(null);
             Trace.WriteLine($"Selected game: {value.Opponent} - {value.ScoreDisplay}");
             //ytSource = ;
 
@@ -136,18 +159,16 @@ public partial class GameLogViewModel : ObservableObject
         // TODO else pause the mediaElement
     }
 
-    private async Task<HtmlWebViewSource> getHtmlSourceByGameIdAsync(int gameId)
+    partial void OnMediaSourceChanged(string? value)
     {
-        Footage footage = await App.db.getFootageByGameId(gameId);
-        return new HtmlWebViewSource { Html = $@"
-    <html>
-    <body style='margin:0;padding:0;'>
-        <iframe width='100%' height='100%' 
-                src='https://www.youtube.com/embed/{footage.YtId}?autoplay=1&controls=1'
-                frameborder='0' allowfullscreen>
-        </iframe>
-    </body>
-    </html>" };
+        if (value == null)
+        {
+            NotNullVideo = false;
+        }
+        else
+        {
+            NotNullVideo = true;
+        }
     }
 
     //tab button commands

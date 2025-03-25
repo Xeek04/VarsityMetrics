@@ -27,8 +27,8 @@ namespace VarsityMetrics.DB_Models
         public int? PassAtt{ get; set; }
         
         [Column("pass_comp")]
-
         public int? PassComp{ get; set; }
+
         [Column("passing_yards")]
         public int? PassingYards { get; set; }
         

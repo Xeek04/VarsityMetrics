@@ -18,5 +18,10 @@ public partial class GameLogPage : ContentPage
     {
         base.OnAppearing();
         await _viewModel.LoadGamesCommand.ExecuteAsync(null);
+        await Task.Delay(500);
+
+        await _viewModel.GetVideoCommand.ExecuteAsync(null);
+        Trace.WriteLine($"GameLog.xaml.cs: Last game: {_viewModel.Games.Last().Opponent}");
+        HistoryCollection.ScrollTo(_viewModel.Games.Last(), position: ScrollToPosition.Start, animate: false);
     }
 }
