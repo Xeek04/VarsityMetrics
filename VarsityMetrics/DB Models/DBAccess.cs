@@ -19,7 +19,7 @@ namespace VarsityMetrics.DB_Models
         private bool modified = false; //set this to true if the database tables have been modified. If you don't change it back then
         // the database will keep deleting itself on startup
 
-        private Supabase.Client client;
+        private Client client;
 
         public async Task Init()
         {
@@ -36,9 +36,8 @@ namespace VarsityMetrics.DB_Models
 
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
-            await conn.CreateTablesAsync<Game, Play, Player, Accounts>();
+            await conn.CreateTablesAsync<Game, Play, Player, Accounts, Footage>();
             //await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
-            await conn.CreateTablesAsync<Footage, PlayerStats>(); // tables with foreign keys
         }
 
         public DBAccess(String databasePath)
@@ -52,7 +51,6 @@ namespace VarsityMetrics.DB_Models
             Trace.WriteLine($"Database Constructor used with path {databasePath}");
             path = databasePath;
         }
-         
 
         //private async Task Function<T>() where T : class, new() // use for new functions which return object T
         //{
@@ -131,20 +129,25 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> AddPlayerStats(PlayerStats stats)
         {
-            await Init();
-            await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
+            //await Init();
+            //await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
+            
             return true;
         }
 
         public async Task<PlayerStats> StatQuery(string fname, string lname)
         {
-            return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
+            //return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
+            var result = await client.From<PlayerStats>().Where(x => x.Fname == fname && x.Lname == lname).Single();
+            return result;
         }
 
         public async Task<List<string>> GetPlayerList()
         {
-            List<Roster> roster = await conn.Table<Roster>().ToListAsync();
-            roster.OrderBy(x => x.Lname).ToList();
+            //List<Roster> roster = await conn.Table<Roster>().ToListAsync();
+            //roster.OrderBy(x => x.Lname).ToList();
+            var query = await client.From<Roster>().Order(x => x.Lname, Supabase.Postgrest.Constants.Ordering.Descending).Get();
+            List<Roster> roster = query.Models;
             List<string> result = new List<string>();
             foreach(Roster player in roster)
             {
@@ -155,10 +158,12 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> ClearRoster()
         {
-            await Init();
+            //await Init();
 
-            await conn.DeleteAllAsync<Roster>();
-            await conn.DeleteAllAsync<PlayerStats>();
+            //await conn.DeleteAllAsync<Roster>();
+            //await conn.DeleteAllAsync<PlayerStats>();
+            await client.From<Roster>().Delete();
+            await client.From<PlayerStats>().Delete();
             return true;
         }
         public async Task<List<Play>> RequestPictureAsync()

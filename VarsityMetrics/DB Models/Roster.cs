@@ -11,7 +11,6 @@ namespace VarsityMetrics.DB_Models
     [Table("Roster")]
     public class Roster : BaseModel
     {
-
         [PrimaryKey("Pk")]
         public int Pk { get; set; }
 

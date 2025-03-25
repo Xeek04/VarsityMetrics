@@ -1,16 +1,18 @@
-﻿using SQLite;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Supabase;
+using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 
 namespace VarsityMetrics.DB_Models
 {
     [Table("PlayerStats")]
-    public class PlayerStats
+    public class PlayerStats : BaseModel
     {
-        [PrimaryKey, AutoIncrement, Column("Pk")]
+        [PrimaryKey("Pk")]
         public int Pk { get; set; }
 
         [Column("fname")]
@@ -29,11 +31,11 @@ namespace VarsityMetrics.DB_Models
         [Column("pass_comp")]
 
         public int? PassComp{ get; set; }
-        [Column("passing_yards")]
-        public int? PassingYards { get; set; }
+        [Column("pass_yards")]
+        public int? PassYards { get; set; }
         
-        [Column("passing_tds")]
-        public int? PassingTDs{ get; set; }
+        [Column("pass_tds")]
+        public int? PassTDs{ get; set; }
 
         [Column("interceptions")]
         public int? Interceptions{ get; set; }
@@ -43,11 +45,11 @@ namespace VarsityMetrics.DB_Models
         [Column("rush_att")]
         public int? RushAtt { get; set; }
 
-        [Column("rushing_yards")]
-        public int? RushingYards { get; set; }
+        [Column("rush_yards")]
+        public int? RushYards { get; set; }
         
-        [Column("rushing_tds")]
-        public int? RushingTDs { get; set; }
+        [Column("rush_tds")]
+        public int? RushTDs { get; set; }
 
         [Column("fumbles")]
         public int? fumbles { get; set; }
@@ -60,10 +62,10 @@ namespace VarsityMetrics.DB_Models
         [Column("receptions")]
         public int? Receptions { get; set; }
 
-        [Column("receiving_yards")]
-        public int? ReceivingYards { get; set; }
+        [Column("rec_yards")]
+        public int? RecYards { get; set; }
 
-        [Column("receiving_tds")]
-        public int? ReceivingTDs { get; set; }
+        [Column("rec_tds")]
+        public int? RecTDs { get; set; }
     }
 }
