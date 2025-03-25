@@ -3,12 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.MyTeam"
              Title="MyTeam">
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="LayoutVerticale">
         <Button 
-            Text="Join Team">
-        </Button>
-        <Button
-            Text="Create Team">
-        </Button>
+            Text="Add Player"
+            Clicked="Button_Clicked"/>
     </VerticalStackLayout>
 </ContentPage>
