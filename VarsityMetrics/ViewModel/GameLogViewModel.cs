@@ -9,6 +9,7 @@ namespace VarsityMetrics.ViewModels;
 using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using VarsityMetrics.DB_Models;
+using static System.Net.WebRequestMethods;
 
 public partial class GameLogViewModel : ObservableObject
 {
@@ -35,6 +36,12 @@ public partial class GameLogViewModel : ObservableObject
     private bool filmMode;
 
     [ObservableProperty]
+    private bool filmModeNullVideo;
+
+    [ObservableProperty]
+    private bool filmModeVideo;
+
+    [ObservableProperty]
     private HtmlWebViewSource ytSource = new HtmlWebViewSource { Html = $@"
     <html>
     <body style='margin:0;padding:0;'>
@@ -43,7 +50,11 @@ public partial class GameLogViewModel : ObservableObject
                 frameborder='0' allowfullscreen>
         </iframe>
     </body>
-    </html>" };
+    </html>
+        " };
+
+    [ObservableProperty]
+    private string mediaSource = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
     public GameLogViewModel()
     {
@@ -53,7 +64,7 @@ public partial class GameLogViewModel : ObservableObject
         TeamMode = true;
 
         // set this to true to see the main grid
-        ViewGrid = true;
+        ViewGrid = false;
     }
 
     private async Task LoadGames()
@@ -91,6 +102,8 @@ public partial class GameLogViewModel : ObservableObject
         {
             Trace.WriteLine($"Selected game: {value.Opponent} - {value.ScoreDisplay}");
             //ytSource = ;
+
+            //TODO load film when game is changed
         }
     }
 
@@ -120,6 +133,7 @@ public partial class GameLogViewModel : ObservableObject
             TeamMode = false;
             BoxMode = false;
         }
+        // TODO else pause the mediaElement
     }
 
     private async Task<HtmlWebViewSource> getHtmlSourceByGameIdAsync(int gameId)

@@ -104,20 +104,128 @@
                 Text="Review Film"
                 Grid.Row="1"
                 Grid.Column="3"/>
-        
+
+        <!-- Content Area -->
+        <Border Style="{DynamicResource GridBorder}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+
         <!-- Film -->
-        <WebView x:Name="YouTubePlayer"
+        <!--<WebView x:Name="YouTubePlayer"
                  IsVisible="{Binding FilmMode, Mode=TwoWay}"
                  WidthRequest="400"
                  HeightRequest="300"
                  Source="{Binding YtSource}"
-                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
-        <!--<toolkit:MediaElement 
+                 Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>-->
+        <toolkit:MediaElement 
             x:Name="GameVideoPlayer"
-            Source="https://www.youtube.com/watch?v=Z2DTio1-HMY"
+            IsVisible="{Binding FilmMode, Mode=TwoWay}"
+            Source="{Binding MediaSource, Mode=TwoWay}"
             HeightRequest="300"
             WidthRequest="500"
-            Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>-->
+            Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
+        
+        <!-- Team Score -->
+        <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
+              RowDefinitions="*,*,*"
+              ColumnDefinitions="*,*,*,*,*,*"
+              RowSpacing="0"
+              ColumnSpacing="0"
+              Margin="100" 
+              VerticalOptions="Center"
+              HorizontalOptions="Center"
+              IsVisible="{Binding TeamMode, Mode=TwoWay}">
+
+            <Label Grid.Row="0" Grid.Column="0" Text="Final"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="1"/>
+            <Label Grid.Row="0" Grid.Column="2" Text="2"/>
+            <Label Grid.Row="0" Grid.Column="3" Text="3"/>
+            <Label Grid.Row="0" Grid.Column="4" Text="4"/>
+            <Label Grid.Row="0" Grid.Column="5" Text="T"/>
+
+            <Label Grid.Row="1" Grid.Column="0" Text="Our Team (Away)"/>
+            <Label Grid.Row="1" Grid.Column="1" Text="1"/>
+            <Label Grid.Row="1" Grid.Column="2" Text="2"/>
+            <Label Grid.Row="1" Grid.Column="3" Text="3"/>
+            <Label Grid.Row="1" Grid.Column="4" Text="4"/>
+            <Label Grid.Row="1" Grid.Column="5" Text="{Binding SelectedGame.OurScore, Mode=TwoWay}"/>
+
+            <Label Grid.Row="2" Grid.Column="0" Text="{Binding SelectedGame.Opponent, Mode=TwoWay}"/>
+            <Label Grid.Row="2" Grid.Column="1" Text="1"/>
+            <Label Grid.Row="2" Grid.Column="2" Text="2"/>
+            <Label Grid.Row="2" Grid.Column="3" Text="3"/>
+            <Label Grid.Row="2" Grid.Column="4" Text="4"/>
+            <Label Grid.Row="2" Grid.Column="5" Text="{Binding SelectedGame.TheirScore, Mode=TwoWay}"/>
+
+        </Grid>
+
+        <!-- Box Score -->
+
+        <CollectionView 
+            ItemsSource="{Binding Games}"
+            SelectedItem="{Binding SelectedGame, Mode=TwoWay}"  
+            x:Name="PlayerStats"
+            Grid.Row="2"
+            Grid.Column="1" Grid.ColumnSpan="3"
+            IsVisible="{Binding BoxMode, Mode=TwoWay}"
+            SelectionMode="Single"
+            EmptyView="No data loaded">
+            <!-- Game Timeline -->
+            <CollectionView.ItemTemplate>
+                <!-- Template for Timeline Cards -->
+                <DataTemplate>
+                    <Frame Style="{DynamicResource HistoryFrame}">
+                        <VerticalStackLayout>
+                            <Label Style="{DynamicResource HistoryTitle}"
+                           Text="{Binding Opponent}"/>
+                            <FlexLayout JustifyContent="SpaceBetween">
+                                <Label Text="{Binding Date}"/>
+                                <Label Text="{Binding ScoreDisplay}"/>
+                            </FlexLayout>
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+            <!-- <ScrollView Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" IsVisible="{Binding BoxMode, Mode=TwoWay}"
+                    >
+            <VerticalStackLayout>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+                <Label Text="Words"/>
+            </VerticalStackLayout>
+        </ScrollView> -->
 
 
         <!--Source="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"-->
