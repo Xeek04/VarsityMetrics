@@ -3,11 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.AddPlaybook">
 
-    <Grid RowDefinitions="50, 200, 130, Auto, 50, Auto"
+    <Grid RowDefinitions="50, 200, 130, 210, 85, Auto"
       ColumnDefinitions=".5*, .25*, .25*, .125*, .125*"
       Padding="10"
-      ColumnSpacing="10"
-      RowSpacing="10">
+      ColumnSpacing="10">
 
         <Image x:Name="apple"
                Grid.Column="1"
@@ -17,8 +16,7 @@
                HeightRequest="400"
                IsVisible="Hidden"/>
 
-        <VerticalStackLayout Padding="30,0"
-                             Spacing="25"
+        <VerticalStackLayout Spacing="5"
                              Grid.Column="1"
                              Grid.Row="3">
             
@@ -30,9 +28,23 @@
                    x:Name="name"
                    Text="{Binding Name}"/>
 
-            <Entry Placeholder="Enter Type"
-                   x:Name="type"
-                   Text="{Binding Type}"/>
+            <Label x:Name="NameError"
+                   TextColor="Red"
+                   IsVisible="False"/>
+
+            <Picker x:Name="TypePicker"
+                    Title="Select the type of play">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Offense</x:String>
+                        <x:String>Defense</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            
+            <Label x:Name="TypeError"
+                   TextColor="Red"
+                   IsVisible="False"/>
 
         </VerticalStackLayout>
 

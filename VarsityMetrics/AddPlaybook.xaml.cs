@@ -31,10 +31,37 @@ public partial class AddPlaybook : ContentPage
 
     private async void confirm_Clicked(object sender, EventArgs e)
     {
-		bool uploadPlay = await App.db.UploadPictureAsync(filePath, name.Text);
-		if (uploadPlay)
+		int err = 0;
+		NameError.IsVisible = false;
+		TypeError.IsVisible = false;
+
+        if (name.Text == null | String.Equals(name.Text, ""))
+        {
+            NameError.Text = "Please fill in";
+            NameError.IsVisible = true;
+            err = 1;
+        }
+
+        bool uploadPlay = false;
+		int selectedIndex = TypePicker.SelectedIndex;
+
+        if (selectedIndex == -1)
+        {
+			TypeError.Text = "Please select an option";
+			TypeError.IsVisible = true;
+			err = 1;
+        }
+
+		if(err == 0)
 		{
-			Navigation.PopAsync();
+			string type = (string)TypePicker.ItemsSource[selectedIndex];
+			uploadPlay = await App.db.UploadPictureAsync(filePath, name.Text, type);
+
+			if (uploadPlay)
+			{
+				Navigation.PopAsync();
+			}
 		}
+
     }
 }

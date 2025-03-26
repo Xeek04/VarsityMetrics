@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="VarsityMetrics.DrawPlaybooks">
+    <Grid RowDefinitions="25, 600, 45, Auto, Auto"
+          ColumnDefinitions=".5*, 800, .5*, 150">
+
+        <toolkit:DrawingView Grid.Row="1"
+                             Grid.Column="1"
+                             Lines="{Binding MyLines}"
+                             IsMultiLineModeEnabled="True"
+                             ShouldClearOnFinish="False"
+                             LineColor="Red"
+                             LineWidth="5"/>
+
+        <Entry Placeholder="Enter a Name for this Play"
+               x:Name="name"
+               Text="{Binding Name}"
+               Grid.Column="1"
+               Grid.Row="2"
+               HorizontalOptions="Center"/>
+        
+        <Picker x:Name="TypePicker"
+                Title="Select the type of play"
+                Grid.Column="1"
+                Grid.Row="3"
+                HorizontalOptions="Center">
+            <Picker.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Offense</x:String>
+                    <x:String>Defense</x:String>
+                </x:Array>
+            </Picker.ItemsSource>
+        </Picker>
+
+        <HorizontalStackLayout Grid.Column="3"
+                               Grid.Row="3"
+                               Spacing="5"
+                               HorizontalOptions="EndAndExpand">
+            
+            <Button x:Name="CancelDrawing"
+                    Text="Cancel"
+                    Clicked="CancelDrawing_Clicked"/>
+            
+            <Button x:Name="SaveDrawing"
+                Text="Save"
+                Clicked="SaveDrawing_Clicked"/>
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
