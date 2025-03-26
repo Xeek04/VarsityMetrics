@@ -151,14 +151,8 @@ namespace VarsityMetrics.DB_Models
             return await conn.Table<MyTeam>().ToListAsync();
         }
        
+       
         public async Task<List<Play>> RequestPictureAsync(string type)
-        public async Task<List<MyTeam>> RequestTeammateAsync()
-        {
-            await Init();
-
-            return await conn.Table<MyTeam>().ToListAsync();
-        }
-        public async Task<List<Play>> RequestPictureAsync()
         {
             await Init();
 
