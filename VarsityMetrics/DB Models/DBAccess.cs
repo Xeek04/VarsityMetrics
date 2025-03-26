@@ -76,11 +76,11 @@ namespace VarsityMetrics.DB_Models
             }
         }
 
-        public async Task<bool> UploadPictureAsync(string path, string name)
+        public async Task<bool> UploadPictureAsync(string path, string name, string type)
         {
             await Init();
 
-            int addedPlays = await conn.InsertAsync(new Play { PlayName = name, ImageSource =  path});
+            int addedPlays = await conn.InsertAsync(new Play { PlayName = name, PlayType = type, ImageSource =  path});
             if (addedPlays != 0) {return true;} else { return false; }
         }
 
@@ -136,12 +136,30 @@ namespace VarsityMetrics.DB_Models
             await conn.DeleteAllAsync<PlayerStats>();
             return true;
         }
-        public async Task<List<Play>> RequestPictureAsync()
+        public async Task<List<Play>> RequestPictureAsync(string type)
         {
             await Init();
 
-            return await conn.Table<Play>().ToListAsync();
+            var plays = await conn.Table<Play>().Where(p => p.PlayType == type).ToListAsync();
+            return plays.Select(p => new Play
+            {
+                PlayName = p.PlayName,
+                ImageSource = p.ImageSource,
+            }).ToList();
 
+        }
+
+        public async Task<List<Play>> RequestOrderedPictureAsync(string type)
+        {
+            await Init();
+
+            var plays = await conn.Table<Play>().Where(p => p.PlayType == type).ToListAsync();
+            return plays.OrderBy(p => p.PlayName)
+                .Select(p => new Play
+            {
+                PlayName = p.PlayName,
+                ImageSource = p.ImageSource,
+            }).ToList();
         }
 
         public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {

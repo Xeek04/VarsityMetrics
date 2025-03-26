@@ -17,6 +17,9 @@ namespace VarsityMetrics.DB_Models
         [Column("play_name")]
         public String? PlayName { get; set; }
 
+        [Column("play_type")]
+        public String? PlayType { get; set; }
+
         [Column("imgsrc")]
         public String? ImageSource { get; set; } // file location on computer
     }
