@@ -51,29 +51,47 @@ public partial class StatsPage : ContentPage
         }
     }
 
-    private void ShowStats(object sender, EventArgs e)
+    private void StatSelection(object sender, EventArgs e)
     {
         passbutton.IsVisible = false;
         rushbutton.IsVisible = false;
         recbutton.IsVisible = false;
-
+        statnav.IsVisible = true;
+        
         addplayerstats.IsVisible = !addplayerstats.IsVisible;
         playerListStats.IsVisible = !playerListStats.IsVisible;
+    }
 
-        PassingStats.IsVisible = !PassingStats.IsVisible;
-        RushingStats.IsVisible = !RushingStats.IsVisible;
+    private void ShowStats(object sender, EventArgs e)
+    {
+        string[] player = playerListStats.SelectedItem.ToString().Replace(",", null).Split();
+        PlayerStats stats = new PlayerStats { Fname = player[1], Lname = player[0] };
+
+        if (stats.PassAtt != null)
+        {
+            PassingStats.IsVisible = !PassingStats.IsVisible;        
+            atts.IsReadOnly = !atts.IsReadOnly;
+            comps.IsReadOnly = !comps.IsReadOnly;
+            passyds.IsReadOnly = !passyds.IsReadOnly;
+            passtds.IsReadOnly = !passtds.IsReadOnly;
+            ints.IsReadOnly = !ints.IsReadOnly;
+
+            atts.Text = stats.PassAtt.ToString();
+            comps.Text = stats.PassComp.ToString();
+            passyds.Text = stats.PassYards.ToString();
+            passtds.Text = stats.PassTDs.ToString();
+            ints.Text = stats.Interceptions.ToString();
+        }
+        if (stats.RushAtt != null)
+        {
+            RushingStats.IsVisible = !RushingStats.IsVisible;
+            rushatt.IsReadOnly = !rushatt.IsReadOnly;
+            rushyds.IsReadOnly = !rushyds.IsReadOnly;
+            rushtds.IsReadOnly = !rushtds.IsReadOnly;
+            fum.IsReadOnly = !fum.IsReadOnly;
+        }
+
         ReceivingStats.IsVisible = !ReceivingStats.IsVisible;
-
-        atts.IsReadOnly = !atts.IsReadOnly;
-        comps.IsReadOnly = !comps.IsReadOnly;
-        passyds.IsReadOnly = !passyds.IsReadOnly;
-        passtds.IsReadOnly = !passtds.IsReadOnly;
-        ints.IsReadOnly = !ints.IsReadOnly;
-
-        rushatt.IsReadOnly = !rushatt.IsReadOnly;
-        rushyds.IsReadOnly = !rushyds.IsReadOnly;
-        rushtds.IsReadOnly = !rushtds.IsReadOnly;
-        fum.IsReadOnly = !fum.IsReadOnly;
 
         tar.IsReadOnly = !tar.IsReadOnly;
         rec.IsReadOnly = !rec.IsReadOnly;
@@ -99,7 +117,7 @@ public partial class StatsPage : ContentPage
     private async void ConfirmAdd(object sender, EventArgs e)
     {
         //PlayerStats stats = new PlayerStats{ Fname = "Joe", Lname = "Burrow", Position = "QB", PassAtt = 2 };
-        string[] current = playerListStats.SelectedItem.ToString().Replace(",", null).Split();
+        string[] current = playerList.SelectedItem.ToString().Replace(",", null).Split();
         PlayerStats stats = new PlayerStats { Fname = current[1], Lname = current[0] };
         if (PassingStats.IsVisible)
         {

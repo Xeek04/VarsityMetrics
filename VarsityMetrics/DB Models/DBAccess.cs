@@ -127,7 +127,6 @@ namespace VarsityMetrics.DB_Models
             var current = await client.From<Roster>().Where(x => x.Fname == firstName && x.Lname == lastName).Single();
             PlayerStats smodel = new PlayerStats
             {
-                Id = current.Id,
                 Fname = firstName,
                 Lname = lastName,
                 Position = position
@@ -140,41 +139,38 @@ namespace VarsityMetrics.DB_Models
         {
             //await Init();
             //await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
+            PlayerStats current = await client.From<PlayerStats>().Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname).Single();
             if(stats.PassAtt != null)
             {
-                PlayerStats current = await client.From<PlayerStats>().Single();
                 await client.From<PlayerStats>()
                         .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
-                        .Set(x => x.PassAtt, current.PassAtt += stats.PassAtt)
-                        .Set(x => x.PassComp, current.PassComp += stats.PassComp)
-                        .Set(x => x.PassYards, current.PassYards += stats.PassYards)
-                        .Set(x => x.PassTDs, current.PassTDs += stats.PassTDs)
-                        .Set(x => x.Interceptions, current.Interceptions += stats.Interceptions)
+                        .Set(x => x.PassAtt, current.PassAtt + stats.PassAtt ?? stats.PassAtt)
+                        .Set(x => x.PassComp, current.PassComp + stats.PassComp ?? stats.PassComp)
+                        .Set(x => x.PassYards, current.PassYards + stats.PassYards ?? stats.PassYards)
+                        .Set(x => x.PassTDs, current.PassTDs + stats.PassTDs ?? stats.PassTDs)
+                        .Set(x => x.Interceptions, current.Interceptions + stats.Interceptions ?? stats.Interceptions)
                         .Update();
             }            
             if(stats.RushAtt != null)
             {
-                PlayerStats current = await client.From<PlayerStats>().Single();
                 await client.From<PlayerStats>()
                         .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
-                        .Set(x => x.RushAtt, current.RushAtt += stats.RushAtt)
-                        .Set(x => x.RushYards, current.RushYards += stats.RushYards)
-                        .Set(x => x.RushTDs, current.RushTDs += stats.RushTDs)
-                        .Set(x => x.Fumbles, current.Fumbles += stats.Fumbles)
+                        .Set(x => x.RushAtt, current.RushAtt + stats.RushAtt ?? stats.RushAtt)
+                        .Set(x => x.RushYards, current.RushYards + stats.RushYards ?? stats.RushYards)
+                        .Set(x => x.RushTDs, current.RushTDs + stats.RushTDs ?? stats.RushTDs)
+                        .Set(x => x.Fumbles, current.Fumbles + stats.Fumbles ?? stats.Fumbles)
                         .Update();
             }            
             if(stats.Targets != null)
             {
-                PlayerStats current = await client.From<PlayerStats>().Single();
                 await client.From<PlayerStats>()
                         .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
-                        .Set(x => x.Targets, current.Targets += stats.Targets)
-                        .Set(x => x.Receptions, current.Receptions += stats.Receptions)
-                        .Set(x => x.RecYards, current.RecYards += stats.RecYards)
-                        .Set(x => x.RecTDs, current.RecTDs += stats.RecTDs)
+                        .Set(x => x.Targets, current.Targets + stats.Targets ?? stats.Targets)
+                        .Set(x => x.Receptions, current.Receptions + stats.Receptions ?? stats.Receptions)
+                        .Set(x => x.RecYards, current.RecYards + stats.RecYards ?? stats.RecYards)
+                        .Set(x => x.RecTDs, current.RecTDs + stats.RecTDs ?? stats.RecTDs)
                         .Update();
             }
-            
             return true;
         }
 
