@@ -45,6 +45,9 @@ public partial class GameLogViewModel : ObservableObject
     [ObservableProperty]
     private string changeVideoText;
 
+    [ObservableProperty]
+    private bool entryVisible = false;
+
     public event Action? PauseVideoRequested;
 
 
@@ -165,6 +168,7 @@ public partial class GameLogViewModel : ObservableObject
         else
         {
             PauseVideoRequested?.Invoke(); // Notify the view to pause the video
+            EntryVisible = false;
         }
     }
 
@@ -197,6 +201,19 @@ public partial class GameLogViewModel : ObservableObject
     private void SetFilmMode()
     {
         FilmMode = true;
+    }
+
+    [RelayCommand]
+    private void OpenChangeVideo()
+    {
+        if (EntryVisible)
+        {
+            EntryVisible = false;
+        }
+        else
+        {
+            EntryVisible = true;
+        }
     }
 
     [RelayCommand]

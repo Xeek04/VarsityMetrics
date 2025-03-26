@@ -195,5 +195,26 @@ namespace VarsityMetrics.DB_Models
             Trace.WriteLine("DBAccess: Footage found.");
             return footage;
         }
+
+        public async Task<bool> UploadVideoAsync(int gameId, string video)
+        {
+            await Init();
+
+            var footage = await conn.Table<Footage>().FirstOrDefaultAsync(f => f.GameId == gameId);
+
+            if (footage == null)
+            {
+                Trace.WriteLine("DBAccess: No footage found. Inserting...");
+                int addedRecords = await conn.InsertAsync(new Footage { Uri = video, GameId = gameId, PlayId = null}); //insert record
+                if (addedRecords != 0) { return true; } else { return false; }
+            }
+            else
+            {
+                Trace.WriteLine("DBAccess: Footage found. Updating...");
+                footage.Uri = video;
+                int addedRecords = await conn.UpdateAsync(footage); //insert record
+                if (addedRecords != 0) { return true; } else { return false; }
+            }
+        }
     }
 }
