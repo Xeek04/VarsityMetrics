@@ -42,6 +42,9 @@ public partial class GameLogViewModel : ObservableObject
     [ObservableProperty]
     private string? mediaSource;
 
+    [ObservableProperty]
+    private string changeVideoText;
+
     public event Action? PauseVideoRequested;
 
 
@@ -170,10 +173,12 @@ public partial class GameLogViewModel : ObservableObject
         if (value == null)
         {
             NotNullVideo = false;
+            ChangeVideoText = "Upload video...";
         }
         else
         {
             NotNullVideo = true;
+            ChangeVideoText = "Change video...";
         }
     }
 
@@ -190,6 +195,12 @@ public partial class GameLogViewModel : ObservableObject
     }
     [RelayCommand]
     private void SetFilmMode()
+    {
+        FilmMode = true;
+    }
+
+    [RelayCommand]
+    private void ChangeVideo()
     {
         FilmMode = true;
     }

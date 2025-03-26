@@ -112,7 +112,8 @@
         <Grid 
             IsVisible="{Binding FilmMode, Mode=TwoWay}"
             Grid.Row="2"
-            Grid.Column="1" Grid.ColumnSpan="3">
+            Grid.Column="1" Grid.ColumnSpan="3"
+            RowDefinitions=".7*, .3*">
             
             <toolkit:MediaElement 
                 x:Name="GameVideoPlayer"
@@ -120,8 +121,18 @@
                 Source="{Binding MediaSource, Mode=TwoWay}"
                 HeightRequest="300"
                 WidthRequest="500"
-                Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"/>
-            
+                Grid.Row="0"/>
+
+            <Button
+                x:Name="changeVideo"
+                Text="{Binding ChangeVideoText}"
+                Command="{Binding ChangeVideoCommand}"
+                Grid.Row="1"
+                WidthRequest="300"
+                HeightRequest="50" 
+                VerticalOptions="Start" HorizontalOptions="Center"
+                />
+
         </Grid>
         <!-- Team Score -->
         <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"
