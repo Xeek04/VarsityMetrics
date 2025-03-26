@@ -113,7 +113,8 @@
             IsVisible="{Binding FilmMode, Mode=TwoWay}"
             Grid.Row="2"
             Grid.Column="1" Grid.ColumnSpan="3"
-            RowDefinitions=".7*, .3*">
+            RowDefinitions="350, auto, auto"
+            RowSpacing="10">
             
             <toolkit:MediaElement 
                 x:Name="GameVideoPlayer"
@@ -126,10 +127,21 @@
             <Button
                 x:Name="changeVideo"
                 Text="{Binding ChangeVideoText}"
-                Command="{Binding ChangeVideoCommand}"
+                Command="{Binding OpenChangeVideoCommand}"
                 Grid.Row="1"
                 WidthRequest="300"
-                HeightRequest="50" 
+                HeightRequest="50"
+                VerticalOptions="Center" HorizontalOptions="Center"
+                />
+
+            <Entry
+                x:Name="NewUri"
+                IsVisible="{Binding EntryVisible}"
+                Text="{Binding NewUri, Mode=TwoWay}"
+                ReturnCommand="{Binding ChangeVideoCommand}"
+                Grid.Row="2"
+                HeightRequest="50"
+                WidthRequest="1000"
                 VerticalOptions="Start" HorizontalOptions="Center"
                 />
 

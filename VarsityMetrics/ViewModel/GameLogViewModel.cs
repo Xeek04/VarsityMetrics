@@ -21,6 +21,8 @@ public partial class GameLogViewModel : ObservableObject
     public IAsyncRelayCommand LoadGamesCommand { get; }
     public IAsyncRelayCommand GetVideoCommand { get; }
 
+    public IRelayCommand ChangeVideoCommand { get; }
+
     [ObservableProperty]
     private bool isBusy = false;
 
@@ -48,6 +50,9 @@ public partial class GameLogViewModel : ObservableObject
     [ObservableProperty]
     private bool entryVisible = false;
 
+    [ObservableProperty]
+    private string newUri;  // Binds to the Entry text
+
     public event Action? PauseVideoRequested;
 
 
@@ -55,6 +60,7 @@ public partial class GameLogViewModel : ObservableObject
     {
         LoadGamesCommand = new AsyncRelayCommand(LoadGames);
         GetVideoCommand = new AsyncRelayCommand(GetVideo);
+        ChangeVideoCommand = new AsyncRelayCommand(UpdateVideoUriAsync);
 
         // default mode is TeamMode
         TeamMode = true;
@@ -120,7 +126,25 @@ public partial class GameLogViewModel : ObservableObject
         {
             IsBusy = false;
         }
+    }
 
+    private async Task UpdateVideoUriAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(NewUri) && SelectedGame != null)
+        {
+            bool success = await App.db.UploadVideoAsync(SelectedGame.Pk, NewUri);
+            if (success)
+            {
+                MediaSource = NewUri; // Update the MediaElement source
+                Trace.WriteLine($"New Video URI Uploaded: {NewUri}");
+                NewUri = "";
+                EntryVisible = false;
+            }
+            else
+            {
+                Trace.WriteLine("Failed to upload video URI.");
+            }
+        }
     }
 
     // when the game is changed
@@ -214,12 +238,6 @@ public partial class GameLogViewModel : ObservableObject
         {
             EntryVisible = true;
         }
-    }
-
-    [RelayCommand]
-    private void ChangeVideo()
-    {
-        FilmMode = true;
     }
 }
 
