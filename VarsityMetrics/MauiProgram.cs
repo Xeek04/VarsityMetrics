@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using VarsityMetrics.DB_Models;
 using CommunityToolkit.Maui;
+using Supabase;
 
 namespace VarsityMetrics
 {
@@ -24,6 +25,8 @@ namespace VarsityMetrics
 #endif
             builder.Services.AddSingleton<DBAccess>(s => ActivatorUtilities.CreateInstance<DBAccess>(s, Constants.DatabasePath));
 
+            builder.Services.AddSingleton<Client>(provider => new Client(Constants.supabaseURL, Constants.supabaseKey));
+           
             return builder.Build();
         }
     }

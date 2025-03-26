@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,10 @@ using System.Threading.Tasks;
 namespace VarsityMetrics.DB_Models
 {
     [Table("Roster")]
-    public class Roster
+    public class Roster : BaseModel
     {
-
-        [PrimaryKey, AutoIncrement, Column("Pk")]
-        public int Pk { get; set; }
+        [PrimaryKey("id")]
+        public int Id { get; set; }
 
         [Column("fname")]
         public String? Fname { get; set; }

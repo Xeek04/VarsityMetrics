@@ -58,7 +58,7 @@ public partial class RosterPage : ContentPage
         List<Roster> something = await App.db.GetRoster();
 
         populateRoster(viewKey.FirstOrDefault(x => x.Value == position).Key);
-        var test = await App.db.StatQuery(Fname.Text, Lname.Text);
+        //var test = await App.db.StatQuery(Fname.Text, Lname.Text);
         clearEntries();
     }
 
