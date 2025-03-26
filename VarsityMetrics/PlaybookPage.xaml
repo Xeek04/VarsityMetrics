@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="VarsityMetrics.PlaybookPage">
     <ScrollView>
         
@@ -122,9 +123,13 @@
                     </Picker.ItemsSource>
                 </Picker>
 
-                <Button x:Name="Button"
+                <Button x:Name="DrawButton"
+                        Text="Draw"
+                        Clicked="DrawButton_Clicked"/>
+
+                <Button x:Name="AddButton"
                         Text="Add"
-                        Clicked="Button_Clicked"/>
+                        Clicked="AddButton_Clicked"/>
                     
             </HorizontalStackLayout>
 

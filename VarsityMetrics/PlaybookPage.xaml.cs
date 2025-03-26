@@ -1,5 +1,8 @@
 namespace VarsityMetrics;
 
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
+
 public partial class PlaybookPage : ContentPage
 {
 	public PlaybookPage()
@@ -15,7 +18,7 @@ public partial class PlaybookPage : ContentPage
 	}
 
 
-	private void Button_Clicked(object sender, EventArgs e)
+	private void AddButton_Clicked(object sender, EventArgs e)
     {
 		Navigation.PushAsync(new AddPlaybook());
     }
@@ -70,4 +73,8 @@ public partial class PlaybookPage : ContentPage
 		}
 	}
 
+    private void DrawButton_Clicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new DrawPlaybooks());
+    }
 }
