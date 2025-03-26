@@ -177,7 +177,7 @@ namespace VarsityMetrics.DB_Models
         public async Task<PlayerStats> StatQuery(string fname, string lname)
         {
             //return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
-            var result = await client.From<PlayerStats>().Where(x => x.Fname == fname && x.Lname == lname).Single();
+            PlayerStats result = await client.From<PlayerStats>().Where(x => x.Fname == fname && x.Lname == lname).Single();
             return result;
         }
 

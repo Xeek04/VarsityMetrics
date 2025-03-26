@@ -18,36 +18,39 @@ public partial class StatsPage : ContentPage
 
     private void ShowStatEntries(object sender, EventArgs e)
     {
-        Picker playerSelection = (Picker)sender;
-        string player = playerSelection.SelectedItem.ToString();
-        string[] parsedPlayer = player.Replace(",", null).Split();
-
-        switch (parsedPlayer[3])
+        if (playerList.SelectedItem != null)
         {
-            case "QB":
-                PassingStats.IsVisible = true;
-                RushingStats.IsVisible = true;
-                ReceivingStats.IsVisible = false;
-                break;
+            Picker playerSelection = (Picker)sender;
+            string player = playerSelection.SelectedItem.ToString();
+            string[] parsedPlayer = player.Replace(",", null).Split();
 
-            case "RB":
-                PassingStats.IsVisible = false;
-                RushingStats.IsVisible = true;
-                ReceivingStats.IsVisible = true;
-                break;
+            switch (parsedPlayer[3])
+            {
+                case "QB":
+                    PassingStats.IsVisible = true;
+                    RushingStats.IsVisible = true;
+                    ReceivingStats.IsVisible = false;
+                    break;
 
-            case "WR":
-            case "TE":
-                PassingStats.IsVisible = false;
-                RushingStats.IsVisible = false;
-                ReceivingStats.IsVisible = true;
-                break;
+                case "RB":
+                    PassingStats.IsVisible = false;
+                    RushingStats.IsVisible = true;
+                    ReceivingStats.IsVisible = true;
+                    break;
 
-            default:
-                PassingStats.IsVisible = false;
-                RushingStats.IsVisible = false;
-                ReceivingStats.IsVisible = false;
-                break;
+                case "WR":
+                case "TE":
+                    PassingStats.IsVisible = false;
+                    RushingStats.IsVisible = false;
+                    ReceivingStats.IsVisible = true;
+                    break;
+
+                default:
+                    PassingStats.IsVisible = false;
+                    RushingStats.IsVisible = false;
+                    ReceivingStats.IsVisible = false;
+                    break;
+            }
         }
     }
 
@@ -57,46 +60,53 @@ public partial class StatsPage : ContentPage
         rushbutton.IsVisible = false;
         recbutton.IsVisible = false;
         statnav.IsVisible = true;
+        confirm.IsVisible = false;
         
-        addplayerstats.IsVisible = !addplayerstats.IsVisible;
-        playerListStats.IsVisible = !playerListStats.IsVisible;
+        addplayerstats.IsVisible = false;
+        playerListStats.IsVisible = true;
     }
 
-    private void ShowStats(object sender, EventArgs e)
+    private async void ShowStats(object sender, EventArgs e)
     {
-        string[] player = playerListStats.SelectedItem.ToString().Replace(",", null).Split();
-        PlayerStats stats = new PlayerStats { Fname = player[1], Lname = player[0] };
-
-        if (stats.PassAtt != null)
+        if (playerListStats.SelectedItem != null)
         {
-            PassingStats.IsVisible = !PassingStats.IsVisible;        
-            atts.IsReadOnly = !atts.IsReadOnly;
-            comps.IsReadOnly = !comps.IsReadOnly;
-            passyds.IsReadOnly = !passyds.IsReadOnly;
-            passtds.IsReadOnly = !passtds.IsReadOnly;
-            ints.IsReadOnly = !ints.IsReadOnly;
+            string[] player = playerListStats.SelectedItem.ToString().Replace(",", null).Split();
+            PlayerStats stats = await App.db.StatQuery(player[1], player[0]);
+            PassingView.IsVisible = false;
+            RushingView.IsVisible = false;
+            RecView.IsVisible = false;
 
-            atts.Text = stats.PassAtt.ToString();
-            comps.Text = stats.PassComp.ToString();
-            passyds.Text = stats.PassYards.ToString();
-            passtds.Text = stats.PassTDs.ToString();
-            ints.Text = stats.Interceptions.ToString();
+            if (stats.PassAtt != null)
+            {
+                attsV.Text = stats.PassAtt.ToString();
+                compV.Text = stats.PassComp.ToString();
+                compperV.Text = (Math.Round(((double)stats.PassComp / (double)stats.PassAtt) * 100)).ToString();
+                passydsV.Text = stats.PassYards.ToString();
+                passtdsV.Text = stats.PassTDs.ToString();
+                intsV.Text = stats.Interceptions.ToString();
+                ypaV.Text = (Math.Round((double)stats.PassYards / (double)stats.PassAtt)).ToString();
+                PassingView.IsVisible = true;
+            }
+            if (stats.RushAtt != null)
+            {
+                rushattV.Text = stats.RushAtt.ToString();
+                rushydsV.Text = stats.RushYards.ToString();
+                rushtdsV.Text = stats.RushTDs.ToString();
+                fumV.Text = stats.Fumbles.ToString();
+                ypcV.Text = (Math.Round((double)stats.RushYards / (double)stats.RushAtt)).ToString();
+                RushingView.IsVisible = true;
+            }
+            if (stats.Targets != null)
+            {
+                tarV.Text = stats.Targets.ToString();
+                tarV.Text = stats.Targets.ToString();
+                recV.Text = stats.Receptions.ToString();
+                recyrdsV.Text = stats.RecYards.ToString();
+                rectdsV.Text = stats.RecTDs.ToString();
+                yprV.Text = (Math.Round((double)stats.RecYards / (double)stats.Receptions)).ToString();
+                RecView.IsVisible = true;
+            }
         }
-        if (stats.RushAtt != null)
-        {
-            RushingStats.IsVisible = !RushingStats.IsVisible;
-            rushatt.IsReadOnly = !rushatt.IsReadOnly;
-            rushyds.IsReadOnly = !rushyds.IsReadOnly;
-            rushtds.IsReadOnly = !rushtds.IsReadOnly;
-            fum.IsReadOnly = !fum.IsReadOnly;
-        }
-
-        ReceivingStats.IsVisible = !ReceivingStats.IsVisible;
-
-        tar.IsReadOnly = !tar.IsReadOnly;
-        rec.IsReadOnly = !rec.IsReadOnly;
-        recyrds.IsReadOnly = !recyrds.IsReadOnly;
-        rectds.IsReadOnly = !rectds.IsReadOnly;
     }
 
     private void AddStats(object sender, EventArgs e)
@@ -107,6 +117,7 @@ public partial class StatsPage : ContentPage
         rushbutton.IsVisible = true;
         recbutton.IsVisible = true;
         showplayerstats.IsVisible = false;
+        confirm.IsVisible = true;
     }
 
     private void BackButton(object sender, EventArgs e)
@@ -130,7 +141,7 @@ public partial class StatsPage : ContentPage
         if (RushingStats.IsVisible)
         {
             stats.RushAtt = int.Parse(rushatt.Text);
-            stats.RecYards = int.Parse(rushyds.Text);
+            stats.RushYards = int.Parse(rushyds.Text);
             stats.RushTDs = int.Parse(rushtds.Text);
             stats.Fumbles = int.Parse(fum.Text);
         }
@@ -148,7 +159,9 @@ public partial class StatsPage : ContentPage
     private void HideAll()
     {
         statnav.IsVisible = false;
+        confirm.IsVisible = true;
         playerList.IsVisible = false;
+        playerListStats.IsVisible = false;
         PassingStats.IsVisible = false;
         RushingStats.IsVisible = false;
         ReceivingStats.IsVisible = false;
@@ -156,6 +169,9 @@ public partial class StatsPage : ContentPage
         rushbutton.IsVisible = false;
         recbutton.IsVisible = false;
         showplayerstats.IsVisible = true;
+        addplayerstats.IsVisible = true;
+        PassingView.IsVisible = false;
+        RushingView.IsVisible = false;
         ClearLines();
     }
 
@@ -195,5 +211,8 @@ public partial class StatsPage : ContentPage
         rec.Text = string.Empty;
         recyrds.Text = string.Empty;
         rectds.Text = string.Empty;
+
+        playerList.SelectedItem = null;
+        playerListStats.SelectedItem = null;
     }
 }
