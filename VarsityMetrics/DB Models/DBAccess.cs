@@ -1,5 +1,7 @@
 ﻿using Microsoft.Maui.ApplicationModel.Communication;
 using SQLite;
+using Supabase;
+using Supabase.Postgrest.Responses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,8 @@ namespace VarsityMetrics.DB_Models
         private bool modified = false; //set this to true if the database tables have been modified. If you don't change it back then
         // the database will keep deleting itself on startup
 
+        private Client client;
+
         public async Task Init()
         {
             if (modified)
@@ -32,16 +36,21 @@ namespace VarsityMetrics.DB_Models
 
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
-            await conn.CreateTablesAsync<Game, Play, Player, Accounts, MyTeam>();
-            await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
+            await conn.CreateTablesAsync<Game, Play, Player, Accounts, Footage>();
+            //await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
         }
 
         public DBAccess(String databasePath)
         {
+            var options = new SupabaseOptions
+            {
+                AutoConnectRealtime = true
+            };
+            client = new Client(Constants.supabaseURL, Constants.supabaseKey, options);
+
             Trace.WriteLine($"Database Constructor used with path {databasePath}");
             path = databasePath;
         }
-         
 
         //private async Task Function<T>() where T : class, new() // use for new functions which return object T
         //{
@@ -92,41 +101,98 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Roster>> GetRoster()
         {
-            await Init();
-            return await conn.Table<Roster>().ToListAsync();
+            //return await conn.Table<Roster>().ToListAsync();
+            var result = await client.From<Roster>().Get();
+            return result.Models;
         }
 
         public async Task<List<Roster>> GetRosterByPosition(string position)
         {
-            List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
-            return result.OrderBy(x => x.Number).ToList();
+            //List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
+            //return result.OrderBy(x => x.Number).ToList();
+            var result = await client.From<Roster>().Where(x => x.Position == position).Get();
+            return result.Models;
         }
 
         public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, int number)
         {
-            await Init();
+            //await Init();
 
-            await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
-            await conn.InsertAsync(new PlayerStats { Fname = firstName, Lname = lastName, Position = position });
+            //await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
+            //await conn.InsertAsync(new PlayerStats { Fname = firstName, Lname = lastName, Position = position });
+            Roster rmodel = new Roster
+            {
+                Fname = firstName,
+                Lname = lastName,
+                Position = position,
+                Height = height,
+                Weight = weight,
+                Number = number,
+            };
+            await client.From<Roster>().Insert(rmodel);
+            var current = await client.From<Roster>().Where(x => x.Fname == firstName && x.Lname == lastName).Single();
+            PlayerStats smodel = new PlayerStats
+            {
+                Fname = firstName,
+                Lname = lastName,
+                Position = position
+            };
+            await client.From<PlayerStats>().Insert(smodel);
             return true;
         }
 
         public async Task<bool> AddPlayerStats(PlayerStats stats)
         {
-            await Init();
-            await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
+            //await Init();
+            //await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
+            PlayerStats current = await client.From<PlayerStats>().Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname).Single();
+            if(stats.PassAtt != null)
+            {
+                await client.From<PlayerStats>()
+                        .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
+                        .Set(x => x.PassAtt, current.PassAtt + stats.PassAtt ?? stats.PassAtt)
+                        .Set(x => x.PassComp, current.PassComp + stats.PassComp ?? stats.PassComp)
+                        .Set(x => x.PassYards, current.PassYards + stats.PassYards ?? stats.PassYards)
+                        .Set(x => x.PassTDs, current.PassTDs + stats.PassTDs ?? stats.PassTDs)
+                        .Set(x => x.Interceptions, current.Interceptions + stats.Interceptions ?? stats.Interceptions)
+                        .Update();
+            }            
+            if(stats.RushAtt != null)
+            {
+                await client.From<PlayerStats>()
+                        .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
+                        .Set(x => x.RushAtt, current.RushAtt + stats.RushAtt ?? stats.RushAtt)
+                        .Set(x => x.RushYards, current.RushYards + stats.RushYards ?? stats.RushYards)
+                        .Set(x => x.RushTDs, current.RushTDs + stats.RushTDs ?? stats.RushTDs)
+                        .Set(x => x.Fumbles, current.Fumbles + stats.Fumbles ?? stats.Fumbles)
+                        .Update();
+            }            
+            if(stats.Targets != null)
+            {
+                await client.From<PlayerStats>()
+                        .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
+                        .Set(x => x.Targets, current.Targets + stats.Targets ?? stats.Targets)
+                        .Set(x => x.Receptions, current.Receptions + stats.Receptions ?? stats.Receptions)
+                        .Set(x => x.RecYards, current.RecYards + stats.RecYards ?? stats.RecYards)
+                        .Set(x => x.RecTDs, current.RecTDs + stats.RecTDs ?? stats.RecTDs)
+                        .Update();
+            }
             return true;
         }
 
         public async Task<PlayerStats> StatQuery(string fname, string lname)
         {
-            return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
+            //return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
+            PlayerStats result = await client.From<PlayerStats>().Where(x => x.Fname == fname && x.Lname == lname).Single();
+            return result;
         }
 
         public async Task<List<string>> GetPlayerList()
         {
-            List<Roster> roster = await conn.Table<Roster>().ToListAsync();
-            roster.OrderBy(x => x.Lname).ToList();
+            //List<Roster> roster = await conn.Table<Roster>().ToListAsync();
+            //roster.OrderBy(x => x.Lname).ToList();
+            var query = await client.From<Roster>().Order(x => x.Lname, Supabase.Postgrest.Constants.Ordering.Descending).Get();
+            List<Roster> roster = query.Models;
             List<string> result = new List<string>();
             foreach(Roster player in roster)
             {
@@ -137,10 +203,12 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> ClearRoster()
         {
-            await Init();
+            //await Init();
 
-            await conn.DeleteAllAsync<Roster>();
-            await conn.DeleteAllAsync<PlayerStats>();
+            //await conn.DeleteAllAsync<Roster>();
+            //await conn.DeleteAllAsync<PlayerStats>();
+            await client.From<Roster>().Delete();
+            await client.From<PlayerStats>().Delete();
             return true;
         }
 
