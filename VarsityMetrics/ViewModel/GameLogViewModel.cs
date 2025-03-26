@@ -42,6 +42,8 @@ public partial class GameLogViewModel : ObservableObject
     [ObservableProperty]
     private string? mediaSource;
 
+    public event Action? PauseVideoRequested;
+
 
     public GameLogViewModel()
     {
@@ -156,7 +158,11 @@ public partial class GameLogViewModel : ObservableObject
             TeamMode = false;
             BoxMode = false;
         }
-        // TODO else pause the mediaElement
+        // else pause the mediaElement
+        else
+        {
+            PauseVideoRequested?.Invoke(); // Notify the view to pause the video
+        }
     }
 
     partial void OnMediaSourceChanged(string? value)

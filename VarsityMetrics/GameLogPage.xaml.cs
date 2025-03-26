@@ -12,6 +12,17 @@ public partial class GameLogPage : ContentPage
         InitializeComponent();
         _viewModel = new GameLogViewModel();
         BindingContext = _viewModel;
+
+        _viewModel.PauseVideoRequested += () =>
+        {
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (GameVideoPlayer != null)
+                {
+                    GameVideoPlayer.Pause();
+                }
+            });
+        };
     }
 
     protected override async void OnAppearing()
