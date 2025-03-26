@@ -36,7 +36,7 @@ namespace VarsityMetrics.DB_Models
 
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
-            await conn.CreateTablesAsync<Game, Play, Player, Accounts, Footage>();
+            await conn.CreateTablesAsync<Game, Play, Player, Accounts, MyTeam>();
             //await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
         }
 
@@ -218,15 +218,8 @@ namespace VarsityMetrics.DB_Models
 
             return await conn.Table<MyTeam>().ToListAsync();
         }
-       
-        public async Task<List<Play>> RequestPictureAsync(string type)
-        public async Task<List<MyTeam>> RequestTeammateAsync()
-        {
-            await Init();
 
-            return await conn.Table<MyTeam>().ToListAsync();
-        }
-        public async Task<List<Play>> RequestPictureAsync()
+        public async Task<List<Play>> RequestPictureAsync(string type)
         {
             await Init();
 

@@ -31,9 +31,9 @@ namespace VarsityMetrics.DB_Models
         [Column("pass_comp")]
         public int? PassComp{ get; set; }
 
-        [Column("passing_yards")]
-        public int? PassingYards { get; set; }
-        
+        [Column("pass_yards")]
+        public int? PassYards { get; set; }
+
         [Column("pass_tds")]
         public int? PassTDs{ get; set; }
 
