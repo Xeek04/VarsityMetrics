@@ -114,7 +114,7 @@ namespace VarsityMetrics.DB_Models
 
             //await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
             //await conn.InsertAsync(new PlayerStats { Fname = firstName, Lname = lastName, Position = position });
-            Roster model = new Roster
+            Roster rmodel = new Roster
             {
                 Fname = firstName,
                 Lname = lastName,
@@ -123,7 +123,16 @@ namespace VarsityMetrics.DB_Models
                 Weight = weight,
                 Number = number,
             };
-            await client.From<Roster>().Insert(model);
+            await client.From<Roster>().Insert(rmodel);
+            var current = await client.From<Roster>().Where(x => x.Fname == firstName && x.Lname == lastName).Single();
+            PlayerStats smodel = new PlayerStats
+            {
+                Id = current.Id,
+                Fname = firstName,
+                Lname = lastName,
+                Position = position
+            };
+            await client.From<PlayerStats>().Insert(smodel);
             return true;
         }
 
@@ -131,6 +140,40 @@ namespace VarsityMetrics.DB_Models
         {
             //await Init();
             //await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
+            if(stats.PassAtt != null)
+            {
+                PlayerStats current = await client.From<PlayerStats>().Single();
+                await client.From<PlayerStats>()
+                        .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
+                        .Set(x => x.PassAtt, current.PassAtt += stats.PassAtt)
+                        .Set(x => x.PassComp, current.PassComp += stats.PassComp)
+                        .Set(x => x.PassYards, current.PassYards += stats.PassYards)
+                        .Set(x => x.PassTDs, current.PassTDs += stats.PassTDs)
+                        .Set(x => x.Interceptions, current.Interceptions += stats.Interceptions)
+                        .Update();
+            }            
+            if(stats.RushAtt != null)
+            {
+                PlayerStats current = await client.From<PlayerStats>().Single();
+                await client.From<PlayerStats>()
+                        .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
+                        .Set(x => x.RushAtt, current.RushAtt += stats.RushAtt)
+                        .Set(x => x.RushYards, current.RushYards += stats.RushYards)
+                        .Set(x => x.RushTDs, current.RushTDs += stats.RushTDs)
+                        .Set(x => x.Fumbles, current.Fumbles += stats.Fumbles)
+                        .Update();
+            }            
+            if(stats.Targets != null)
+            {
+                PlayerStats current = await client.From<PlayerStats>().Single();
+                await client.From<PlayerStats>()
+                        .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
+                        .Set(x => x.Targets, current.Targets += stats.Targets)
+                        .Set(x => x.Receptions, current.Receptions += stats.Receptions)
+                        .Set(x => x.RecYards, current.RecYards += stats.RecYards)
+                        .Set(x => x.RecTDs, current.RecTDs += stats.RecTDs)
+                        .Update();
+            }
             
             return true;
         }

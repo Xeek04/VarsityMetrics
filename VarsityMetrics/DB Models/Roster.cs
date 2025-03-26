@@ -11,8 +11,8 @@ namespace VarsityMetrics.DB_Models
     [Table("Roster")]
     public class Roster : BaseModel
     {
-        [PrimaryKey("Pk")]
-        public int Pk { get; set; }
+        [PrimaryKey("id")]
+        public int Id { get; set; }
 
         [Column("fname")]
         public String? Fname { get; set; }

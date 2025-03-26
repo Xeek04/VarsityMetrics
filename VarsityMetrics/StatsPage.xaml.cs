@@ -98,7 +98,31 @@ public partial class StatsPage : ContentPage
 
     private async void ConfirmAdd(object sender, EventArgs e)
     {
-        PlayerStats stats = new PlayerStats{ Fname = "Joe", Lname = "Burrow", Position = "QB", PassAtt = 2 };
+        //PlayerStats stats = new PlayerStats{ Fname = "Joe", Lname = "Burrow", Position = "QB", PassAtt = 2 };
+        string[] current = playerListStats.SelectedItem.ToString().Replace(",", null).Split();
+        PlayerStats stats = new PlayerStats { Fname = current[1], Lname = current[0] };
+        if (PassingStats.IsVisible)
+        {
+            stats.PassAtt = int.Parse(atts.Text);
+            stats.PassComp = int.Parse(comps.Text);
+            stats.PassYards = int.Parse(passyds.Text);
+            stats.PassTDs = int.Parse(passtds.Text);
+            stats.Interceptions = int.Parse(ints.Text);
+        }
+        if (RushingStats.IsVisible)
+        {
+            stats.RushAtt = int.Parse(rushatt.Text);
+            stats.RecYards = int.Parse(rushyds.Text);
+            stats.RushTDs = int.Parse(rushtds.Text);
+            stats.Fumbles = int.Parse(fum.Text);
+        }
+        if (ReceivingStats.IsVisible)
+        {
+            stats.Targets = int.Parse(tar.Text);
+            stats.Receptions = int.Parse(rec.Text);
+            stats.RecYards = int.Parse(recyrds.Text);
+            stats.RecTDs = int.Parse(rectds.Text);
+        }
         await App.db.AddPlayerStats(stats);
         HideAll();
     }

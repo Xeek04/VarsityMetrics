@@ -12,8 +12,8 @@ namespace VarsityMetrics.DB_Models
     [Table("PlayerStats")]
     public class PlayerStats : BaseModel
     {
-        [PrimaryKey("Pk")]
-        public int Pk { get; set; }
+        [PrimaryKey("id")]
+        public int Id { get; set; }
 
         [Column("fname")]
         public String? Fname { get; set; }
@@ -52,7 +52,7 @@ namespace VarsityMetrics.DB_Models
         public int? RushTDs { get; set; }
 
         [Column("fumbles")]
-        public int? fumbles { get; set; }
+        public int? Fumbles { get; set; }
 
         // Receiving Stats
         
