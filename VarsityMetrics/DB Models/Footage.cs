@@ -21,7 +21,7 @@ namespace VarsityMetrics.DB_Models
         public int? GameId { get; set; }
 
         [Indexed, Column("play_id")]
-        public int? Date { get; set; }
+        public int? PlayId { get; set; }
     }
 
 }
