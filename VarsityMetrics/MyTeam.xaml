@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VarsityMetrics.MyTeam">
+    <VerticalStackLayout x:Name="LayoutVerticale">
+        <Button Text="Add Teammate"
+                HorizontalOptions="Start"
+                BackgroundColor="DarkGoldenrod"
+                                    Clicked="Button_Clicked"/>
+        <Entry x:Name="teamname" 
+                                Placeholder="Insert Teammate Name"
+               HorizontalOptions="Start"
+               PlaceholderColor="DarkGoldenrod"
+                                   Text="{Binding TeammateName}"/>
+        <Entry x:Name="teamrole" 
+                        Placeholder="Insert Teammate Role"
+               HorizontalOptions="Start"
+               PlaceholderColor="DarkGoldenrod"
+                           Text="{Binding TeammateRole}"/>
+        <ListView Grid.Row="1"
+          Grid.Column="1"
+          x:Name="MyTeamList">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid ColumnSpacing="10"
+                            Padding="10">
+                            
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label Grid.Column="0"
+                                   TextColor="AntiqueWhite"
+                                Text="{Binding Name}"/>
+                            <Label Grid.Column="1"
+                                   TextColor="Aquamarine"
+                                Text="{Binding Role}"/>
+                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>

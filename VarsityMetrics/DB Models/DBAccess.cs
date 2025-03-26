@@ -32,7 +32,7 @@ namespace VarsityMetrics.DB_Models
 
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
-            await conn.CreateTablesAsync<Game, Play, Player, Accounts>();
+            await conn.CreateTablesAsync<Game, Play, Player, Accounts, MyTeam>();
             await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
         }
 
@@ -75,7 +75,13 @@ namespace VarsityMetrics.DB_Models
                 if (addedRecords != 0) { return true; } else { return false; }
             }
         }
+        public async Task<bool> UploadTeammateAsync(string name, string role)
+        {
+            await Init();
 
+            int addedPlayers = await conn.InsertAsync(new MyTeam { Name = name, Role = role });
+            if (addedPlayers != 0) {return true;} else { return false;}
+        }
         public async Task<bool> UploadPictureAsync(string path, string name, string type)
         {
             await Init();
@@ -137,7 +143,22 @@ namespace VarsityMetrics.DB_Models
             await conn.DeleteAllAsync<PlayerStats>();
             return true;
         }
+
+        public async Task<List<MyTeam>> RequestTeammateAsync()
+        {
+            await Init();
+
+            return await conn.Table<MyTeam>().ToListAsync();
+        }
+       
         public async Task<List<Play>> RequestPictureAsync(string type)
+        public async Task<List<MyTeam>> RequestTeammateAsync()
+        {
+            await Init();
+
+            return await conn.Table<MyTeam>().ToListAsync();
+        }
+        public async Task<List<Play>> RequestPictureAsync()
         {
             await Init();
 
