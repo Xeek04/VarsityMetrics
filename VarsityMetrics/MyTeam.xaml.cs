@@ -4,21 +4,18 @@ public partial class MyTeam : ContentPage
 {
 	public MyTeam()
 	{
-		InitializeComponent();
-        MessagingCenter.Subscribe<AddTeamPlayer, string>(this, "AddLabel", (sender, arg) =>
-        {
-            var newLabel = new Label
-            {
-                Text = arg,
-                FontSize = 18,
-                HorizontalOptions = LayoutOptions.StartAndExpand
-            };
-
-            LayoutVerticale.Children.Add(newLabel);
-        });
+        InitializeComponent();
     }
-    private void Button_Clicked(object sender, EventArgs e)
+
+    protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+		MyTeamList.ItemsSource = await App.db.RequestTeammateAsync();
+	}
+
+    private async void Button_Clicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new AddTeamPlayer());
+        bool uploadPlay = await App.db.UploadTeammateAsync(teamname.Text, teamrole.Text);
+        MyTeamList.ItemsSource = await App.db.RequestTeammateAsync();
     }
 }
