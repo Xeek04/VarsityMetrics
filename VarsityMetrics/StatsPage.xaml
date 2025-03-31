@@ -214,7 +214,7 @@
             Clicked="EntryToggle"
         />
 
-        <Grid x:Name="RushingView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
+        <Grid x:Name="RushingView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
             <Label
                 Text="Rush Attempts"
                 Grid.Row="0"
@@ -326,7 +326,7 @@
             CommandParameter="rec" 
             Clicked="EntryToggle"
         />
-        <Grid x:Name="RecView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
+        <Grid x:Name="RecView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
             <Label
                 Text="Targets"
                 Grid.Row="0"
