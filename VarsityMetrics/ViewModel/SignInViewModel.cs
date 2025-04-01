@@ -3,7 +3,7 @@ using System.ComponentModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
+//using Microsoft.Maui.Controls.Compatibility.Platform.UWP;
 using Microsoft.Maui.Controls.Platform;
 
 namespace VarsityMetrics.ViewModel;
