@@ -8,8 +8,6 @@
             Padding="10,0"
             Spacing="10">
                 
-                <Label Text="Welcome back"
-                   Style="{StaticResource Headline}"/>
                 <Label x:Name="username" 
                    Style="{StaticResource Headline}"/>
                 <Grid>
