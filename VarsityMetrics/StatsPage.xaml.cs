@@ -166,8 +166,11 @@ public partial class StatsPage : ContentPage
         RushingStats.IsVisible = false;
         ReceivingStats.IsVisible = false;
         passbutton.IsVisible = false;
+        passbutton.Text = ">";
         rushbutton.IsVisible = false;
+        rushbutton.Text = ">";
         recbutton.IsVisible = false;
+        recbutton.Text = ">";
         showplayerstats.IsVisible = true;
         addplayerstats.IsVisible = true;
         PassingView.IsVisible = false;
@@ -178,23 +181,31 @@ public partial class StatsPage : ContentPage
     private void EntryToggle(object sender, EventArgs e)
     {
         Button toggle = (Button)sender;
+        Grid? statGrid;
         switch (toggle.CommandParameter)
         {
             case "pass":
-                PassingStats.IsVisible = !PassingStats.IsVisible;
+                statGrid = PassingStats;
+                //PassingStats.IsVisible = !PassingStats.IsVisible;
                 break;
             case "rush":
-                RushingStats.IsVisible = !RushingStats.IsVisible;
+                statGrid = RushingStats;
+                //RushingStats.IsVisible = !RushingStats.IsVisible;
                 break;
             case "rec":
-                ReceivingStats.IsVisible = !ReceivingStats.IsVisible;
+                statGrid = ReceivingStats;
+                //ReceivingStats.IsVisible = !ReceivingStats.IsVisible;
                 break;
             default:
+                statGrid = null;
                 break;
         }
-
-        if (toggle.Text == ">") { toggle.Text  = "v"; }
-        else {  toggle.Text = ">"; }
+        if (statGrid != null) 
+        {
+            statGrid.IsVisible = !statGrid.IsVisible;
+            if (statGrid.IsVisible) { toggle.Text = "v"; }
+            else { toggle.Text = ">"; }
+        }
 
     }
 
