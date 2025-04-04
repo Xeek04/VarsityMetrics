@@ -192,6 +192,10 @@ public partial class StatsPage : ContentPage
             default:
                 break;
         }
+
+        if (toggle.Text == ">") { toggle.Text  = "v"; }
+        else {  toggle.Text = ">"; }
+
     }
 
     private void ClearLines()
