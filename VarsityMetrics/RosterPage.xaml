@@ -2,400 +2,351 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.RosterPage">
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
+    <Grid ColumnDefinitions="*" RowDefinitions="48,48,*">
+        
+        <Label Grid.Row="0"
+            Text="Roster"
+            Style="{StaticResource Headline}"/>
+        
+        <Button 
+            Grid.Row="1"
+            Margin="20,0,0,0"
+            Text="Edit"
+            HorizontalOptions="Start"
+            Clicked="openEditRoster"/>
+        <Button 
+            Grid.Row="1"
+            Margin="0,0,20,0"
+            Text="Clear"
+            HorizontalOptions="End"
+            Clicked="clearRoster"
+            BackgroundColor="Red"/>
+        
+        <ScrollView Grid.Row="2">
+            <FlexLayout
+                Wrap="Wrap">
 
-            <Label
-                Text="Roster"
-                Style="{StaticResource Headline}"
-            />
-
-            <Button
-                Text="Edit"
-                HorizontalOptions="End"
-                Clicked="openEditRoster"
-            />
-            <Button
-                Text="Clear"
-                HorizontalOptions="End"
-                Clicked="clearRoster"
-                BackgroundColor="Red"
-            />
-            <Label
-                x:Name="test11"
-                HorizontalOptions="End"
-            />
-
-            <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Text="Offense"
-                    Style="{StaticResource SubHeadline}"
-                />
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Text="Defense"
-                    Style="{StaticResource SubHeadline}"
-                />
-
-                <Grid Grid.Row="1" RowSpacing="10" Grid.Column="0" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
-                    <Label
-                        Grid.Row="0"
-                        Text="QB"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="1">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="QBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
-                            
-                        </Grid>
-                        <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="QBButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="QB"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                <!-- Offense Column -->
+                <VerticalStackLayout>
 
                     <Label
-                        Grid.Row="2"
-                        Text="RB"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="3">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="RBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                        Text="Offense"
+                        Style="{StaticResource SubHeadline}"/>
 
-                        </Grid>
-                        <Grid x:Name="addRB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="RBButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="RB"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                    <Grid RowSpacing="10" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
+                        <Label
+                            Grid.Row="0"
+                            Text="QB"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="1">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="QBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                    <Label
-                        Grid.Row="4"
-                        Text="WR"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="5">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="WRList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            </Grid>
+                            <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="QBButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="QB"/>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        </Grid>
-                        <Grid x:Name="addWR" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="WRButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="WR"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                        <Label
+                            Grid.Row="2"
+                            Text="RB"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="3">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="RBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                    <Label
-                        Grid.Row="6"
-                        Text="TE"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="7">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="TEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            </Grid>
+                            <Grid x:Name="addRB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="RBButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="RB"/>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        </Grid>
-                        <Grid x:Name="addTE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="TEButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="TE"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                        <Label
+                            Grid.Row="4"
+                            Text="WR"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="5">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="WRList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                    <Label
-                        Grid.Row="8"
-                        Text="OL"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="9">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="OLList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            </Grid>
+                            <Grid x:Name="addWR" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="WRButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="WR"/>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        </Grid>
-                        <Grid x:Name="addOL" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="OLButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="OL"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                        <Label
+                            Grid.Row="6"
+                            Text="TE"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="7">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="TEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                </Grid>
-                <Grid Grid.Row="1" RowSpacing="10" Grid.Column="1" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
-                    <Label
-                        Grid.Row="0"
-                        Text="DE"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="1">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="DEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            </Grid>
+                            <Grid x:Name="addTE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="TEButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="TE"/>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        </Grid>
-                        <Grid x:Name="addDE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="DEButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="DE"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                        <Label
+                            Grid.Row="8"
+                            Text="OL"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="9">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="OLList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+
+                            </Grid>
+                            <Grid x:Name="addOL" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="OLButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="OL"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                    <Grid RowDefinitions="*,*" ColumnDefinitions="*,*">
+
+                        
+                        
+                    </Grid>
+                </VerticalStackLayout>
+                <!-- Defense Column -->
+                <VerticalStackLayout>
 
                     <Label
-                        Grid.Row="2"
-                        Text="DT"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="3">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="DTList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="Defense"
+                            Style="{StaticResource SubHeadline}"/>
 
-                        </Grid>
-                        <Grid x:Name="addDT" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="DTButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="DT"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                    <Grid RowSpacing="10" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
+                        <Label
+                            Grid.Row="0"
+                            Text="DE"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="1">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="DEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                    <Label
-                        Grid.Row="4"
-                        Text="LB"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="5">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="LBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            </Grid>
+                            <Grid x:Name="addDE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="DEButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="DE"/>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        </Grid>
-                        <Grid x:Name="addLB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="LBButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="LB"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                        <Label
+                            Grid.Row="2"
+                            Text="DT"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="3">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="DTList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                    <Label
-                        Grid.Row="6"
-                        Text="CB"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="7">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="CBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            </Grid>
+                            <Grid x:Name="addDT" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="DTButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="DT"/>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        </Grid>
-                        <Grid x:Name="addCB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="CBButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="CB"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
+                        <Label
+                            Grid.Row="4"
+                            Text="LB"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="5">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="LBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
-                    <Label
-                        Grid.Row="8"
-                        Text="S"
-                        FontSize="Medium"
-                    />
-                    <VerticalStackLayout Grid.Row="9">
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                            <Label
-                                Text="Name"
-                            />
-                            <Label
-                                Text="Height"
-                            />
-                            <Label
-                                Text="Weight"
-                            />
-                            <Label
-                                Text="Number"
-                            />
-                        </HorizontalStackLayout>
-                        <Grid x:Name="SList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            </Grid>
+                            <Grid x:Name="addLB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="LBButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="LB"/>
+                            </Grid>
+                        </VerticalStackLayout>
 
-                        </Grid>
-                        <Grid x:Name="addS" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
-                            <Button
-                                x:Name="SButton"
-                                Grid.Row="1"
-                                Grid.Column="5"
-                                Text="+"
-                                Clicked="entryLine"
-                                CommandParameter="S"
-                            />
-                        </Grid>
-                    </VerticalStackLayout>
-                </Grid>
-            </Grid>
-        </VerticalStackLayout>
-    </ScrollView>
+                        <Label
+                            Grid.Row="6"
+                            Text="CB"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="7">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="CBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+
+                            </Grid>
+                            <Grid x:Name="addCB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="CBButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="CB"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                        <Label
+                            Grid.Row="8"
+                            Text="S"
+                            FontSize="Medium"/>
+                        <VerticalStackLayout Grid.Row="9">
+                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
+                                <Label
+                                    Text="Name"/>
+                                <Label
+                                    Text="Height"/>
+                                <Label
+                                    Text="Weight"/>
+                                <Label
+                                    Text="Number"/>
+                            </HorizontalStackLayout>
+                            <Grid x:Name="SList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+
+                            </Grid>
+                            <Grid x:Name="addS" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
+                                <Button
+                                    x:Name="SButton"
+                                    Grid.Row="1"
+                                    Grid.Column="5"
+                                    Text="+"
+                                    Clicked="entryLine"
+                                    CommandParameter="S"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Grid>
+
+
+
+                </VerticalStackLayout>
+            </FlexLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
