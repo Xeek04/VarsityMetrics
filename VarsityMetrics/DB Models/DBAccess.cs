@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.ApplicationModel.Communication;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Maui.ApplicationModel.Communication;
 using SQLite;
 using Supabase;
 using Supabase.Postgrest.Responses;
@@ -36,7 +37,7 @@ namespace VarsityMetrics.DB_Models
 
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
-            await conn.CreateTablesAsync<Game, Play, Player, Accounts, MyTeam>();
+            await conn.CreateTablesAsync<Game, Play, Player, MyTeam>();
             //await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
         }
 
@@ -61,29 +62,76 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            var matches = await conn.Table<Accounts>().Where(a => (a.Username == username) & (a.Password == password)).ToListAsync(); // queries accounts table for records with username and password matching input
-            return matches.Any(); // if the list is length 0 then return false else true
+            //var matches = await conn.Table<Accounts>().Where(a => (a.Username == username) & (a.Password == password)).ToListAsync(); // queries accounts table for records with username and password matching input
+            //return matches.Any(); // if the list is length 0 then return false else true
+            return true;
         }
 
         // returns true if there are no duplicates and a nonzero amount of records were inserted
-        public async Task<bool> InsertAccountAsync(string username, string password, string email)
+        public async Task<bool> InsertAccountAsync(string FirstName, string LastName, string password, string email)
         {
             // returning an empty task is the async equivalent of void
             await Init();
 
-            // TODO add validation
-            var matches = await conn.Table<Accounts>().Where(a => (a.Username == username)).ToListAsync();
-
-            if (matches.Any())
+            try
             {
+                var signUp = await client.Auth.SignUp(email, password);
+                //var signIn = await client.Auth.SignIn(Supabase.Gotrue.Constants.SignInType.Email, email);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Trace.WriteLine(ex);
                 return false;
+            }
+            
+            
+
+            /*try
+            {
+                var signIn = await client.Auth.SignIn(email, password);
+
+                if (signIn == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    var user = client.Auth.CurrentUser;
+
+                    Accounts aModel = new Accounts
+                    {
+                        id = user.Id,
+                        FirstName = FirstName, 
+                        LastName = LastName,
+                        Role = "Scout"
+                    };
+                    await client.From<Accounts>().Insert(aModel); //insert record with identical person
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }*/
+
+        }
+
+        public async Task<bool> ConfirmEmail(string email, string token)
+        {
+            await Init();
+            //var signIn = await client.Auth.SignIn(Supabase.Gotrue.Constants.SignInType.Email, email);
+            var session = await client.Auth.VerifyOTP(email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
+            if (session != null)
+            {
+                return true;
             }
             else
             {
-                int addedRecords = await conn.InsertAsync(new Accounts { Username = username, Password = password, Email = email, Role = Constants.Role.Coach }); //insert record with identical person
-                if (addedRecords != 0) { return true; } else { return false; }
+                return false;
             }
         }
+
         public async Task<bool> UploadTeammateAsync(string name, string role)
         {
             await Init();
@@ -95,8 +143,14 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            int addedPlays = await conn.InsertAsync(new Play { PlayName = name, PlayType = type, ImageSource =  path});
-            if (addedPlays != 0) {return true;} else { return false; }
+            var Buckets = await client.Storage.ListBuckets();
+            if(Buckets.Any())
+            {
+                return true;
+            }
+            else { return false;}
+            /*int addedPlays = await conn.InsertAsync(new Play { PlayName = name, PlayType = type, ImageSource =  path});
+            if (addedPlays != 0) {return true;} else { return false; }*/
         }
 
         public async Task<List<Roster>> GetRoster()

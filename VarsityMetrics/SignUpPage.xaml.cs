@@ -23,12 +23,12 @@ public partial class SignUpPage : ContentPage
             passwordError.IsVisible = true;
             err = 1;
         }
-        if (username.Text == null | String.Equals(username.Text, ""))
+        /*if (username.Text == null | String.Equals(username.Text, ""))
         {
             usernameError.Text = "Pleas fill in";
             usernameError.IsVisible = true;
             err = 1;
-        }
+        }*/
         if(email.Text == null | String.Equals(email.Text,""))
         {
             emailError.Text = "Please fill in";
@@ -38,12 +38,14 @@ public partial class SignUpPage : ContentPage
 
         if (err == 0)
         {
-            bool createAccount = await App.db.InsertAccountAsync(username.Text, password.Text, email.Text);
+            bool createAccount = await App.db.InsertAccountAsync(FirstName.Text, LastName.Text, password.Text, email.Text);
             if (createAccount)
             {
-                AccountPage.Username = username.Text;
-                MainPage.Username = username.Text;
-                App.Current.MainPage = new AppShell();
+                //AccountPage.Username = username.Text;
+                //MainPage.Username = username.Text;
+                EmailConfirmation.Email = email.Text;
+                EmailConfirmation.Password = password.Text;
+                App.Current.MainPage = new EmailConfirmation();
             }
             else
             {

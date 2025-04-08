@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,23 +9,20 @@ using System.Threading.Tasks;
 namespace VarsityMetrics.DB_Models
 {
     [Table("Accounts")]
-    public class Accounts
+    public class Accounts : BaseModel
     {
 
-        [PrimaryKey, AutoIncrement, Column("Pk")]
-        public int Pk { get; set; }
+        [PrimaryKey]
+        public string id { get; set; }
 
-        [NotNull, Column("username")]
-        public String Username { get; set; }
+        [Column("First Name")]
+        public String FirstName { get; set; }
 
-        [NotNull, Column("password")]
-        public String Password { get; set; }
+        [Column("Last Name")]
+        public String LastName { get; set; }
 
-        [NotNull, Column("email")]
-        public String Email { get; set; }
-
-        [NotNull, Column("role")]
-        public Constants.Role Role { get; set; }
+        [Column("Role")]
+        public String Role { get; set; }
     }
 
     // TODO add any necessary security measures (salt, pepper, hashing)
