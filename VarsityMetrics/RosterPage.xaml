@@ -2,16 +2,39 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.RosterPage">
+    
+    
+    <ContentPage.Resources>
+
+        <Style TargetType="VerticalStackLayout" x:Key="RosterColumns">
+            <Setter Property="FlexLayout.Basis" Value="600" />
+            <Setter Property="FlexLayout.Grow" Value="1" />
+            <Setter Property="FlexLayout.Shrink" Value="1" />
+        </Style>
+
+        <Style TargetType="Button" x:Key="AddButton">
+            <Setter Property="Text" Value="+"/>
+            <Setter Property="HorizontalOptions" Value="End"/>
+            <Setter Property="HeightRequest" Value="{OnIdiom Default=50, Phone=50}"/>
+            <Setter Property="WidthRequest" Value="{OnIdiom Default=50, Phone=70}"/>
+            <Setter Property="FontSize" Value="{OnIdiom Default=24, Phone=24}"/>
+        </Style>
+        
+    </ContentPage.Resources>
+    
+    
     <Grid ColumnDefinitions="*" RowDefinitions="48,48,*">
         
         <Label Grid.Row="0"
-            Text="Roster"
-            Style="{StaticResource Headline}"/>
+               Text="Roster"
+               Style="{StaticResource Headline}"
+               FontSize="{OnIdiom Default=32, Phone=40}"/>
         
         <Button 
             Grid.Row="1"
             Margin="20,0,0,0"
             Text="Edit"
+            FontSize="{OnIdiom Phone=20}"
             HorizontalOptions="Start"
             Clicked="openEditRoster"/>
         <Button 
@@ -24,14 +47,16 @@
         
         <ScrollView Grid.Row="2">
             <FlexLayout
-                Wrap="Wrap">
+                Wrap="Wrap"
+                JustifyContent="SpaceEvenly">
 
                 <!-- Offense Column -->
-                <VerticalStackLayout>
+                <VerticalStackLayout Style="{StaticResource RosterColumns}">
 
                     <Label
                         Text="Offense"
                         Style="{StaticResource SubHeadline}"/>
+                    <!--  -->
 
                     <Grid RowSpacing="10" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
                         <Label
@@ -39,17 +64,17 @@
                             Text="QB"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="1">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
-                            <Grid x:Name="QBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
+                            <Grid x:Name="QBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Margin="0,10,0,10" >
 
                             </Grid>
                             <Grid x:Name="addQB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
@@ -57,7 +82,7 @@
                                     x:Name="QBButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="QB"/>
                             </Grid>
@@ -68,17 +93,17 @@
                             Text="RB"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="3">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
-                            <Grid x:Name="RBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
+                            <Grid x:Name="RBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Margin="0,10,0,10">
 
                             </Grid>
                             <Grid x:Name="addRB" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
@@ -86,7 +111,7 @@
                                     x:Name="RBButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="RB"/>
                             </Grid>
@@ -97,17 +122,17 @@
                             Text="WR"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="5">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
-                            <Grid x:Name="WRList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
+                            <Grid x:Name="WRList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Margin="0,10,0,10">
 
                             </Grid>
                             <Grid x:Name="addWR" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
@@ -115,7 +140,7 @@
                                     x:Name="WRButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="WR"/>
                             </Grid>
@@ -126,17 +151,17 @@
                             Text="TE"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="7">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
-                            <Grid x:Name="TEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
+                            <Grid x:Name="TEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Margin="0,10,0,10">
 
                             </Grid>
                             <Grid x:Name="addTE" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
@@ -144,7 +169,7 @@
                                     x:Name="TEButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="TE"/>
                             </Grid>
@@ -155,17 +180,17 @@
                             Text="OL"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="9">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
-                            <Grid x:Name="OLList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
+                            <Grid x:Name="OLList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Margin="0,10,0,10">
 
                             </Grid>
                             <Grid x:Name="addOL" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,0.507*" IsVisible="False">
@@ -173,7 +198,7 @@
                                     x:Name="OLButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="OL"/>
                             </Grid>
@@ -188,11 +213,9 @@
                     </Grid>
                 </VerticalStackLayout>
                 <!-- Defense Column -->
-                <VerticalStackLayout>
+                <VerticalStackLayout Style="{StaticResource RosterColumns}">
 
                     <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
                             Text="Defense"
                             Style="{StaticResource SubHeadline}"/>
 
@@ -202,16 +225,16 @@
                             Text="DE"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="1">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
                             <Grid x:Name="DEList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
                             </Grid>
@@ -220,7 +243,7 @@
                                     x:Name="DEButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="DE"/>
                             </Grid>
@@ -231,16 +254,16 @@
                             Text="DT"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="3">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
                             <Grid x:Name="DTList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
                             </Grid>
@@ -249,7 +272,7 @@
                                     x:Name="DTButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="DT"/>
                             </Grid>
@@ -260,16 +283,16 @@
                             Text="LB"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="5">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
                             <Grid x:Name="LBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
                             </Grid>
@@ -278,7 +301,7 @@
                                     x:Name="LBButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="LB"/>
                             </Grid>
@@ -289,16 +312,16 @@
                             Text="CB"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="7">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
                             <Grid x:Name="CBList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
                             </Grid>
@@ -307,7 +330,7 @@
                                     x:Name="CBButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="CB"/>
                             </Grid>
@@ -318,16 +341,16 @@
                             Text="S"
                             FontSize="Medium"/>
                         <VerticalStackLayout Grid.Row="9">
-                            <HorizontalStackLayout HorizontalOptions="Center" Spacing="100">
-                                <Label
-                                    Text="Name"/>
-                                <Label
-                                    Text="Height"/>
-                                <Label
-                                    Text="Weight"/>
-                                <Label
-                                    Text="Number"/>
-                            </HorizontalStackLayout>
+                            <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*">
+                                <Label Grid.Column="0" 
+                                       Text="Name"/>
+                                <Label Grid.Column="1" 
+                                       Text="Height"/>
+                                <Label Grid.Column="2" 
+                                       Text="Weight"/>
+                                <Label Grid.Column="3" 
+                                       Text="Number"/>
+                            </Grid>
                             <Grid x:Name="SList" RowSpacing="10" ColumnDefinitions="*,*,*,*" Padding="30">
 
                             </Grid>
@@ -336,7 +359,7 @@
                                     x:Name="SButton"
                                     Grid.Row="1"
                                     Grid.Column="5"
-                                    Text="+"
+                                    Style="{StaticResource AddButton}"
                                     Clicked="entryLine"
                                     CommandParameter="S"/>
                             </Grid>
