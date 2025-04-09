@@ -80,7 +80,7 @@ namespace VarsityMetrics.DB_Models
         }*/
 
         // returns true if there are no duplicates and a nonzero amount of records were inserted
-        public async Task<bool> InsertAccountAsync(string FirstName, string LastName, string password, string email)
+        public async Task<bool> InsertAccountAsync(string password, string email)
         {
             // returning an empty task is the async equivalent of void
             await Init();
@@ -89,6 +89,7 @@ namespace VarsityMetrics.DB_Models
             {
                 var signUp = await client.Auth.SignUp(email, password);
                 //var signIn = await client.Auth.SignIn(Supabase.Gotrue.Constants.SignInType.Email, email);
+
                 return true;
             }
             catch(Exception ex)
@@ -98,13 +99,24 @@ namespace VarsityMetrics.DB_Models
             }
         }
 
-        public async Task<bool> ConfirmEmail(string email, string token)
+        public async Task<bool> ConfirmEmail(string Email, string token, string password, string FirstName, string LastName)
         {
             await Init();
             //var signIn = await client.Auth.SignIn(Supabase.Gotrue.Constants.SignInType.Email, email);
-            var session = await client.Auth.VerifyOTP(email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
-            if (session != null)
+            var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
+            var signIn = await client.Auth.SignIn(Email, password);
+            if (session != null | signIn != null)
             {
+                var model = new Accounts
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Role = "Scout",
+                    Email = Email
+                };
+
+                await client.From<Accounts>()
+                    .Update(model);
                 return true;
             }
             else

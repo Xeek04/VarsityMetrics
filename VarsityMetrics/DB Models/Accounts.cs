@@ -12,8 +12,10 @@ namespace VarsityMetrics.DB_Models
     public class Accounts : BaseModel
     {
 
+        /*[PrimaryKey]
+        public string id { get; set; }*/
         [PrimaryKey]
-        public string id { get; set; }
+        public String Email { get; set; }
 
         [Column("First Name")]
         public String FirstName { get; set; }
@@ -22,7 +24,8 @@ namespace VarsityMetrics.DB_Models
         public String LastName { get; set; }
 
         [Column("Role")]
-        public String Role { get; set; }
+        public String? Role { get; set; }
+
     }
 
     // TODO add any necessary security measures (salt, pepper, hashing)
