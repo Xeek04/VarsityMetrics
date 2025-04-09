@@ -18,11 +18,11 @@
                     FontSize="Header"
                     HorizontalTextAlignment="Center"/>
             
-            <Entry Placeholder="Enter Username"
-                   x:Name="username"
-                    Text="{Binding Username}"/>
+            <Entry Placeholder="Enter Email"
+                   x:Name="email"
+                    Text="{Binding Email}"/>
 
-            <Label x:Name="usernameError"
+            <Label x:Name="emailError"
                    TextColor="Red"
                    IsVisible="False"/>
 
@@ -57,7 +57,7 @@
                     MaximumWidthRequest="140"
                     BackgroundColor="Transparent"
                     Clicked="ForgotPasswordClicked"/>
-            --!>
+            -->
 
         </StackLayout>
     </Grid>

@@ -58,13 +58,19 @@ namespace VarsityMetrics.DB_Models
         //  
         //}
 
-        public async Task<bool> CheckLoginAsync(string username, string password)
+        public async Task<bool> CheckLoginAsync(string email, string password)
         {
             await Init();
 
-            //var matches = await conn.Table<Accounts>().Where(a => (a.Username == username) & (a.Password == password)).ToListAsync(); // queries accounts table for records with username and password matching input
-            //return matches.Any(); // if the list is length 0 then return false else true
-            return true;
+            var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
+            if(matches == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         /*public async Task<bool> ForgotPasswordEmail(string email)
