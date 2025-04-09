@@ -175,6 +175,7 @@ public partial class StatsPage : ContentPage
         addplayerstats.IsVisible = true;
         PassingView.IsVisible = false;
         RushingView.IsVisible = false;
+        RecView.IsVisible = false;
         ClearLines();
     }
 
