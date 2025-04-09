@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using Microsoft.Maui.ApplicationModel.Communication;
 using VarsityMetrics.ViewModel;
 
@@ -5,9 +6,10 @@ namespace VarsityMetrics;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage()
+    public LoginPage()
 	{
 		InitializeComponent();
+        BindingContext = this;
     }
     private async void LoginClicked(object sender, EventArgs e)
     {
@@ -45,9 +47,15 @@ public partial class LoginPage : ContentPage
         }
     }
 
-    private async void SignUpClicked(object sender, EventArgs e)
+    private void SignUpClicked(object sender, EventArgs e)
     {
         App.Current.MainPage = new SignUpPage();
     }
+
+    private void ForgotPasswordClicked(object sender, EventArgs e)
+    {
+        App.Current.MainPage = new ForgotPassword();
+    }
+
 
 }

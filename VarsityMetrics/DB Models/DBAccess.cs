@@ -67,6 +67,12 @@ namespace VarsityMetrics.DB_Models
             return true;
         }
 
+        /*public async Task<bool> ForgotPasswordEmail(string email)
+        {
+            await Init();
+
+        }*/
+
         // returns true if there are no duplicates and a nonzero amount of records were inserted
         public async Task<bool> InsertAccountAsync(string FirstName, string LastName, string password, string email)
         {
@@ -84,37 +90,6 @@ namespace VarsityMetrics.DB_Models
                 Trace.WriteLine(ex);
                 return false;
             }
-            
-            
-
-            /*try
-            {
-                var signIn = await client.Auth.SignIn(email, password);
-
-                if (signIn == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    var user = client.Auth.CurrentUser;
-
-                    Accounts aModel = new Accounts
-                    {
-                        id = user.Id,
-                        FirstName = FirstName, 
-                        LastName = LastName,
-                        Role = "Scout"
-                    };
-                    await client.From<Accounts>().Insert(aModel); //insert record with identical person
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Trace.WriteLine(ex);
-            }*/
-
         }
 
         public async Task<bool> ConfirmEmail(string email, string token)
