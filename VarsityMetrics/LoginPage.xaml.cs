@@ -1,5 +1,6 @@
 using Microsoft.Maui.ApplicationModel.Communication;
 using VarsityMetrics.ViewModel;
+using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics;
 
@@ -31,11 +32,13 @@ public partial class LoginPage : ContentPage
         
         if(err == 0)
         {
-            bool isSignedUp = await App.db.CheckLoginAsync(username.Text, password.Text);
-            if (isSignedUp)
+            VarsityMetrics.DB_Models.Accounts account = await App.db.CheckLoginAsync(username.Text, password.Text);
+
+            if (account != null)
             {
-                AccountPage.Username = username.Text;
-                MainPage.Username = username.Text;
+                CurrentUser.Username = account.Username;
+                CurrentUser.Role = account.Role;
+
                 App.Current.MainPage = new AppShell();
             }
             else

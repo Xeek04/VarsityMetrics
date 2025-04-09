@@ -43,7 +43,8 @@
             ContentTemplate="{DataTemplate local:AccountPage}"
             Route="AccountPage" />
         </Tab>
-        <Tab Title="My Team">
+        <Tab Title="My Team"
+             IsVisible="{Binding IsCoachTabVisible}">
             <ShellContent
                 ContentTemplate="{DataTemplate local:MyTeam}"
                 Route="MyTeam"/>

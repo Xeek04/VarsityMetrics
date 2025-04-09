@@ -25,7 +25,7 @@ public partial class SignUpPage : ContentPage
         }
         if (username.Text == null | String.Equals(username.Text, ""))
         {
-            usernameError.Text = "Pleas fill in";
+            usernameError.Text = "Please fill in";
             usernameError.IsVisible = true;
             err = 1;
         }
@@ -40,8 +40,7 @@ public partial class SignUpPage : ContentPage
         {
             bool createAccount = await App.db.InsertAccountAsync(username.Text, password.Text, email.Text);
             if (createAccount)
-            {
-                AccountPage.Username = username.Text;
+            { 
                 MainPage.Username = username.Text;
                 App.Current.MainPage = new AppShell();
             }

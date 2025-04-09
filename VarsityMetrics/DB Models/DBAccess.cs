@@ -57,12 +57,12 @@ namespace VarsityMetrics.DB_Models
         //  
         //}
 
-        public async Task<bool> CheckLoginAsync(string username, string password)
+        public async Task<Accounts> CheckLoginAsync(string username, string password)
         {
             await Init();
 
             var matches = await conn.Table<Accounts>().Where(a => (a.Username == username) & (a.Password == password)).ToListAsync(); // queries accounts table for records with username and password matching input
-            return matches.Any(); // if the list is length 0 then return false else true
+            return matches.FirstOrDefault(); // if the list is length 0 then return false else true
         }
 
         // returns true if there are no duplicates and a nonzero amount of records were inserted

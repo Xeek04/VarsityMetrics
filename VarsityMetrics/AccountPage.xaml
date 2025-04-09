@@ -45,7 +45,7 @@
 
                 <ImageButton
                 Source="gearicon.png"
-                Clicked="Config"
+                Clicked="ConfigButton"
                 HorizontalOptions="Start"
                     HeightRequest="16" WidthRequest="16"
                 />

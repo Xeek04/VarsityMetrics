@@ -1,12 +1,12 @@
+using VarsityMetrics.DB_Models;
 namespace VarsityMetrics;
 
 public partial class AccountPage : ContentPage
 {
-    public static String Username;
     public AccountPage()
 	{
 		InitializeComponent();
-        username.Text = Username;
+        username.Text = CurrentUser.Username;
         Application.Current.UserAppTheme = AppTheme.Dark;
 	}
     private void LightDark(object sender, EventArgs e)
@@ -21,7 +21,7 @@ public partial class AccountPage : ContentPage
         }
     }
 
-    private void Config(object sender, EventArgs e)
+    private void ConfigButton(object sender, EventArgs e)
     {
             school.IsReadOnly = !school.IsReadOnly;
         division.IsReadOnly = !division.IsReadOnly;

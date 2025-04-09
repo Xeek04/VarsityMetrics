@@ -12,6 +12,7 @@ namespace VarsityMetrics
 
             MainPage = new LoginPage();
             db = database;
+
         }
     }
 }
