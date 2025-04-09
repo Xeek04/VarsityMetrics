@@ -61,7 +61,8 @@ namespace VarsityMetrics.DB_Models
         public async Task<bool> CheckLoginAsync(string email, string password)
         {
             await Init();
-
+            try
+            {
             var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
             if(matches == null)
             {
@@ -70,6 +71,12 @@ namespace VarsityMetrics.DB_Models
             else
             {
                 return true;
+            }
+
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 
@@ -141,21 +148,6 @@ namespace VarsityMetrics.DB_Models
 
             return true;
 
-
-            /*if(Buckets.Any())
-            {
-                Debug.WriteLine("Uploading");
-                await client.Storage.From("plays-images").Upload(imagePath, path);
-                return true;
-            }
-            else
-            {
-                Debug.WriteLine("No buckets");
-                Debug.WriteLine(Buckets);
-                return false;
-            }*/
-            /*int addedPlays = await conn.InsertAsync(new Play { PlayName = name, PlayType = type, ImageSource =  path});
-            if (addedPlays != 0) {return true;} else { return false; }*/
         }
 
         public async Task<List<Roster>> GetRoster()

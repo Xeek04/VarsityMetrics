@@ -13,12 +13,30 @@ public partial class DrawPlaybooks : ContentPage
 
     private async void SaveDrawing_Clicked(object sender, EventArgs e)
     {
-        /*int selectedIndex = TypePicker.SelectedIndex;
+        string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        string pictureNamePath = Path.Combine("Pictures", name.Text + ".jpg");
+        string picturesPath = Path.Combine(userProfile, pictureNamePath);
 
-        string type = (string)TypePicker.ItemsSource[selectedIndex];*/
+        int selectedIndex = TypePicker.SelectedIndex;
+        string type = (string)TypePicker.ItemsSource[selectedIndex];
 
-        var draw = await DrawView.GetImageStream(800, 600);
-        
+        using var draw = await DrawView.GetImageStream(1024, 1024);
+        using var memoryDraw = new MemoryStream();
+        draw.CopyTo(memoryDraw);
+
+        draw.Position = 0;
+        memoryDraw.Position = 0;
+
+#if WINDOWS
+    await System.IO.File.WriteAllBytesAsync(picturesPath, memoryDraw.ToArray());
+
+#endif
+        bool uploadPlay = await App.db.UploadPictureAsync(picturesPath, name.Text, type);
+        if(uploadPlay)
+        {
+            Navigation.PopAsync();
+        }
+
     }
 
     private void CancelDrawing_Clicked(object sender, EventArgs e)
