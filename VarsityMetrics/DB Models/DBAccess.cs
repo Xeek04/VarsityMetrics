@@ -136,12 +136,24 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            var Buckets = await client.Storage.ListBuckets();
-            if(Buckets.Any())
+            var fileNaming = Path.Combine(type, name);
+            await client.Storage.From("plays-images").Upload(path, fileNaming);
+
+            return true;
+
+
+            /*if(Buckets.Any())
             {
+                Debug.WriteLine("Uploading");
+                await client.Storage.From("plays-images").Upload(imagePath, path);
                 return true;
             }
-            else { return false;}
+            else
+            {
+                Debug.WriteLine("No buckets");
+                Debug.WriteLine(Buckets);
+                return false;
+            }*/
             /*int addedPlays = await conn.InsertAsync(new Play { PlayName = name, PlayType = type, ImageSource =  path});
             if (addedPlays != 0) {return true;} else { return false; }*/
         }
