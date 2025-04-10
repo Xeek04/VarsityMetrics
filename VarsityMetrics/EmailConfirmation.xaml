@@ -29,6 +29,10 @@
                Grid.Column="1"
                Grid.Row="3"/>
 
+        <Label x:Name="tokenError"
+               TextColor="Red"
+               IsVisible="False"/>
+
         <Button Text="Confirm"
                 Clicked="Button_Clicked"
                 HorizontalOptions="Center"

@@ -110,26 +110,34 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
             //var signIn = await client.Auth.SignIn(Supabase.Gotrue.Constants.SignInType.Email, email);
-            var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
-            var signIn = await client.Auth.SignIn(Email, password);
-            if (session != null | signIn != null)
+            try
             {
-                var model = new Accounts
+                var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
+                var signIn = await client.Auth.SignIn(Email, password);
+                if (session != null | signIn != null)
                 {
-                    FirstName = FirstName,
-                    LastName = LastName,
-                    Role = "Scout",
-                    Email = Email
-                };
+                    var model = new Accounts
+                    {
+                        FirstName = FirstName,
+                        LastName = LastName,
+                        Role = "Scout",
+                        Email = Email
+                    };
 
-                await client.From<Accounts>()
-                    .Update(model);
-                return true;
+                    await client.From<Accounts>()
+                        .Update(model);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return false;
+                Trace.WriteLine(ex); return false;
             }
+
         }
 
         public async Task<bool> UploadTeammateAsync(string name, string role)
@@ -270,16 +278,20 @@ namespace VarsityMetrics.DB_Models
             return await conn.Table<MyTeam>().ToListAsync();
         }
 
-        public async Task<List<Play>> RequestPictureAsync(string type)
+        public async Task<List<Supabase.Storage.FileObject>> RequestPictureAsync(string type)
         {
             await Init();
 
-            var plays = await conn.Table<Play>().Where(p => p.PlayType == type).ToListAsync();
+            /*var plays = await conn.Table<Play>().Where(p => p.PlayType == type).ToListAsync();
             return plays.Select(p => new Play
             {
                 PlayName = p.PlayName,
                 ImageSource = p.ImageSource,
-            }).ToList();
+            }).ToList();*/
+
+            var plays = await client.Storage.From("plays-images").List(type);
+            Debug.WriteLine(plays);
+            return plays;
 
         }
 
