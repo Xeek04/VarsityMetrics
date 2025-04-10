@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using VarsityMetrics.ViewModel;
 
 namespace VarsityMetrics;
@@ -13,9 +14,24 @@ public partial class SignUpPage : ContentPage
     {
 
         int err = 0;
+        firstError.IsVisible = false;
+        lastError.IsVisible = false;
         passwordError.IsVisible = false;
-        usernameError.IsVisible = false;
         emailError.IsVisible = false;
+
+        if(FirstName.Text == null | String.Equals(FirstName.Text, ""))
+        {
+            firstError.Text = "Please fill in";
+            firstError.IsVisible = true;
+            err = 1;
+        }
+
+        if (LastName.Text == null | String.Equals(LastName.Text, ""))
+        {
+            lastError.Text = "Please fill in";
+            lastError.IsVisible = true;
+            err = 1;
+        }
 
         if (password.Text == null | String.Equals(password.Text, ""))
         {
@@ -23,15 +39,22 @@ public partial class SignUpPage : ContentPage
             passwordError.IsVisible = true;
             err = 1;
         }
-        /*if (username.Text == null | String.Equals(username.Text, ""))
+        else if(password.Text.Length < 6)
         {
-            usernameError.Text = "Pleas fill in";
-            usernameError.IsVisible = true;
+            passwordError.Text = "Password must be at least 6 characters";
+            passwordError.IsVisible = true;
             err = 1;
-        }*/
+        }
+
         if(email.Text == null | String.Equals(email.Text,""))
         {
             emailError.Text = "Please fill in";
+            emailError.IsVisible = true;
+            err = 1;
+        }
+        else if (!Regex.IsMatch(email.Text, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+        {
+            emailError.Text = "Email is not in the proper format";
             emailError.IsVisible = true;
             err = 1;
         }

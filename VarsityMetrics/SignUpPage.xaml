@@ -25,13 +25,17 @@
                    x:Name="FirstName"
                    Text="{Binding FirstName}"/>
 
-            <Label x:Name="usernameError"
+            <Label x:Name="firstError"
                    TextColor="Red"
                    IsVisible="False"/>
 
             <Entry Placeholder="Enter your Last Name"
                    x:Name="LastName"
                    Text="{Binding LastName}"/>
+            
+            <Label x:Name="lastError"
+                   TextColor="Red"
+                   IsVisible="False"/>
 
             <Grid>
                 <Entry Placeholder="Enter Password"
