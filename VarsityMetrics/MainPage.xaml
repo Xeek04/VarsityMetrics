@@ -14,7 +14,7 @@
 
 
                 <Grid>
-                    <Frame BorderColor="Aquamarine"
+                    <Frame BorderColor="{StaticResource Highlight}"
                            BackgroundColor="Transparent"
                            Padding="0"
                            VerticalOptions="Start">
