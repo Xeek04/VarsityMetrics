@@ -14,10 +14,10 @@ using static System.Net.WebRequestMethods;
 public partial class GameLogViewModel : ObservableObject
 {
     [ObservableProperty]
-    private ObservableCollection<Game> games = new();
+    private ObservableCollection<Gamelog> games = new();
 
     [ObservableProperty]
-    private Game? selectedGame;
+    private Gamelog? selectedGame;
     public IAsyncRelayCommand LoadGamesCommand { get; }
     public IAsyncRelayCommand GetVideoCommand { get; }
 
@@ -75,7 +75,7 @@ public partial class GameLogViewModel : ObservableObject
         try
         {
             IsBusy = true;
-            var games = await App.db.GetGamesAsync();
+            var games = await App.db.GetSchedule();
             Games.Clear();
             foreach (var game in games)
             {

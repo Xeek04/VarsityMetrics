@@ -32,7 +32,12 @@ public partial class GameLogPage : ContentPage
         await Task.Delay(500);
 
         await _viewModel.GetVideoCommand.ExecuteAsync(null);
-        Trace.WriteLine($"GameLog.xaml.cs: Last game: {_viewModel.Games.Last().Opponent}");
-        HistoryCollection.ScrollTo(_viewModel.Games.Last(), position: ScrollToPosition.Start, animate: false);
+        //Trace.WriteLine($"GameLog.xaml.cs: Last game: {_viewModel.Games.Last().Opponent}");
+        //HistoryCollection.ScrollTo(_viewModel.Games.Last(), position: ScrollToPosition.Start, animate: false);
+    }
+
+    private async void EditSchedule(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(SchedulePage));
     }
 }

@@ -316,5 +316,26 @@ namespace VarsityMetrics.DB_Models
                 if (addedRecords != 0) { return true; } else { return false; }
             }
         }
+
+        public async Task<List<Gamelog>> GetSchedule()
+        {
+            var schedule = await client.From<Gamelog>().Order(g => g.Date, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
+            return schedule.Models;
+        }
+
+        public async Task<bool> AddGame(string opponent, DateTime date, bool home, string location)
+        {
+            Gamelog newGame = new Gamelog
+            {
+                ForTeam = "Ruston High School",
+                OppTeam = opponent,
+                Date = date,
+                HomeGame = home,
+                Location = location
+            };
+
+            await client.From<Gamelog>().Insert(newGame);
+            return true;
+        }
     }
 }

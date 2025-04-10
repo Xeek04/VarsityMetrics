@@ -39,10 +39,22 @@
     
 
     <Grid RowDefinitions="100,100,*"
-          ColumnDefinitions="auto,*,*,*"
+          ColumnDefinitions="auto,*,*,*,*"
           RowSpacing="0"
           ColumnSpacing="0"
           Margin="10">
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="1"
+            VerticalOptions="Start"
+            HorizontalOptions="Start"
+            Style="{DynamicResource GameLogTab}"
+            WidthRequest="120"
+            Text="Edit Schedule"
+            Clicked="EditSchedule"
+        />
+
         <CollectionView 
             ItemsSource="{Binding Games}"
             SelectedItem="{Binding SelectedGame, Mode=TwoWay}"  
@@ -58,10 +70,10 @@
                     <Frame Style="{DynamicResource HistoryFrame}">
                         <VerticalStackLayout>
                             <Label Style="{DynamicResource HistoryTitle}"
-                                   Text="{Binding Opponent}"/>
+                                   Text="{Binding OppTeam}"/>
                             <FlexLayout JustifyContent="SpaceBetween">
                                 <Label Text="{Binding Date}"/>
-                                <Label Text="{Binding ScoreDisplay}"/>
+                                <!--<Label Text="{Binding ScoreDisplay}"/>-->
                             </FlexLayout>
                         </VerticalStackLayout>
                     </Frame>
@@ -69,7 +81,9 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
+
         
+
         <Border Style="{DynamicResource GridBorder}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/> <!-- Selected Game Banner -->
         <Label Text="{Binding SelectedGame.BannerText}"
                Style="{DynamicResource Headline}"
@@ -198,10 +212,10 @@
                     <Frame Style="{DynamicResource HistoryFrame}">
                         <VerticalStackLayout>
                             <Label Style="{DynamicResource HistoryTitle}"
-                           Text="{Binding Opponent}"/>
+                           Text="{Binding OppTeam}"/>
                             <FlexLayout JustifyContent="SpaceBetween">
                                 <Label Text="{Binding Date}"/>
-                                <Label Text="{Binding ScoreDisplay}"/>
+                                <!--<Label Text="{Binding ScoreDisplay}"/>-->
                             </FlexLayout>
                         </VerticalStackLayout>
                     </Frame>
