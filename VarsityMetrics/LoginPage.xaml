@@ -15,10 +15,14 @@
             <ColumnDefinition Width="{OnIdiom Default=.25*, Phone=.70*}" />
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
         </Grid.ColumnDefinitions>
-        
-        <StackLayout Spacing="10"
-            Grid.Column="1"
-            Grid.Row="1">
+
+        <Frame Style="{StaticResource Surface}" 
+               Grid.Column="1"
+               Grid.Row="1"
+               BorderColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+            <StackLayout Spacing="10">
+
+            
 
             <Label Text="Login"
                     FontSize="{OnIdiom Default=Header, Phone=60}"
@@ -59,6 +63,7 @@
                     Clicked="SignUpClicked"/>
 
         </StackLayout>
+        </Frame>
     </Grid>
 
 </ContentPage>
