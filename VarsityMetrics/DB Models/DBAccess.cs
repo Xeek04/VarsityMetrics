@@ -2,7 +2,6 @@
 using Microsoft.Maui.ApplicationModel.Communication;
 using SQLite;
 using Supabase;
-using Supabase.Postgrest.Responses;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,7 +38,7 @@ namespace VarsityMetrics.DB_Models
 
             conn = new SQLiteAsyncConnection(path, Constants.Flags);
             // create all tables
-            await conn.CreateTablesAsync<Game, Play, Player, MyTeam>();
+            await conn.CreateTablesAsync<Game, Player, MyTeam>();
             //await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
         }
 
@@ -279,13 +278,15 @@ namespace VarsityMetrics.DB_Models
 
             return await conn.Table<MyTeam>().ToListAsync();
         }
-        public class PlaysList
+        public class Stats
         {
             public string ImageSource { get; set; }
             public string PlayName { get; set; }
+            public int times_called { get; set; }
+            public int[] yards_gained { get; set; }
         }
 
-        public async Task<List<PlaysList>> RequestPictureAsync(string type)
+        public async Task<List<Stats>> RequestPictureAsync(string type)
         {
             await Init();
 
@@ -301,10 +302,12 @@ namespace VarsityMetrics.DB_Models
                 urls.Add(upload + "|" + plays[i].Name);
             }
 
-            List<PlaysList> items = urls.Select(p => 
+            var offenseStats = await App.db.RequestPlayStatsAsync();
+
+            List<Stats> items = urls.Select(p => 
             {
                 var split = p.Split('|');
-                return new PlaysList
+                return new Stats
                 {
                     ImageSource = split[0],
                     PlayName = split[1]
@@ -316,7 +319,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
         {
-            await Init();
+            /*await Init();
 
             var plays = await conn.Table<Play>().Where(p => p.PlayType == type).ToListAsync();
             return plays.OrderBy(p => p.PlayName)
@@ -324,9 +327,18 @@ namespace VarsityMetrics.DB_Models
             {
                 PlayName = p.PlayName,
                 ImageSource = p.ImageSource,
-            }).ToList();
+            }).ToList();*/
+            return null;
         }
 
+        public async Task<List<Play>> RequestPlayStatsAsync()
+        {
+            await Init();
+
+            var stats = await client.From<Play>().Select(p => new object[] {p.times_called, p.yards_gained}).Get();
+            return stats.Models;
+        }
+        
         public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {
             
             await Init();

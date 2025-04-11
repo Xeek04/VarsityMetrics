@@ -5,28 +5,28 @@
              x:Class="VarsityMetrics.PlaybookPage">
     <ScrollView>
         
-    <Grid RowDefinitions="55, Auto, Auto, Auto, Auto"
+        <Grid RowDefinitions="55, Auto, Auto, Auto, Auto"
           ColumnDefinitions=".5*, Auto, .5*"
           Padding="10"
           ColumnSpacing="10">
-        
-        <VerticalStackLayout Spacing="10"
+
+            <VerticalStackLayout Spacing="10"
                              Grid.Column="1"
                              Grid.Row="0">
-            <Label Text="Playbook"
+                <Label Text="Playbook"
                    Style="{StaticResource Headline}"/>
 
-        </VerticalStackLayout>
+            </VerticalStackLayout>
 
-        <Label Text="Offense"
-               x:Name="Offense"
-               Style="{StaticResource SubHeadline}"
-               Grid.Column="1"
-               Grid.Row="1"/>
-        
-            <ListView Grid.Row="2"
-                      Grid.Column="0"
-                      x:Name="OffenseList">
+            <Label Text="Offense"
+                       x:Name="Offense"
+                       Style="{StaticResource SubHeadline}"/>
+            <VerticalStackLayout Grid.Column="0"
+                                 Grid.Row="2">
+                
+            <ListView x:Name="OffenseList"
+                      SelectionMode="Single"
+                      ItemSelected="OffenseList_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -41,31 +41,33 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Column="0"
+                                    <Image Grid.Column="0"
                                        Aspect="Fill"
                                        Source="{Binding ImageSource}"
                                        HeightRequest="500"
                                        WidthRequest="500"/>
-
-                                <Label Grid.Column="1"
+                                
+                                    <Label Grid.Column="1"
+                                           Grid.Row="0"
                                        Text="{Binding PlayName}"
                                        Style="{StaticResource SubHeadline}"/>
+                                
+                                    <Label Grid.Column="1"
+                                           Grid.Row="1"
+                                           x:Name="Stats"
+                                           Text="{Binding PlayStats}"/>
 
-                            </Grid>
+                                </Grid>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
             <Label Text="Defense"
-                   x:Name="Defense"
-                   Style="{StaticResource SubHeadline}"
-                   Grid.Column="1"
-                   Grid.Row="3"/>
+                       x:Name="Defense"
+                       Style="{StaticResource SubHeadline}"/>
 
-            <ListView Grid.Row="4"
-                      Grid.Column="0"
-                      x:Name="DefenseList">
+            <ListView x:Name="DefenseList">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -95,11 +97,12 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            </VerticalStackLayout>
 
             <HorizontalStackLayout Grid.Column="2"
                                    HorizontalOptions="EndAndExpand"
                                    Spacing="20">
-                
+
                 <Picker x:Name="OrderPicker"
                         Title="Select the order"
                         SelectedIndexChanged="OrderPicker_SelectedIndexChanged">
@@ -110,7 +113,7 @@
                         </x:Array>
                     </Picker.ItemsSource>
                 </Picker>
-                
+
                 <Picker x:Name="TypePicker"
                         Title="Select a play type"
                         SelectedIndexChanged="TypePicker_SelectedIndexChanged">
@@ -130,11 +133,10 @@
                 <Button x:Name="AddButton"
                         Text="Add"
                         Clicked="AddButton_Clicked"/>
-                    
+
             </HorizontalStackLayout>
 
-
-    </Grid>
+        </Grid>
+            
     </ScrollView>
-
 </ContentPage>

@@ -57,10 +57,10 @@ public partial class LoginPage : ContentPage
         App.Current.MainPage = new SignUpPage();
     }
 
-    private void ForgotPasswordClicked(object sender, EventArgs e)
+    /*private void ForgotPasswordClicked(object sender, EventArgs e)
     {
         App.Current.MainPage = new ForgotPassword();
-    }
+    }*/
 
 
 }
