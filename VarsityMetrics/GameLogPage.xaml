@@ -51,7 +51,7 @@
             HorizontalOptions="Start"
             Style="{DynamicResource GameLogTab}"
             WidthRequest="120"
-            Text="Full Schedule"
+            Text="Schedule >"
             Clicked="EditSchedule"
         />
 
