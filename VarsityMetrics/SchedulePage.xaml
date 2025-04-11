@@ -4,10 +4,101 @@
              x:Class="VarsityMetrics.SchedulePage"
              Title="SchedulePage">
     <VerticalStackLayout>
-        <Label Text="Placeholder schedule]"/>
-        <Button 
-            Text="Click to leave"
-            Clicked="Button_Clicked"
-            IsVisible="{OnIdiom Default=True, Phone=False}"/>
+        <Grid ColumnDefinitions="*,*">
+            <Button 
+                Text="Back"
+                Clicked="Button_Clicked"
+                Grid.Column="0"
+                HorizontalOptions="Start"
+            />
+            <Button
+                Text="Edit Schedule"
+                Clicked="ShowEntries"
+                Grid.Column="1"
+                HorizontalOptions="End"
+            />
+        </Grid>
+        <Grid x:Name="currentSchedule" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*" IsVisible="True">
+            <Label
+                Text="Matchup"
+                Grid.Column="1"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                FontSize="Medium"
+            />
+            <Label
+                Text="Date"
+                Grid.Column="3"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                FontSize="Medium"
+            />
+            <Label
+                Text="Location"
+                Grid.Column="4"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+                FontSize="Medium"
+            />
+        </Grid>
+        <Grid x:Name="gameEditor" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*" IsVisible="False">
+            <Label
+                Text="Opponent"
+                Grid.Column="0"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+            />
+            <Label
+                Text="Date"
+                Grid.Column="1"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+            />
+            <Label
+                Text="Home Game"
+                Grid.Column="2"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+            />
+            <Label
+                Text="Location (Optional)"
+                Grid.Column="3"
+                Grid.Row="0"
+                HorizontalOptions="Center"
+            />
+        </Grid>
+        <Grid x:Name="inputEntries" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*" IsVisible="False">
+            <Entry
+                x:Name="opp"
+                Grid.Column="0"
+            />
+            <DatePicker
+                x:Name="date"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+            />
+            <CheckBox
+                x:Name="home"
+                Grid.Column="2"
+                HorizontalOptions="Center"
+            />
+            <Entry
+                x:Name="location"
+                Grid.Column="3"
+            />
+            <Button
+                Text="Confirm"
+                Grid.Column="4"
+                BackgroundColor="LightGreen"
+                Clicked="Confirm"
+            />
+        </Grid>
+        <Button
+            x:Name="addGame"
+            Text="+"
+            HorizontalOptions="Start"
+            IsVisible="False"
+            Clicked="ShowInput"
+        />
     </VerticalStackLayout>
 </ContentPage>

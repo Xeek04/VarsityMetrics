@@ -1,4 +1,5 @@
 ﻿using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 namespace VarsityMetrics.DB_Models
 {
     [Table("GameStats")]
-    public class GameStats
+    public class GameStats : BaseModel
     {
-        [PrimaryKey("game_id")]
+        [PrimaryKey,Column("game_id")]
         public int GameId { get; set; }
 
         // For Team
