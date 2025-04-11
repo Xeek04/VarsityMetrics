@@ -6,7 +6,8 @@
     <Grid RowDefinitions="25, 600, 45, Auto, Auto"
           ColumnDefinitions=".5*, 800, .5*, 150">
 
-        <toolkit:DrawingView Grid.Row="1"
+        <toolkit:DrawingView x:Name="DrawView"
+                             Grid.Row="1"
                              Grid.Column="1"
                              Lines="{Binding MyLines}"
                              IsMultiLineModeEnabled="True"
@@ -19,6 +20,7 @@
                Text="{Binding Name}"
                Grid.Column="1"
                Grid.Row="2"
+               MinimumWidthRequest="150"
                HorizontalOptions="Center"/>
         
         <Picker x:Name="TypePicker"

@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using Supabase.Postgrest.Attributes;
+using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,25 @@ using System.Threading.Tasks;
 namespace VarsityMetrics.DB_Models
 {
     [Table("Play")]
-    public class Play
+    public class Play : BaseModel
     {
 
-        [PrimaryKey, AutoIncrement, Column("Pk")]
-        public int Pk { get; set; }
+        [PrimaryKey, Column("play_id")]
+        public int play_id { get; set; }
 
-        [Column("play_name")]
-        public String? PlayName { get; set; }
+        [Column("name")]
+        public String name { get; set; }
 
-        [Column("play_type")]
-        public String? PlayType { get; set; }
+        [Column("formation")]
+        public String? formation { get; set; }
 
-        [Column("imgsrc")]
-        public String? ImageSource { get; set; } // file location on computer
+        [Column("type")]
+        public String? type { get; set; } // file location on computer
+
+        [Column("times_called")]
+        public int times_called { get; set; }
+
+        [Column("yards_gained")]
+        public int yards_gained { get; set; }
     }
 }

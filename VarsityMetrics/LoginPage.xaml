@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.LoginPage"
-             xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel"
-             x:DataType="viewmodel:LoginViewModel">
+             xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel">
 
     <!--ColumnDefinitions=".5*, .25*, .5*"-->
     <Grid RowDefinitions="50, Auto"
@@ -28,11 +27,11 @@
                     FontSize="{OnIdiom Default=Header, Phone=60}"
                     HorizontalTextAlignment="Center"/>
             
-            <Entry Placeholder="Enter Username"
-                   x:Name="username"
-                    Text="{Binding Username}"/>
+            <Entry Placeholder="Enter Email"
+                   x:Name="email"
+                    Text="{Binding Email}"/>
 
-            <Label x:Name="usernameError"
+            <Label x:Name="emailError"
                    TextColor="Red"
                    IsVisible="False"/>
 
@@ -61,6 +60,13 @@
             
             <Button Text="Sign Up"
                     Clicked="SignUpClicked"/>
+
+           <!--` <Button Text="Forgot Password"
+                    TextColor="Blue"
+                    MaximumWidthRequest="140"
+                    BackgroundColor="Transparent"
+                    Clicked="ForgotPasswordClicked"/>
+            -->
 
         </StackLayout>
         </Frame>

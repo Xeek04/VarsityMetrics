@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 using Microsoft.Maui.ApplicationModel.Communication;
 using VarsityMetrics.ViewModel;
 
@@ -5,16 +7,17 @@ namespace VarsityMetrics;
 
 public partial class LoginPage : ContentPage
 {
-	public LoginPage()
+    public LoginPage()
 	{
 		InitializeComponent();
+        BindingContext = this;
     }
     private async void LoginClicked(object sender, EventArgs e)
     {
 
         int err = 0;
         passwordError.IsVisible = false;
-        usernameError.IsVisible = false;
+        emailError.IsVisible = false;
 
         if (password.Text == null | String.Equals(password.Text, ""))
         {
@@ -22,20 +25,24 @@ public partial class LoginPage : ContentPage
             passwordError.IsVisible = true;
             err = 1;
         }
-        if(username.Text == null | String.Equals(username.Text, ""))
+        if(email.Text == null | String.Equals(email.Text, ""))
         {
-            usernameError.Text = "Please fill in";
-            usernameError.IsVisible = true;
+            emailError.Text = "Please fill in";
+            emailError.IsVisible = true;
+            err = 1;
+        }
+        else if(!Regex.IsMatch(email.Text, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+        {
+            emailError.Text = "Email is not in the proper format";
+            emailError.IsVisible = true;
             err = 1;
         }
         
         if(err == 0)
         {
-            bool isSignedUp = await App.db.CheckLoginAsync(username.Text, password.Text);
+            bool isSignedUp = await App.db.CheckLoginAsync(email.Text, password.Text);
             if (isSignedUp)
             {
-                AccountPage.Username = username.Text;
-                MainPage.Username = username.Text;
                 App.Current.MainPage = new AppShell();
             }
             else
@@ -45,9 +52,15 @@ public partial class LoginPage : ContentPage
         }
     }
 
-    private async void SignUpClicked(object sender, EventArgs e)
+    private void SignUpClicked(object sender, EventArgs e)
     {
         App.Current.MainPage = new SignUpPage();
     }
+
+    /*private void ForgotPasswordClicked(object sender, EventArgs e)
+    {
+        App.Current.MainPage = new ForgotPassword();
+    }*/
+
 
 }

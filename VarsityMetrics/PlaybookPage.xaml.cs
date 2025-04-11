@@ -1,5 +1,6 @@
 namespace VarsityMetrics;
 
+using System.Diagnostics;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 
@@ -9,11 +10,12 @@ public partial class PlaybookPage : ContentPage
 	{
 		InitializeComponent();
 	}
-
+	
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
-		OffenseList.ItemsSource = await App.db.RequestPictureAsync("Offense");
+
+        OffenseList.ItemsSource = await App.db.RequestPictureAsync("Offense");
 		DefenseList.ItemsSource = await App.db.RequestPictureAsync("Defense");
 	}
 
@@ -76,5 +78,22 @@ public partial class PlaybookPage : ContentPage
     private void DrawButton_Clicked(object sender, EventArgs e)
     {
         Navigation.PushAsync(new DrawPlaybooks());
+    }
+
+	public class Plays
+	{
+		public object ImageSource { get; set; }
+		public object PlayName { get; set; }
+		public object Stats { get; set; }
+	}
+    private void OffenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+		var selected = ((ListView)sender).SelectedItem as Plays;
+		if(selected == null)
+		{
+			return;
+		}
+
+		//selected.Stats.Text() = "Testing";
     }
 }
