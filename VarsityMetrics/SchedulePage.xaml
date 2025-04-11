@@ -6,7 +6,7 @@
     <VerticalStackLayout>
         <Grid ColumnDefinitions="*,*">
             <Button 
-                Text="Click to leave"
+                Text="Back"
                 Clicked="Button_Clicked"
                 Grid.Column="0"
                 HorizontalOptions="Start"

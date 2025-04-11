@@ -17,16 +17,22 @@ public partial class GameLogViewModel : ObservableObject
     private ObservableCollection<Game> games = new();
 
     [ObservableProperty]
-    private ObservableCollection<Gamelog> schedule = new();
+    private ObservableCollection<Gamelog> schedule = new();    
+    
+    [ObservableProperty]
+    private ObservableCollection<GameStats> scheduleStats = new();
 
     [ObservableProperty]
     private Game? selectedGame;    
     
     [ObservableProperty]
     private Gamelog? currentGame;
+    
+    [ObservableProperty]
+    private GameStats? currentStats;
+
     public IAsyncRelayCommand LoadGamesCommand { get; }
     public IAsyncRelayCommand GetVideoCommand { get; }
-
     public IRelayCommand ChangeVideoCommand { get; }
 
     [ObservableProperty]
@@ -82,15 +88,18 @@ public partial class GameLogViewModel : ObservableObject
         {
             IsBusy = true;
             var games = await App.db.GetSchedule();
+            var stats = await App.db.GetScheduleStats();
             Schedule.Clear();
-            foreach (var game in games)
+            for(int i=0; i<games.Count; i++)
             {
-                Schedule.Add(game);
+                Schedule.Add(games[i]);
+                ScheduleStats.Add(stats[i]);
             }
             Trace.WriteLine("GameLogViewModel: Games loaded successfully");
-            if (Schedule.Count > 0) { 
-                SelectedGame = Games.Last();
-
+            if (Schedule.Count > 0) {
+                //SelectedGame = Games.Last();
+                CurrentGame = Schedule.Last();
+                CurrentStats = ScheduleStats.Last();
             }
         }
         catch (Exception ex)
@@ -246,4 +255,3 @@ public partial class GameLogViewModel : ObservableObject
         }
     }
 }
-

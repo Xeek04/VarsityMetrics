@@ -34,5 +34,8 @@ namespace VarsityMetrics.DB_Models
 
         [Column("location")]
         public string? Location { get; set; }
+
+        [Column("banner_text")]
+        public string BannerText => ForTeam + (HomeGame == true ? " vs " : " at ") + OppTeam;
     }
 }

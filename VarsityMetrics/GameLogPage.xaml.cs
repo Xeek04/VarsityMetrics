@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using VarsityMetrics.ViewModels;
+using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics;
 
@@ -39,5 +40,26 @@ public partial class GameLogPage : ContentPage
     private async void EditSchedule(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(SchedulePage));
+    }
+
+    private void HistoryCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void GameChanged(object sender, SelectionChangedEventArgs e)
+    {
+        int i = 0;
+        bool check = true;
+        while(check)
+        {
+            if (_viewModel.CurrentGame == null) { check = false; }
+            else if (_viewModel.ScheduleStats[i].GameId == _viewModel.CurrentGame.GameId)
+            {
+                _viewModel.CurrentStats = _viewModel.ScheduleStats[i];
+                check = false;
+            }
+            i++;
+        }
     }
 }
