@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="VarsityMetrics.StatsPage">
-    <VerticalStackLayout
+             x:Class="VarsityMetrics.StatsPage"
+             BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+    <Frame Style="{StaticResource Surface}">
+        <VerticalStackLayout
         Padding="30,0"
         Spacing="25">
-        <Label
+            <Label
             Text="Statistics"
-            Style="{StaticResource Headline}"
-        />
+            Style="{StaticResource Headline}"/>
 
-        <Grid x:Name="statnav" IsVisible="false">
-            <Button
+            <Grid x:Name="statnav" IsVisible="false">
+                <Button
                 x:Name="back"
                 Text="Back"
                 HorizontalOptions="Start"
@@ -20,7 +21,7 @@
                 Grid.Column="0"
             />
 
-            <Button
+                <Button
                 x:Name="confirm"
                 Text="Confirm"
                 HorizontalOptions="End"
@@ -28,17 +29,17 @@
                 Grid.Row="1"
                 Grid.Column="1"
             />
-        </Grid>
+            </Grid>
 
-        <Button
+            <Button
             x:Name="addplayerstats"
             IsEnabled="True"
             Text="Add Player Stats"
             HorizontalOptions="End"
             Clicked="AddStats"
         />
-        
-        <Button
+
+            <Button
             x:Name="showplayerstats"
             IsEnabled="True"
             Text="Show Player Stats"
@@ -46,21 +47,21 @@
             Clicked="StatSelection"
         />
 
-        <Picker
+            <Picker
             x:Name="playerList"
             IsVisible="False"
             HorizontalOptions="Center"
             SelectedIndexChanged="ShowStatEntries"
         />
 
-        <Picker
+            <Picker
             x:Name="playerListStats"
             IsVisible="False"
             HorizontalOptions="Center"
             SelectedIndexChanged="ShowStats"
         />
 
-        <Button
+            <Button
             x:Name="passbutton"
             Text=">"
             IsVisible="False"
@@ -68,144 +69,144 @@
             CommandParameter="pass"
             Clicked="EntryToggle"
         />
-        
-        <Grid x:Name="PassingView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
-            <Label
+
+            <Grid x:Name="PassingView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
+                <Label
                 Text="Attempts"
                 Grid.Row="0"
                 Grid.Column="0"
             />
-            <Label
+                <Label
                 Text="Completions"
                 Grid.Row="0"
                 Grid.Column="1"
             />
-            <Label
+                <Label
                 Text="Comp %"
                 Grid.Row="0"
                 Grid.Column="2"
             />
-            <Label
+                <Label
                 Text="Passing Yards"
                 Grid.Row="0"
                 Grid.Column="3"
             />
-            <Label
+                <Label
                 Text="Passing TDs"
                 Grid.Row="0"
                 Grid.Column="4"
             />
-            <Label
+                <Label
                 Text="Interceptions"
                 Grid.Row="0"
                 Grid.Column="5"
             />
-            <Label
+                <Label
                 Text="YPA"
                 Grid.Row="0"
                 Grid.Column="6"
             />
 
-            <Entry
+                <Entry
                 x:Name="attsV"
                 Grid.Row="1"
                 Grid.Column="0"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="compV"
                 Grid.Row="1"
                 Grid.Column="1"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="compperV"
                 Grid.Row="1"
                 Grid.Column="2"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="passydsV"
                 Grid.Row="1"
                 Grid.Column="3"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="passtdsV"
                 Grid.Row="1"
                 Grid.Column="4"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="intsV"
                 Grid.Row="1"
                 Grid.Column="5"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="ypaV"
                 Grid.Row="1"
                 Grid.Column="6"
                 IsReadOnly="True"
-            />            
-        </Grid>
-        
-        <Grid x:Name="PassingStats" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
+            />
+            </Grid>
 
-            <Label
+            <Grid x:Name="PassingStats" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
+
+                <Label
                 Text="Attempts"
                 Grid.Row="0"
                 Grid.Column="0"
             />
-            <Label
+                <Label
                 Text="Completions"
                 Grid.Row="0"
                 Grid.Column="1"
             />
-            <Label
+                <Label
                 Text="Passing Yards"
                 Grid.Row="0"
                 Grid.Column="2"
             />
-            <Label
+                <Label
                 Text="Passing TDs"
                 Grid.Row="0"
                 Grid.Column="3"
             />
-            <Label
+                <Label
                 Text="Interceptions"
                 Grid.Row="0"
                 Grid.Column="4"
             />
 
-            <Entry
+                <Entry
                 x:Name="atts"
                 Grid.Row="1"
                 Grid.Column="0"
             />
-            <Entry
+                <Entry
                 x:Name="comps"
                 Grid.Row="1"
                 Grid.Column="1"
             />
-            <Entry
+                <Entry
                 x:Name="passyds"
                 Grid.Row="1"
                 Grid.Column="2"
             />
-            <Entry
+                <Entry
                 x:Name="passtds"
                 Grid.Row="1"
                 Grid.Column="3"
             />
-            <Entry
+                <Entry
                 x:Name="ints"
                 Grid.Row="1"
                 Grid.Column="4"
             />
-        </Grid>
+            </Grid>
 
-        <Button
+            <Button
             x:Name="rushbutton"
             Text=">"
             IsVisible="False"
@@ -214,111 +215,111 @@
             Clicked="EntryToggle"
         />
 
-        <Grid x:Name="RushingView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
-            <Label
+            <Grid x:Name="RushingView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
+                <Label
                 Text="Rush Attempts"
                 Grid.Row="0"
                 Grid.Column="0"
             />
-            <Label
+                <Label
                 Text="Rushing Yards"
                 Grid.Row="0"
                 Grid.Column="1"
             />
-            <Label
+                <Label
                 Text="Rushing TDs"
                 Grid.Row="0"
                 Grid.Column="2"
             />
-            <Label
+                <Label
                 Text="Fumbles"
                 Grid.Row="0"
                 Grid.Column="3"
             />
-            <Label
+                <Label
                 Text="YPC"
                 Grid.Row="0"
                 Grid.Column="4"
             />
 
-            <Entry
+                <Entry
                 x:Name="rushattV"
                 Grid.Row="1"
                 Grid.Column="0"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="rushydsV"
                 Grid.Row="1"
                 Grid.Column="1"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="rushtdsV"
                 Grid.Row="1"
                 Grid.Column="2"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="fumV"
                 Grid.Row="1"
                 Grid.Column="3"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="ypcV"
                 Grid.Row="1"
                 Grid.Column="4"
                 IsReadOnly="True"
-            />            
-        </Grid>
-        
-        <Grid x:Name="RushingStats" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
+            />
+            </Grid>
 
-            <Label
+            <Grid x:Name="RushingStats" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
+
+                <Label
                 Text="Rush Attempts"
                 Grid.Row="0"
                 Grid.Column="0"
             />
-            <Label
+                <Label
                 Text="Rushing Yards"
                 Grid.Row="0"
                 Grid.Column="1"
             />
-            <Label
+                <Label
                 Text="Rushing TDs"
                 Grid.Row="0"
                 Grid.Column="2"
             />
-            <Label
+                <Label
                 Text="Fumbles"
                 Grid.Row="0"
                 Grid.Column="3"
             />
 
-            <Entry
+                <Entry
                 x:Name="rushatt"
                 Grid.Row="1"
                 Grid.Column="0"
             />
-            <Entry
+                <Entry
                 x:Name="rushyds"
                 Grid.Row="1"
                 Grid.Column="1"
             />
-            <Entry
+                <Entry
                 x:Name="rushtds"
                 Grid.Row="1"
                 Grid.Column="2"
             />
-            <Entry
+                <Entry
                 x:Name="fum"
                 Grid.Row="1"
                 Grid.Column="3"
             />
-        </Grid>
+            </Grid>
 
-        <Button
+            <Button
             x:Name="recbutton"
             Text=">"
             IsVisible="False"
@@ -326,108 +327,109 @@
             CommandParameter="rec" 
             Clicked="EntryToggle"
         />
-        <Grid x:Name="RecView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
-            <Label
+            <Grid x:Name="RecView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
+                <Label
                 Text="Targets"
                 Grid.Row="0"
                 Grid.Column="0"
             />
-            <Label
+                <Label
                 Text="Receptions"
                 Grid.Row="0"
                 Grid.Column="1"
             />
-            <Label
+                <Label
                 Text="Receiving Yards"
                 Grid.Row="0"
                 Grid.Column="2"
             />
-            <Label
+                <Label
                 Text="Receiving TDs"
                 Grid.Row="0"
                 Grid.Column="3"
             />
-            <Label
+                <Label
                 Text="YPR"
                 Grid.Row="0"
                 Grid.Column="4"
             />
 
-            <Entry
+                <Entry
                 x:Name="tarV"
                 Grid.Row="1"
                 Grid.Column="0"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="recV"
                 Grid.Row="1"
                 Grid.Column="1"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="recyrdsV"
                 Grid.Row="1"
                 Grid.Column="2"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="rectdsV"
                 Grid.Row="1"
                 Grid.Column="3"
                 IsReadOnly="True"
             />
-            <Entry
+                <Entry
                 x:Name="yprV"
                 Grid.Row="1"
                 Grid.Column="4"
                 IsReadOnly="True"
             />
-        </Grid>
-        <Grid x:Name="ReceivingStats" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
+            </Grid>
+            <Grid x:Name="ReceivingStats" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*">
 
-            <Label
+                <Label
                 Text="Targets"
                 Grid.Row="0"
                 Grid.Column="0"
             />
-            <Label
+                <Label
                 Text="Receptions"
                 Grid.Row="0"
                 Grid.Column="1"
             />
-            <Label
+                <Label
                 Text="Receiving Yards"
                 Grid.Row="0"
                 Grid.Column="2"
             />
-            <Label
+                <Label
                 Text="Receiving TDs"
                 Grid.Row="0"
                 Grid.Column="3"
             />
 
-            <Entry
+                <Entry
                 x:Name="tar"
                 Grid.Row="1"
                 Grid.Column="0"
             />
-            <Entry
+                <Entry
                 x:Name="rec"
                 Grid.Row="1"
                 Grid.Column="1"
             />
-            <Entry
+                <Entry
                 x:Name="recyrds"
                 Grid.Row="1"
                 Grid.Column="2"
             />
-            <Entry
+                <Entry
                 x:Name="rectds"
                 Grid.Row="1"
                 Grid.Column="3"
             />
-        </Grid>
+            </Grid>
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
 </ContentPage>

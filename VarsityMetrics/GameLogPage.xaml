@@ -55,12 +55,13 @@
             Clicked="EditSchedule"
         />
 
+        <Frame Style="{StaticResource Recess}"
+               Grid.Row="0" Grid.RowSpan="3"
+               Grid.Column="0">
         <CollectionView 
             ItemsSource="{Binding Schedule}"
             SelectedItem="{Binding CurrentGame, Mode=TwoWay}"  
             x:Name="HistoryCollection"
-            Grid.Row="0" Grid.RowSpan="3"
-            Grid.Column="0"
             WidthRequest="240"
             BackgroundColor="{AppThemeBinding Light={StaticResource ShadowLight}, Dark={StaticResource ShadowDark} }"
             SelectionMode="Single"
@@ -70,7 +71,7 @@
                 <DataTemplate>
                     <Frame Style="{DynamicResource HistoryFrame}">
                         <VerticalStackLayout>
-                            <Label Style="{DynamicResource HistoryTitle}"
+                            <Label Style="{DynamicResource Headline}"
                                    Text="{Binding OppTeam}"/>
                             <FlexLayout JustifyContent="SpaceBetween">
                                 <Label Text="{Binding Date}"/>
@@ -82,7 +83,7 @@
             </CollectionView.ItemTemplate>
 
         </CollectionView>
-
+        </Frame>
         
 
         <Border Style="{DynamicResource GridBorder}" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"/> <!-- Selected Game Banner -->
