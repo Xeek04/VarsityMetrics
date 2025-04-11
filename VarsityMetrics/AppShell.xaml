@@ -14,10 +14,13 @@
             Route="MainPage" />
         </Tab>
 
-        <Tab Title="Playbook">
+        <Tab x:Name="PlaybookPageTab"
+            Title="Playbook"
+             IsVisible="True">
             <ShellContent
             ContentTemplate="{DataTemplate local:PlaybookPage}"
-            Route="PlaybookPage" />
+            Route="PlaybookPage" 
+               />
         </Tab>
 
         <Tab Title="Stats">
@@ -26,10 +29,12 @@
             Route="StatsPage" />
         </Tab>
 
-        <Tab Title="Game Log">
+        <Tab x:Name="GameLogPageTab"
+            Title="Game Log">
             <ShellContent
             ContentTemplate="{DataTemplate local:GameLogPage}"
-            Route="GameLogPage" />
+            Route="GameLogPage" 
+                IsVisible="True"/>
         </Tab>
 
         <Tab Title="Roster">
@@ -43,8 +48,9 @@
             ContentTemplate="{DataTemplate local:AccountPage}"
             Route="AccountPage" />
         </Tab>
-        <Tab Title="My Team"
-             IsVisible="{Binding IsCoachTabVisible}">
+        <Tab x:Name="MyTeamTab"
+             Title="My Team"
+             IsVisible="True">
             <ShellContent
                 ContentTemplate="{DataTemplate local:MyTeam}"
                 Route="MyTeam"/>

@@ -8,6 +8,14 @@ public partial class StatsPage : ContentPage
     {
         InitializeComponent();
         GetRoster();
+        if (CurrentUser.Role == Constants.Role.Player)
+        {
+            addplayerstats.IsVisible = false;
+        }
+        if (CurrentUser.Role == Constants.Role.Recruiter)
+        {
+            addplayerstats.IsVisible = false;
+        }
     }
 
     private async void GetRoster()

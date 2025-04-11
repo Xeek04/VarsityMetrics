@@ -2,13 +2,19 @@ namespace VarsityMetrics;
 
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using VarsityMetrics.DB_Models;
 
 public partial class PlaybookPage : ContentPage
 {
 	public PlaybookPage()
 	{
 		InitializeComponent();
-	}
+        if (CurrentUser.Role == Constants.Role.Player)
+        {
+            AddButton.IsVisible = false;
+			DrawButton.IsVisible = false;
+        }
+    }
 
 	protected override async void OnAppearing()
 	{

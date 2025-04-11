@@ -125,11 +125,13 @@
 
                 <Button x:Name="DrawButton"
                         Text="Draw"
-                        Clicked="DrawButton_Clicked"/>
+                        Clicked="DrawButton_Clicked"
+                        IsVisible="True"/>
 
                 <Button x:Name="AddButton"
                         Text="Add"
-                        Clicked="AddButton_Clicked"/>
+                        Clicked="AddButton_Clicked"
+                        IsVisible="True"/>
                     
             </HorizontalStackLayout>
 

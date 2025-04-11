@@ -33,6 +33,7 @@ namespace VarsityMetrics
             // higher access levels should go at the top
             Coach,
             Statistician,
+            Recruiter,
             Player
         }
     }

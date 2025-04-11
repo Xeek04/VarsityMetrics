@@ -22,6 +22,16 @@ public partial class RosterPage : ContentPage
     public RosterPage()
 	{
 		InitializeComponent();
+        if (CurrentUser.Role == Constants.Role.Player)
+        {
+            clearbutton.IsVisible = false;
+            editbutton.IsVisible = false;
+        }
+        if (CurrentUser.Role == Constants.Role.Recruiter)
+        {
+            clearbutton.IsVisible = false;
+            editbutton.IsVisible = false;
+        }
 
         gridKey.Add(QBButton, addQB);
         gridKey.Add(RBButton, addRB);

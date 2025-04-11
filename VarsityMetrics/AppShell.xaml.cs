@@ -5,7 +5,6 @@ namespace VarsityMetrics
     public partial class AppShell : Shell
 
     {
-        public bool IsCoachTabVisible { get; set; } = true;
         public AppShell()
         {
             InitializeComponent();
@@ -15,10 +14,11 @@ namespace VarsityMetrics
             Routing.RegisterRoute(nameof(SignUpPage), typeof(SignUpPage));
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
 
-            if (CurrentUser.Role == Constants.Role.Coach)
+            if (CurrentUser.Role == Constants.Role.Recruiter)
             {
-                IsCoachTabVisible = false;
+                PlaybookPageTab.IsVisible = false;
             }
+            
         }
     }
 

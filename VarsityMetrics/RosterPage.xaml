@@ -12,16 +12,18 @@
                 Style="{StaticResource Headline}"
             />
 
-            <Button
+            <Button x:Name="editbutton"
                 Text="Edit"
                 HorizontalOptions="End"
                 Clicked="openEditRoster"
+                    IsVisible="True"
             />
-            <Button
+            <Button x:Name="clearbutton"
                 Text="Clear"
                 HorizontalOptions="End"
                 Clicked="clearRoster"
                 BackgroundColor="Red"
+                    IsVisible="True"
             />
             <Label
                 x:Name="test11"
