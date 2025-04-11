@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Security.Cryptography.X509Certificates;
 
 namespace VarsityMetrics.DB_Models
 {
@@ -63,15 +65,15 @@ namespace VarsityMetrics.DB_Models
             await Init();
             try
             {
-            var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
-            if(matches == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+                var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
+                if (matches == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
 
             }
             catch (Exception ex)
@@ -99,7 +101,7 @@ namespace VarsityMetrics.DB_Models
 
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Trace.WriteLine(ex);
                 return false;
@@ -145,7 +147,7 @@ namespace VarsityMetrics.DB_Models
             await Init();
 
             int addedPlayers = await conn.InsertAsync(new MyTeam { Name = name, Role = role });
-            if (addedPlayers != 0) {return true;} else { return false;}
+            if (addedPlayers != 0) { return true; } else { return false; }
         }
         public async Task<bool> UploadPictureAsync(string path, string name, string type)
         {
@@ -205,7 +207,7 @@ namespace VarsityMetrics.DB_Models
             //await Init();
             //await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
             PlayerStats current = await client.From<PlayerStats>().Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname).Single();
-            if(stats.PassAtt != null)
+            if (stats.PassAtt != null)
             {
                 await client.From<PlayerStats>()
                         .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
@@ -215,8 +217,8 @@ namespace VarsityMetrics.DB_Models
                         .Set(x => x.PassTDs, current.PassTDs + stats.PassTDs ?? stats.PassTDs)
                         .Set(x => x.Interceptions, current.Interceptions + stats.Interceptions ?? stats.Interceptions)
                         .Update();
-            }            
-            if(stats.RushAtt != null)
+            }
+            if (stats.RushAtt != null)
             {
                 await client.From<PlayerStats>()
                         .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
@@ -225,8 +227,8 @@ namespace VarsityMetrics.DB_Models
                         .Set(x => x.RushTDs, current.RushTDs + stats.RushTDs ?? stats.RushTDs)
                         .Set(x => x.Fumbles, current.Fumbles + stats.Fumbles ?? stats.Fumbles)
                         .Update();
-            }            
-            if(stats.Targets != null)
+            }
+            if (stats.Targets != null)
             {
                 await client.From<PlayerStats>()
                         .Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname)
@@ -253,7 +255,7 @@ namespace VarsityMetrics.DB_Models
             var query = await client.From<Roster>().Order(x => x.Lname, Supabase.Postgrest.Constants.Ordering.Descending).Get();
             List<Roster> roster = query.Models;
             List<string> result = new List<string>();
-            foreach(Roster player in roster)
+            foreach (Roster player in roster)
             {
                 result.Add(player.Lname + ", " + player.Fname + " | " + player.Position);
             }
@@ -277,22 +279,39 @@ namespace VarsityMetrics.DB_Models
 
             return await conn.Table<MyTeam>().ToListAsync();
         }
+        public class PlaysList
+        {
+            public string ImageSource { get; set; }
+            public string PlayName { get; set; }
+        }
 
-        public async Task<List<Supabase.Storage.FileObject>> RequestPictureAsync(string type)
+        public async Task<List<PlaysList>> RequestPictureAsync(string type)
         {
             await Init();
 
-            /*var plays = await conn.Table<Play>().Where(p => p.PlayType == type).ToListAsync();
-            return plays.Select(p => new Play
-            {
-                PlayName = p.PlayName,
-                ImageSource = p.ImageSource,
-            }).ToList();*/
-
             var plays = await client.Storage.From("plays-images").List(type);
-            Debug.WriteLine(plays);
-            return plays;
 
+            List<string> urls = new List<string>();
+            
+            for (int i = 0; i < plays.Count; i++)
+            {
+                string imagePath = type + "/" + plays[i].Name;
+                var upload = client.Storage.From("plays-images").GetPublicUrl(imagePath);
+                Debug.WriteLine(upload);
+                urls.Add(upload + "|" + plays[i].Name);
+            }
+
+            List<PlaysList> items = urls.Select(p => 
+            {
+                var split = p.Split('|');
+                return new PlaysList
+                {
+                    ImageSource = split[0],
+                    PlayName = split[1]
+                };
+            }).ToList();
+
+            return items;
         }
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
