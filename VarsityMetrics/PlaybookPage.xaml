@@ -28,7 +28,9 @@
 
                 <ListView Grid.Row="2"
                       Grid.Column="0"
-                      x:Name="OffenseList">
+                      x:Name="OffenseList"
+                      SelectionMode="Single"
+                      ItemSelected="OffenseList_ItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -48,10 +50,16 @@
                                        Source="{Binding ImageSource}"
                                        HeightRequest="500"
                                        WidthRequest="500"/>
-
+                                
                                     <Label Grid.Column="1"
+                                           Grid.Row="0"
                                        Text="{Binding PlayName}"
                                        Style="{StaticResource SubHeadline}"/>
+                                
+                                    <Label Grid.Column="1"
+                                           Grid.Row="1"
+                                           x:Name="Stats"
+                                           Text="{Binding PlayStats}"/>
 
                                 </Grid>
                             </ViewCell>
