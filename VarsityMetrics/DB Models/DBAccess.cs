@@ -302,7 +302,7 @@ namespace VarsityMetrics.DB_Models
                 urls.Add(upload + "|" + plays[i].Name);
             }
 
-            var offenseStats = await App.db.RequestPlayStatsAsync();
+            //var offenseStats = await App.db.RequestPlayStatsAsync();
 
             List<Stats> items = urls.Select(p => 
             {
