@@ -12,7 +12,7 @@
           RowSpacing="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
-            <ColumnDefinition Width="{OnIdiom Default=.25*, Phone=.70*}" />
+            <ColumnDefinition Width="{OnIdiom Default=300, Phone=.70*}" />
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
         </Grid.ColumnDefinitions>
 
