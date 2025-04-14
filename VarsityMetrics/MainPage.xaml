@@ -19,7 +19,8 @@
                         <Frame BorderColor="{StaticResource Highlight}"
                                BackgroundColor="Transparent"
                                Padding="0"
-                               VerticalOptions="Start">
+                               VerticalOptions="Start"
+                               x:Name="MainGrid">
                             <FlexLayout JustifyContent="SpaceBetween"
                                         Wrap="Wrap">
 
@@ -60,4 +61,19 @@
             </Frame>
         </ScrollView>
     </Grid>
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState Name="Wide">
+                <VisualState.StateTriggers>
+                    <StateTrigger IsActive="False"/>
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState Name="Narrow">
+                
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
 </ContentPage>
