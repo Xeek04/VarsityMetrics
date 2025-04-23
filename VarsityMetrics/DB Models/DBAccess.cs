@@ -166,11 +166,33 @@ namespace VarsityMetrics.DB_Models
             return result.Models;
         }
 
+        public async Task<List<Roster>> GetUnit(string unit)
+        {
+            List<string> searchedUnit = new List<string>();
+            switch (unit)
+            {
+                case "offense":
+                    searchedUnit = ["QB", "RB", "WR", "TE", "OL"];
+                    break;
+                case "defense":
+                    searchedUnit = ["DE", "DT", "LB", "CB", "S"];
+                    break;
+                case "specialteams":
+                    searchedUnit = ["K", "P"];
+                    break;
+                default:
+                    searchedUnit = new List<string>();
+                    break;
+            }
+            var result = await client.From<Roster>().Filter(x => x.Position, Supabase.Postgrest.Constants.Operator.In, searchedUnit).Get();
+            return result.Models;
+        }
+
         public async Task<List<Roster>> GetRosterByPosition(string position)
         {
             //List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
             //return result.OrderBy(x => x.Number).ToList();
-            var result = await client.From<Roster>().Where(x => x.Position == position).Get();
+            var result = await client.From<Roster>().Where(x => x.Position == position).Order(x => x.Number, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
             return result.Models;
         }
 
@@ -411,6 +433,7 @@ namespace VarsityMetrics.DB_Models
             }
         }
 
+        // Gamelog and Schedule
         public async Task<List<Gamelog>> GetSchedule()
         {
             var schedule = await client.From<Gamelog>().Order(g => g.Date, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
@@ -444,5 +467,7 @@ namespace VarsityMetrics.DB_Models
             await client.From<GameStats>().Insert(newStats);
             return true;
         }
+
+
     }
 }
