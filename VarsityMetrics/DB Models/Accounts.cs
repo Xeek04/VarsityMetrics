@@ -14,7 +14,7 @@ namespace VarsityMetrics.DB_Models
 
         /*[PrimaryKey]
         public string id { get; set; }*/
-        [PrimaryKey]
+        [PrimaryKey, Column("Email")]
         public String Email { get; set; }
 
         [Column("First Name")]

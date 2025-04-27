@@ -115,18 +115,19 @@ namespace VarsityMetrics.DB_Models
             {
                 var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
                 var signIn = await client.Auth.SignIn(Email, password);
+                Debug.WriteLine(Email);
                 if (session != null | signIn != null)
                 {
                     var model = new Accounts
                     {
+                        Email = Email,
                         FirstName = FirstName,
                         LastName = LastName,
-                        Role = "Scout",
-                        Email = Email
+                        Role = "Scout"
                     };
 
                     await client.From<Accounts>()
-                        .Update(model);
+                        .Insert(model);
                     return true;
                 }
                 else
