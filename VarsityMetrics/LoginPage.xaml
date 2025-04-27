@@ -61,12 +61,12 @@
             <Button Text="Sign Up"
                     Clicked="SignUpClicked"/>
 
-           <!--` <Button Text="Forgot Password"
+            <Button Text="Forgot Password"
                     TextColor="Blue"
-                    MaximumWidthRequest="140"
+                    MaximumWidthRequest="190"
                     BackgroundColor="Transparent"
                     Clicked="ForgotPasswordClicked"/>
-            -->
+            
 
         </StackLayout>
         </Frame>
