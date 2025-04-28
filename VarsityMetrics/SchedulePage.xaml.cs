@@ -133,4 +133,9 @@ public partial class SchedulePage : ContentPage
         home.IsChecked = false;
         location.Text = null;
     }
+
+    private async void PlayByPlay(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(GameStatEntryPage));
+    }
 }
