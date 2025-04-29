@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.SignUpPage"
              Title="SignUpPage"
-             xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel">
+             xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel"
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
 
     <Grid RowDefinitions="50, Auto"
         Padding="10"
@@ -31,16 +32,14 @@
 
 
             <Entry Placeholder="Enter your First Name"
-                   x:Name="FirstName"
-                   Text="{Binding FirstName}"/>
+                   x:Name="FirstName"/>
 
             <Label x:Name="firstError"
                    TextColor="Red"
                    IsVisible="False"/>
 
             <Entry Placeholder="Enter your Last Name"
-                   x:Name="LastName"
-                   Text="{Binding LastName}"/>
+                   x:Name="LastName"/>
             
             <Label x:Name="lastError"
                    TextColor="Red"
@@ -49,8 +48,7 @@
                 <Grid>
                     <Entry Placeholder="Enter Password"
                        IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
-                       x:Name="password"
-                       Text="{Binding Password}"/>
+                       x:Name="password"/>
 
                     <CheckBox x:Name="HidePassword"
                           IsChecked="True"
@@ -62,8 +60,7 @@
                    IsVisible="False"/>
 
                 <Entry Placeholder="Enter Email"
-                   x:Name="email"
-                   Text="{Binding Emale}"/>
+                   x:Name="email"/>
 
                 <Label x:Name="emailError"
                    TextColor="Red"

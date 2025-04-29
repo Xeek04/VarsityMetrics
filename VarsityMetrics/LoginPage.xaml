@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.LoginPage"
-             xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel">
+             xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel"
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
 
     <!--ColumnDefinitions=".5*, .25*, .5*"-->
     <Grid RowDefinitions="50, Auto"
@@ -15,10 +16,9 @@
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
         </Grid.ColumnDefinitions>
 
-        <Frame Style="{StaticResource Surface}" 
+        <Border Style="{StaticResource SurfaceBorder}" 
                Grid.Column="1"
-               Grid.Row="1"
-               BorderColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+               Grid.Row="1">
             <StackLayout Spacing="10">
 
             
@@ -28,8 +28,7 @@
                     HorizontalTextAlignment="Center"/>
             
             <Entry Placeholder="Enter Email"
-                   x:Name="email"
-                    Text="{Binding Email}"/>
+                   x:Name="email"/>
 
             <Label x:Name="emailError"
                    TextColor="Red"
@@ -38,8 +37,7 @@
             <Grid>
                 <Entry Placeholder="Enter Password"
                         IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
-                        x:Name="password"
-                        Text="{Binding Password}"/>
+                        x:Name="password"/>
 
                 <CheckBox x:Name="HidePassword"
                         IsChecked="True"
@@ -69,7 +67,7 @@
             
 
         </StackLayout>
-        </Frame>
+        </Border>
     </Grid>
 
 </ContentPage>
