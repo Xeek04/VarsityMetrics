@@ -12,13 +12,19 @@
 
         </ContentPage.Resources>-->
         <VerticalStackLayout>
-            <Grid ColumnDefinitions="*,*">
+            <Grid ColumnDefinitions="*,*,*">
                 <Button 
                 Text="Back"
                 Clicked="Back"
                 Grid.Column="0"
                 HorizontalOptions="Start"
-            />
+                />
+
+                <Picker
+                x:Name="games"
+                Grid.Column="1"
+                
+                />
             </Grid>
         </VerticalStackLayout>
     </Frame>
