@@ -52,6 +52,13 @@ public partial class RosterPage : ContentPage
 
         Confirm.Clicked += async (sender, args) => addPlayer(Confirm.CommandParameter.ToString());
 	}
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        this.Window.MinimumHeight = 300;
+        this.Window.MinimumWidth = 700;
+    }
     private async void addPlayer(string position)
     {
         await App.db.AddPlayer(Fname.Text, Lname.Text, position, HeightP.Text, Weight.Text, int.Parse(Number.Text));
