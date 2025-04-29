@@ -5,61 +5,55 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
     <ScrollView>
-        <Grid RowDefinitions="Auto"
-      ColumnSpacing="10"
-      RowSpacing="10">
+        <Border Style="{StaticResource SurfaceBorder}">
        
             <VerticalStackLayout Padding="30,0"
                          Spacing="20"
                          Grid.Column="1">
 
                 <Label x:Name="username"
-        Style="{StaticResource Headline}"
+                       Style="{StaticResource Headline}"
                        HorizontalOptions="Center"/>
 
                 <Label Text="School"
-               FontSize="24"
+                       FontSize="24"
                        HorizontalOptions="Start"/>
                 
                 <Entry x:Name="school"
-            Text ="Ruston High"
-               IsReadOnly="true"
-                       HorizontalOptions="Start"
-               />
-                <Label Text="Division"
-   FontSize="24"
-                       HorizontalOptions="Start"/>
-                <Entry x:Name="division"
-            Text="D1 Nonselect"
-               IsReadOnly="true"
-                       HorizontalOptions="Start"
-               />
-                <Label Text="City"
-   FontSize="24"
-                       HorizontalOptions="Start"/>
-                <Entry x:Name="city"
-            Text="Ruston, LA"
-               IsReadOnly="true" 
-                       HorizontalOptions="Start"
-               />
-
-                <ImageButton
-                Source="gearicon.png"
-                Clicked="Config"
-                HorizontalOptions="Start"
-                    HeightRequest="16" WidthRequest="16"
-                />
-                <Label Text="Tap gear icon to edit personal information!"
+                       Text ="Ruston High"
+                       IsReadOnly="true"
                        HorizontalOptions="Start"/>
                 
-                <Button
-        Text="Light/Dark" 
-        Clicked="LightDark"
-/>
-                <Label Text="This text is green in light mode, and red in dark mode."
-        TextColor="{AppThemeBinding Light=Green, Dark=Red}" />
+                <Label Text="Division"
+                       FontSize="24"
+                       HorizontalOptions="Start"/>
+                
+                <Entry x:Name="division"
+                       Text="D1 Nonselect"
+                       IsReadOnly="true"
+                       HorizontalOptions="Start"/>
+                
+                <Label Text="City"
+                       FontSize="24"
+                       HorizontalOptions="Start"/>
+                
+                <Entry x:Name="city"
+                       Text="Ruston, LA"
+                       IsReadOnly="true" 
+                       HorizontalOptions="Start"/>
+
+                <ImageButton Source="gearicon.png"
+                             Clicked="Config"
+                             HorizontalOptions="Start"
+                             HeightRequest="16" WidthRequest="16"/>
+                
+                <Label Text="Tap gear icon to edit personal information!"
+                       HorizontalOptions="Start"/>
+
+                <Button Text="Light/Dark" 
+                        Clicked="LightDark"/>
             </VerticalStackLayout>
         
-    </Grid>
+        </Border>
     </ScrollView>
 </ContentPage>
