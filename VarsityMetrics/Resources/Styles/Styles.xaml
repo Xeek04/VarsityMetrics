@@ -21,7 +21,8 @@
 
     <Style TargetType="Border" x:Key="SurfaceBorder">
         <Setter Property="Margin" Value="10" />
-        <Setter Property="Stroke" Value="Transparent" />
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
         <Setter Property="StrokeShape" Value="RoundRectangle 8,8,8,8"/>
         <Setter Property="StrokeThickness" Value="1"/>
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
@@ -29,6 +30,7 @@
 
     <Style TargetType="Border" x:Key="RecessBorder">
         <Setter Property="Margin" Value="10" />
+        <Setter Property="Padding" Value="20"/>
         <Setter Property="Stroke" Value="Transparent" />
         <Setter Property="StrokeShape" Value="RoundRectangle 8,8,8,8"/>
         <Setter Property="StrokeThickness" Value="1"/>
@@ -424,7 +426,7 @@
 
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0"/>
-        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
     </Style>
 
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
