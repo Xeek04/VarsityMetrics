@@ -18,8 +18,8 @@
     <Color x:Key="BackgroundLight">#EFEFEF</Color>
     <Color x:Key="SurfaceLight">#FFFFFF</Color>
     <Color x:Key="ShadowLight">#D6D6D6</Color>
-    <Color x:Key="BackgroundDark">#0A090B</Color>
-    <Color x:Key="SurfaceDark">#141316</Color>
+    <Color x:Key="BackgroundDark">#141516</Color>
+    <Color x:Key="SurfaceDark">#202020</Color>
     <Color x:Key="ShadowDark">#060607</Color>
 
     <Color x:Key="White">White</Color>
