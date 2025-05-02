@@ -74,6 +74,9 @@
 	  <Compile Update="AddTeamPlayer.xaml.cs">
 	    <DependentUpon>AddTeamPlayer.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="NewRoster.xaml.cs">
+	    <DependentUpon>NewRoster.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="SchedulePage.xaml.cs">
 	    <DependentUpon>SchedulePage.xaml</DependentUpon>
 	  </Compile>
@@ -99,6 +102,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="ForgotPassword.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="NewRoster.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="SchedulePage.xaml">
