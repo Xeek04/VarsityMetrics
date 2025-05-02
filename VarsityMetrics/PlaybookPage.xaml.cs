@@ -96,4 +96,15 @@ public partial class PlaybookPage : ContentPage
 
 		//selected.Stats.Text() = "Testing";
     }
+
+    private void DefenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        var selected = ((ListView)sender).SelectedItem as Plays;
+        if (selected == null)
+        {
+            return;
+        }
+
+        //selected.Stats.Text() = "Testing";
+    }
 }
