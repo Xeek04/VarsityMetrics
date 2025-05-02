@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.LoginPage"
              xmlns:viewmodel="clr-namespace:VarsityMetrics.ViewModel">
-
+    
     <!--ColumnDefinitions=".5*, .25*, .5*"-->
     <Grid RowDefinitions="50, Auto"
           Padding="10"
@@ -14,61 +14,58 @@
             <ColumnDefinition Width="{OnIdiom Default=300, Phone=.70*}" />
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
         </Grid.ColumnDefinitions>
-
+        
         <Frame Style="{StaticResource Surface}" 
                Grid.Column="1"
                Grid.Row="1"
                BorderColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
             <StackLayout Spacing="10">
+                <Label Text="Login"
+                       FontSize="{OnIdiom Default=Header, Phone=60}"
+                       HorizontalTextAlignment="Center"/>
 
-            
+                <Entry Placeholder="Enter Email"
+                       x:Name="email"
+                       Text="{Binding Email}"/>
 
-            <Label Text="Login"
-                    FontSize="{OnIdiom Default=Header, Phone=60}"
-                    HorizontalTextAlignment="Center"/>
-            
-            <Entry Placeholder="Enter Email"
-                   x:Name="email"
-                    Text="{Binding Email}"/>
+                <Label x:Name="emailError"
+                       TextColor="Red"
+                       IsVisible="False"/>
 
-            <Label x:Name="emailError"
-                   TextColor="Red"
-                   IsVisible="False"/>
+                <Grid>
+                    <Entry Placeholder="Enter Password"
+                           IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
+                           x:Name="password"
+                           Text="{Binding Password}"/>
 
-            <Grid>
-                <Entry Placeholder="Enter Password"
-                        IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
-                        x:Name="password"
-                        Text="{Binding Password}"/>
+                    <CheckBox x:Name="HidePassword"
+                              IsChecked="True"
+                              HorizontalOptions="End"/>
 
-                <CheckBox x:Name="HidePassword"
-                        IsChecked="True"
-                        HorizontalOptions="End"/>
-            </Grid>
+                </Grid>
 
-            <Label x:Name="passwordError"
-                   TextColor="Red"
-                   IsVisible="False"/>
+                <Label x:Name="passwordError"
+                       TextColor="Red"
+                       IsVisible="False"/>
 
-            <Button Text="Login"
-                    Clicked="LoginClicked"/>
+                <Button Text="Login"
+                        Clicked="LoginClicked"/>
 
-            <Label x:Name="loginError"
-                   Text="Login failed. Please try a different username or password"
-                   TextColor="Red"
-                   IsVisible="False"/>
-            
-            <Button Text="Sign Up"
-                    Clicked="SignUpClicked"/>
-
-            <Button Text="Forgot Password"
-                    TextColor="Blue"
-                    MaximumWidthRequest="190"
-                    BackgroundColor="Transparent"
-                    Clicked="ForgotPasswordClicked"/>
-            
-
-        </StackLayout>
+                <Label x:Name="loginError"
+                       Text="Login failed. Please try a different username or password"
+                       TextColor="Red"
+                       IsVisible="False"/>
+                
+                <Button Text="Sign Up"
+                        Clicked="SignUpClicked"/>
+                
+                <Button Text="Forgot Password"
+                        TextColor="Blue"
+                        MaximumWidthRequest="190"
+                        BackgroundColor="Transparent"
+                        Clicked="ForgotPasswordClicked"/>
+                
+            </StackLayout>
         </Frame>
     </Grid>
 

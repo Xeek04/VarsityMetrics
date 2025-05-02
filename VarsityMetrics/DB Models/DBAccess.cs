@@ -81,11 +81,57 @@ namespace VarsityMetrics.DB_Models
             }
         }
 
-        /*public async Task<bool> ForgotPasswordEmail(string email)
+        public async Task<bool> ForgotPasswordEmail(string email)
         {
             await Init();
 
-        }*/
+            try
+            {
+                var send = client.Auth.ResetPasswordForEmail(email);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> ResetPasswordToken(string Email, string token)
+        {
+            await Init();
+            try
+            {
+                var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Recovery);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> ResetPassword(string password)
+        {
+            var att = new Supabase.Gotrue.UserAttributes { Password = password };
+            await Init();
+            
+            try
+            {
+                var res = await client.Auth.Update(att);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+
+
+        }
 
         // returns true if there are no duplicates and a nonzero amount of records were inserted
         public async Task<bool> InsertAccountAsync(string password, string email)
@@ -115,7 +161,7 @@ namespace VarsityMetrics.DB_Models
             {
                 var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
                 var signIn = await client.Auth.SignIn(Email, password);
-                Debug.WriteLine(Email);
+
                 if (session != null | signIn != null)
                 {
                     var model = new Accounts
