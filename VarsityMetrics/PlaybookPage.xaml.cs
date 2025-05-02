@@ -96,4 +96,9 @@ public partial class PlaybookPage : ContentPage
 
 		//selected.Stats.Text() = "Testing";
     }
+
+    private void StatsButton_Clicked(object sender, EventArgs e)
+    {
+		Navigation.PushAsync(new AddPlaybookStats());
+    }
 }

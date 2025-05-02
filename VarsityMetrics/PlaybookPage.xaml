@@ -8,9 +8,9 @@
         <ScrollView>
 
             <Grid RowDefinitions="55, Auto, Auto, Auto, Auto"
-          ColumnDefinitions=".5*, Auto, .5*"
-          Padding="10"
-          ColumnSpacing="10">
+                  ColumnDefinitions=".5*, Auto, .5*"
+                  Padding="10"
+                  ColumnSpacing="10">
 
                 <VerticalStackLayout Spacing="10"
                              Grid.Column="1"
@@ -27,7 +27,7 @@
                Grid.Row="1"/>
 
                 <ListView Grid.Row="2"
-                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
                       x:Name="OffenseList"
                       SelectionMode="Single"
                       ItemSelected="OffenseList_ItemSelected">
@@ -37,6 +37,7 @@
                                 <Grid Padding="10" 
                                   ColumnSpacing="5">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
@@ -50,16 +51,22 @@
                                        Source="{Binding ImageSource}"
                                        HeightRequest="500"
                                        WidthRequest="500"/>
+
+                                    <StackLayout Grid.Column="1"
+                                                 Grid.Row="0">
+                                        
+                                    <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource SubHeadline}"/>
                                 
-                                    <Label Grid.Column="1"
-                                           Grid.Row="0"
-                                       Text="{Binding PlayName}"
-                                       Style="{StaticResource SubHeadline}"/>
-                                
-                                    <Label Grid.Column="1"
-                                           Grid.Row="1"
-                                           x:Name="Stats"
-                                           Text="{Binding PlayStats}"/>
+                                    <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource SubHeadline}"/>
+
+                                    <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource SubHeadline}"/>
+                                    </StackLayout>
 
                                 </Grid>
                             </ViewCell>
@@ -142,6 +149,14 @@
                         Clicked="AddButton_Clicked"/>
 
                 </HorizontalStackLayout>
+
+                <Button x:Name="StatsButton"
+                        Text="+"
+                        Grid.Column="2"
+                        Grid.Row="3"
+                        HorizontalOptions="End"
+                        MinimumWidthRequest="50"
+                        Clicked="StatsButton_Clicked"/>
 
 
             </Grid>

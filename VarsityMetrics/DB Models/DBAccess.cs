@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Collections.ObjectModel;
 
 namespace VarsityMetrics.DB_Models
 {
@@ -340,15 +341,19 @@ namespace VarsityMetrics.DB_Models
         {
             public string ImageSource { get; set; }
             public string PlayName { get; set; }
-            public int times_called { get; set; }
-            public int[] yards_gained { get; set; }
+            public int Times_Called { get; set; }
+            public int[] Yards { get; set; }
+
+            public string Yards_Gained => Yards != null ? string.Join(", ", Yards) : "";
         }
 
-        public async Task<List<Stats>> RequestPictureAsync(string type)
+        public async Task<ObservableCollection<Stats>> RequestPictureAsync(string type)
         {
             await Init();
 
             var plays = await client.Storage.From("plays-images").List(type);
+
+            var offenseStats = await App.db.RequestPlayStatsAsync();
 
             List<string> urls = new List<string>();
             
@@ -356,11 +361,9 @@ namespace VarsityMetrics.DB_Models
             {
                 string imagePath = type + "/" + plays[i].Name;
                 var upload = client.Storage.From("plays-images").GetPublicUrl(imagePath);
-                Debug.WriteLine(upload);
                 urls.Add(upload + "|" + plays[i].Name);
             }
 
-            //var offenseStats = await App.db.RequestPlayStatsAsync();
 
             List<Stats> items = urls.Select(p => 
             {
@@ -369,10 +372,20 @@ namespace VarsityMetrics.DB_Models
                 {
                     ImageSource = split[0],
                     PlayName = split[1]
+
                 };
             }).ToList();
 
-            return items;
+            var Playbook = new ObservableCollection<Stats>
+                (items.Zip(offenseStats, (img, stat) => new Stats
+                {
+                    ImageSource = img.ImageSource,
+                    PlayName = img.PlayName,
+                    Times_Called = stat.times_called,
+                    Yards = stat.yards_gained
+                }));
+
+            return Playbook;
         }
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
@@ -387,6 +400,32 @@ namespace VarsityMetrics.DB_Models
                 ImageSource = p.ImageSource,
             }).ToList();*/
             return null;
+        }
+
+        public async Task<bool> AddPlaybookStats(string name, string type, int yards)
+        {
+            await Init();
+            var fetch = await client.From<Play>().Where(x => x.name == name && x.type == type).Get();
+
+            var y = fetch.Models.FirstOrDefault();
+
+            if (y != null)
+            {
+                Debug.WriteLine(y);
+                y.times_called += 1;
+                var yardsUpdated = y.yards_gained.ToList();
+                yardsUpdated.Add(yards);
+                y.yards_gained = yardsUpdated.ToArray();
+
+                var yardsUpdate = await client.From<Play>().Update(y);
+                
+
+                return true;
+            }
+
+            Debug.WriteLine("Failed");
+            return false;
+
         }
 
         public async Task<List<Play>> RequestPlayStatsAsync()
