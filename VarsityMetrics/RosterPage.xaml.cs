@@ -1,9 +1,13 @@
+using System.Windows.Input;
+using VarsityMetrics.ViewModels;
 using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics;
 
 public partial class RosterPage : ContentPage
 {
+    private readonly RosterViewModel _viewModel;
+
     private Label FnameLabel = new Label { Text = "First Name" };
     private Label LnameLabel = new Label { Text = "Last Name" };
     private Label HeightLabel = new Label { Text = "Height" };
@@ -22,6 +26,8 @@ public partial class RosterPage : ContentPage
     public RosterPage()
 	{
 		InitializeComponent();
+        _viewModel = new RosterViewModel();
+        BindingContext = _viewModel;
 
         gridKey.Add(QBButton, addQB);
         gridKey.Add(RBButton, addRB);
@@ -187,6 +193,14 @@ public partial class RosterPage : ContentPage
                 Text = player.Number.ToString(),
                 IsReadOnly = true
             },3,i);
+            // button link to stats
+            positionView.AddWithSpan(new Button
+            {
+                BackgroundColor = new Color(0, 0, 0, 0),
+                Command = _viewModel.OpenStatsCommand,
+                CommandParameter = player
+
+            }, i, 0, 1, positionView.ColumnDefinitions.Count);
             i++;
         }
     }
