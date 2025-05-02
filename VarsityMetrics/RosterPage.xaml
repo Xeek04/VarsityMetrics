@@ -32,14 +32,14 @@
                Style="{StaticResource Headline}"
                FontSize="{OnIdiom Default=32, Phone=40}"/>
         
-        <Button 
+        <Button x:Name="EditButton"
             Grid.Row="1"
             Margin="20,0,0,0"
             Text="Edit"
             FontSize="{OnIdiom Phone=20}"
             HorizontalOptions="Start"
             Clicked="openEditRoster"/>
-        <Button 
+        <Button x:Name="ClearButton"
             Grid.Row="1"
             Margin="0,0,20,0"
             Text="Clear"

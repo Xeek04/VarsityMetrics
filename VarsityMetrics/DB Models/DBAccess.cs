@@ -11,17 +11,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.Xml;
 
 namespace VarsityMetrics.DB_Models
 {
     public class DBAccess {
+
+        
+        public Supabase.Gotrue.User CurrentUser => client.Auth.CurrentUser;
 
         string path;
         private SQLiteAsyncConnection conn;
         private bool modified = false; //set this to true if the database tables have been modified. If you don't change it back then
         // the database will keep deleting itself on startup
 
-        private Client client;
+        public static Client client;
 
         public async Task Init()
         {
@@ -59,7 +63,7 @@ namespace VarsityMetrics.DB_Models
         //  
         //}
 
-        public async Task<bool> CheckLoginAsync(string email, string password)
+        public async Task<string?> CheckLoginAsync(string email, string password)
         {
             await Init();
             try
@@ -67,17 +71,21 @@ namespace VarsityMetrics.DB_Models
                 var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
                 if (matches == null)
                 {
-                    return false;
+                    return null;
                 }
-                else
-                {
-                    return true;
-                }
+                var currentUser = client.Auth.CurrentUser;
+
+                var response = await client.From<Accounts>()
+                    .Where(a => a.Email == currentUser.Email)
+                    .Get();
+
+                var account = response.Models.FirstOrDefault();
+                return account?.Role;
 
             }
             catch (Exception ex)
             {
-                return false;
+                return null;
             }
         }
 
@@ -88,6 +96,20 @@ namespace VarsityMetrics.DB_Models
         }*/
 
         // returns true if there are no duplicates and a nonzero amount of records were inserted
+        public async Task<string?> GetCurrentUserRoleAsync()
+        {
+            var user = client.Auth.CurrentUser;
+            if (user == null)
+                return null;
+
+            var result = await client
+                .From<Accounts>()
+                .Where(a => a.Email == user.Email)
+                .Get();
+
+            return result.Models.FirstOrDefault()?.Role;
+        }
+
         public async Task<bool> InsertAccountAsync(string password, string email)
         {
             // returning an empty task is the async equivalent of void

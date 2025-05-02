@@ -8,6 +8,7 @@ public partial class StatsPage : ContentPage
     {
         InitializeComponent();
         GetRoster();
+        _ = InitShellAsync();
     }
 
     private async void GetRoster()
@@ -61,7 +62,7 @@ public partial class StatsPage : ContentPage
         recbutton.IsVisible = false;
         statnav.IsVisible = true;
         confirm.IsVisible = false;
-        
+
         addplayerstats.IsVisible = false;
         playerListStats.IsVisible = true;
     }
@@ -201,7 +202,7 @@ public partial class StatsPage : ContentPage
                 statGrid = null;
                 break;
         }
-        if (statGrid != null) 
+        if (statGrid != null)
         {
             statGrid.IsVisible = !statGrid.IsVisible;
             if (statGrid.IsVisible) { toggle.Text = "v"; }
@@ -230,5 +231,13 @@ public partial class StatsPage : ContentPage
 
         playerList.SelectedItem = null;
         playerListStats.SelectedItem = null;
+    }
+    private async Task InitShellAsync()
+    {
+        string? role = await App.db.GetCurrentUserRoleAsync();
+        if (role == "Scout" || role == "Player")
+        {
+            // addplayerstats.IsVisible = false;
+        }
     }
 }

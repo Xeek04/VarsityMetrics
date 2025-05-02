@@ -26,7 +26,10 @@ namespace VarsityMetrics
             builder.Services.AddSingleton<DBAccess>(s => ActivatorUtilities.CreateInstance<DBAccess>(s, Constants.DatabasePath));
 
             builder.Services.AddSingleton<Client>(provider => new Client(Constants.supabaseURL, Constants.supabaseKey));
-           
+
+            builder.Services.AddSingleton<DBAccess>(s => new DBAccess(Path.Combine(FileSystem.AppDataDirectory, "varsity.db3")));
+
+
             return builder.Build();
         }
     }

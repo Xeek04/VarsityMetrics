@@ -3,20 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.MyTeam">
     <VerticalStackLayout x:Name="LayoutVerticale">
-        <Button Text="Add Teammate"
-                HorizontalOptions="Start"
-                BackgroundColor="DarkGoldenrod"
-                                    Clicked="Button_Clicked"/>
-        <Entry x:Name="teamname" 
-                                Placeholder="Insert Teammate Name"
-               HorizontalOptions="Start"
-               PlaceholderColor="DarkGoldenrod"
-                                   Text="{Binding TeammateName}"/>
-        <Entry x:Name="teamrole" 
-                        Placeholder="Insert Teammate Role"
-               HorizontalOptions="Start"
-               PlaceholderColor="DarkGoldenrod"
-                           Text="{Binding TeammateRole}"/>
+
+        
+        <Button x:Name="CreateTeamButton"
+            Text="Create Team"
+                Clicked="CreateTeamButton_Clicked"
+                BackgroundColor="#007AFF"
+                TextColor="Black"/>
+
+        
+        <Button Text="Add Member"
+                Clicked="AddMemberButton_Clicked"
+                BackgroundColor="#007AFF"
+                TextColor="Black"/>
+
+       
+        <Label Text="Team Members:"
+               FontAttributes="Bold"
+               FontSize="Medium"
+               Margin="0,20,0,0" />
+
+       
+        <CollectionView x:Name="TeamMembersCollectionView"
+                        ItemsSource="{Binding TeamMembers}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="LightGray"
+                           CornerRadius="8"
+                           Padding="10"
+                           Margin="0,5">
+
+                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                            <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                <Label Text="{Binding Email}"
+                                       FontAttributes="Bold" />
+                                <Label Text="{Binding Role}" 
+                                       FontSize="Small" 
+                                       TextColor="Gray"/>
+                            </StackLayout>
+                            <Button Text="Edit"
+                                    Clicked="EditRoleButton_Clicked"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="#007AFF"
+                                    TextColor="Black"/>
+                        </StackLayout>
+
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
         <ListView Grid.Row="1"
           Grid.Column="1"
           x:Name="MyTeamList">

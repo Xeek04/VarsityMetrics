@@ -4,13 +4,13 @@ namespace VarsityMetrics.DB_Models;
 [Table("MyTeam")]
 public class MyTeam
 {
-  [PrimaryKey, AutoIncrement, Column("Pk")]
+  [Column("Pk")]
   public int Pk { get; set; }
 
-  [NotNull, Column("name")]
+  [Column("name")]
   public String? Name { get; set; }
 
-  [NotNull, Column("role")]
+  [Column("role")]
   public String? Role { get; set; }
 }
     

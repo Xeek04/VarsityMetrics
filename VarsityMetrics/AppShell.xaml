@@ -14,7 +14,8 @@
             Route="MainPage" />
         </Tab>
 
-        <Tab Title="Playbook">
+        <Tab x:Name="PlayPage"
+            Title="Playbook">
             <ShellContent
             ContentTemplate="{DataTemplate local:PlaybookPage}"
             Route="PlaybookPage" />
@@ -26,7 +27,8 @@
             Route="StatsPage" />
         </Tab>
 
-        <Tab Title="Game Log">
+        <Tab x:Name="GameLPage"
+            Title="Game Log">
             <ShellContent
             ContentTemplate="{DataTemplate local:GameLogPage}"
             Route="GameLogPage" />
@@ -43,7 +45,8 @@
             ContentTemplate="{DataTemplate local:AccountPage}"
             Route="AccountPage" />
         </Tab>
-        <Tab Title="My Team">
+        <Tab x:Name="MyTeamPage"
+            Title="My Team">
             <ShellContent
                 ContentTemplate="{DataTemplate local:MyTeam}"
                 Route="MyTeam"/>
