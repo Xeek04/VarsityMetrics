@@ -118,4 +118,9 @@ public partial class PlaybookPage : ContentPage
 			// DrawButton.IsVisible = false;
 		}
 	}
+
+    private void StatsButton_Clicked(object sender, EventArgs e)
+    {
+		Navigation.PushAsync(new AddPlaybookStats());
+    }
 }

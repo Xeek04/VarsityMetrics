@@ -74,6 +74,9 @@
 	  <Compile Update="AddTeamPlayer.xaml.cs">
 	    <DependentUpon>AddTeamPlayer.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="ResetPasswordToken.xaml.cs">
+	    <DependentUpon>ResetPasswordToken.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="SchedulePage.xaml.cs">
 	    <DependentUpon>SchedulePage.xaml</DependentUpon>
 	  </Compile>
@@ -92,6 +95,9 @@
 	  <MauiXaml Update="AddPlaybook.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="AddPlaybookStats.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="AddTeamPlayer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -99,6 +105,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="ForgotPassword.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ResetPassword.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="ResetPasswordToken.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="SchedulePage.xaml">

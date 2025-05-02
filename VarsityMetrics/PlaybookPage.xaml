@@ -4,17 +4,98 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="VarsityMetrics.PlaybookPage"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <DataTemplate x:Key="PlayTemplate">
-                <ViewCell>
-                    <VerticalStackLayout WidthRequest="550"
-                                         Padding="10">
+    <Frame Style="{StaticResource Surface}">
+        <ScrollView>
 
-                        <Label Grid.Column="1"
-                               Grid.Row="0"
-                               Text="{Binding PlayName}"
-                               Style="{StaticResource SubHeadline}" HorizontalOptions="Start"/>
+            <Grid RowDefinitions="55, Auto, Auto, Auto, Auto"
+                  ColumnDefinitions=".5*, Auto, .5*"
+                  Padding="10"
+                  ColumnSpacing="10">
+
+                <VerticalStackLayout Spacing="10"
+                             Grid.Column="1"
+                             Grid.Row="0">
+                    <Label Text="Playbook"
+                   Style="{StaticResource Headline}"/>
+
+                </VerticalStackLayout>
+
+                <Label Text="Offense"
+               x:Name="Offense"
+               Style="{StaticResource SubHeadline}"
+               Grid.Column="1"
+               Grid.Row="1"/>
+
+                <ListView Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      x:Name="OffenseList"
+                      SelectionMode="Single"
+                      ItemSelected="OffenseList_ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10" 
+                                  ColumnSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Grid.Column="0"
+                                       Aspect="Fill"
+                                       Source="{Binding ImageSource}"
+                                       HeightRequest="500"
+                                       WidthRequest="500"/>
+
+                                    <StackLayout Grid.Column="1"
+                                                 Grid.Row="0">
+                                        
+                                    <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource SubHeadline}"/>
+                                
+                                    <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource SubHeadline}"/>
+
+                                    <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource SubHeadline}"/>
+                                    </StackLayout>
+
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Label Text="Defense"
+                   x:Name="Defense"
+                   Style="{StaticResource SubHeadline}"
+                   Grid.Column="1"
+                   Grid.Row="3"/>
+
+                <ListView Grid.Row="4"
+                      Grid.Column="0"
+                      x:Name="DefenseList">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Padding="10"
+                                  ColumnSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0"
                                Source="{Binding ImageSource}"
@@ -100,17 +181,14 @@
                             </ListView.Header>
                         </ListView>
 
-                        <!-- Defense -->
-                        <ListView x:Name="DefenseList"
-                                  SelectionMode="Single"
-                                  ItemSelected="DefenseList_ItemSelected"
-                                  ItemTemplate="{StaticResource Key=PlayTemplate}">
-                            <ListView.Header>
-                                <Label Text="Defense"
-                                       x:Name="Defense"
-                                       Style="{StaticResource SubHeadline}"/>
-                            </ListView.Header>
-                        </ListView>
+                <Button x:Name="StatsButton"
+                        Text="+"
+                        Grid.Column="2"
+                        Grid.Row="3"
+                        HorizontalOptions="End"
+                        MinimumWidthRequest="50"
+                        Clicked="StatsButton_Clicked"/>
+
 
                     </VerticalStackLayout>
                 </ScrollView>
