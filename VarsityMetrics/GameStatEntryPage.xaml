@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:VarsityMetrics.ViewModels"
+             x:Class="VarsityMetrics.GameStatEntryPage">
+    <Frame Style="{StaticResource Surface}">
+        <!--<ContentPage.BindingContext>
+            <vm:GameLogViewModel />
+        </ContentPage.BindingContext>
+        <ContentPage.Resources>
+
+        </ContentPage.Resources>-->
+        <VerticalStackLayout>
+            <Grid x:Name="navbar" ColumnDefinitions="*,*,*">
+                <Button 
+                Text="Back"
+                Clicked="Back"
+                Grid.Column="0"
+                HorizontalOptions="Start"
+                />
+
+                <Picker
+                x:Name="games"
+                Grid.Column="1"
+                SelectedIndexChanged="ItemChanged"
+                />
+
+                <Button
+                x:Name="start"
+                Text="Start"
+                Grid.Column="2"
+                HorizontalOptions="End"
+                Background="Gray"
+                IsEnabled="False"
+                Clicked="StartEntry"
+                />
+            </Grid>
+
+            <Button
+            x:Name="submit"
+            Text="Submit"
+            HorizontalOptions="End"
+            IsVisible="False"
+            Clicked="SubmitEntry"
+            />
+
+            <VerticalStackLayout x:Name="Q1S" IsVisible="False">
+                <Label
+                Text="1st Quarter"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                />
+                <Grid x:Name="Q1" ColumnDefinitions="0.25*,*">
+                
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout x:Name="Q2S" IsVisible="False">
+                <Label
+                Text="2nd Quarter"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                />
+                <Grid x:Name="Q2" ColumnDefinitions="0.25*,*">
+                
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout x:Name="Q3S" IsVisible="False">
+            <Label
+                Text="3rd Quarter"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                />
+                <Grid x:Name="Q3" ColumnDefinitions="0.25*,*">
+                
+                </Grid>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout x:Name="Q4S" IsVisible="False">
+                <Label
+                Text="4th Quarter"
+                FontSize="Medium"
+                HorizontalOptions="Start"
+                />
+                <Grid x:Name="Q4" ColumnDefinitions="0.25*,*">
+                
+                </Grid>
+            </VerticalStackLayout>
+
+            <!--<VerticalStackLayout x:Name="OTS" IsVisible="False">
+                <Label
+                Text="Overtime"
+                HorizontalOptions="Start"
+                />
+                <Grid x:Name="OT" ColumnDefinitions="0.25*,*">
+                
+                </Grid>
+            </VerticalStackLayout>-->
+
+            <VerticalStackLayout x:Name="entryView" IsVisible="False">
+                <Grid x:Name="entryFields" RowSpacing="10" ColumnSpacing="5" ColumnDefinitions="*,*,*,*,*,*,*,*,*,0.5*" RowDefinitions="*,*,*">
+                    <Label
+                    Text="Down"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    />
+                    <Label
+                    Text="Quarter"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    />
+                    <Label
+                    Text="Time"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    />
+                    <Label
+                    Text="Yards"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    />
+                    <Label
+                    Text="Pass/Run"
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    />
+                    <Label
+                    Text="Player(s)"
+                    Grid.Row="0"
+                    Grid.Column="5"
+                    />
+                    <Label
+                    Text="Play"
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    />
+                    <Label
+                    Text="Last Play"
+                    Grid.Row="0"
+                    Grid.Column="7"
+                    />
+                    <Button
+                    Text="+"
+                    Grid.Row="0"
+                    Grid.Column="8"
+                    Clicked="EnterPlay"
+                    />
+
+                    <Picker
+                    x:Name="down"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    />
+                    <Picker
+                    x:Name="quarter"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    />
+                    <Entry
+                    x:Name="gameClock"
+                    Text="15:00"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    />
+                    <Entry
+                    x:Name="yards"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    />
+                    <Picker
+                    x:Name="yardageType"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    />
+                    <Entry
+                    x:Name="player1"
+                    Grid.Row="1"
+                    Grid.Column="5"
+                    />
+                    <Entry
+                    x:Name="player2"
+                    Grid.Row="2"
+                    Grid.Column="5"
+                    />
+                    <Picker
+                    x:Name="playBook"
+                    Grid.Row="1"
+                    Grid.Column="6"
+                    />
+                    <CheckBox
+                    x:Name="gameEnd"
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    />
+
+                </Grid>
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
+    </Frame>
+</ContentPage>

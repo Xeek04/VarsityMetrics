@@ -247,11 +247,33 @@ namespace VarsityMetrics.DB_Models
             return result.Models;
         }
 
+        public async Task<List<Roster>> GetUnit(string unit)
+        {
+            List<string> searchedUnit = new List<string>();
+            switch (unit)
+            {
+                case "offense":
+                    searchedUnit = ["QB", "RB", "WR", "TE", "OL"];
+                    break;
+                case "defense":
+                    searchedUnit = ["DE", "DT", "LB", "CB", "S"];
+                    break;
+                case "specialteams":
+                    searchedUnit = ["K", "P"];
+                    break;
+                default:
+                    searchedUnit = new List<string>();
+                    break;
+            }
+            var result = await client.From<Roster>().Filter(x => x.Position, Supabase.Postgrest.Constants.Operator.In, searchedUnit).Get();
+            return result.Models;
+        }
+
         public async Task<List<Roster>> GetRosterByPosition(string position)
         {
             //List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
             //return result.OrderBy(x => x.Number).ToList();
-            var result = await client.From<Roster>().Where(x => x.Position == position).Get();
+            var result = await client.From<Roster>().Where(x => x.Position == position).Order(x => x.Number, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
             return result.Models;
         }
 
@@ -457,6 +479,26 @@ namespace VarsityMetrics.DB_Models
             var stats = await client.From<Play>().Select(p => new object[] {p.times_called, p.yards_gained}).Get();
             return stats.Models;
         }
+
+        public async Task<List<Play>> GetPlays()
+        {
+            var playList = await client.From<Play>().Where(p => p.type == "Offense").Get();
+            return playList.Models;
+        }
+
+        public async Task<bool> UpdatePlayYardage(int play, int yards)
+        {
+            Play curr = await client.From<Play>().Where(p => p.play_id == play).Single();
+            int[] currYards = new int[curr.yards_gained.Count()+1];
+
+            currYards[currYards.Count() - 1] = yards;
+
+            await client.From<Play>().Where(p => p.play_id == play)
+                                        .Set(p => p.yards_gained, currYards)
+                                        .Set(p => p.times_called, currYards.Count())
+                                        .Update();
+            return true;
+        }
         
         public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {
             
@@ -484,6 +526,32 @@ namespace VarsityMetrics.DB_Models
             string date = year + "-" + month + "-" + day;
             int addedRecords = await conn.InsertAsync(new Game { Opponent = opponent, Date = date, OurScore = ourScore, TheirScore = theirScore }); //insert record with identical person
             if (addedRecords != 0) { return true; } else { return false; }
+        }
+
+        public async Task<bool> AddPlaybookStats(string name, string type, int yards)
+        {
+            await Init();
+            var fetch = await client.From<Play>().Where(x => x.name == name && x.type == type).Get();
+
+            var y = fetch.Models.FirstOrDefault();
+
+            if (y != null)
+            {
+                Debug.WriteLine(y);
+                y.times_called += 1;
+                var yardsUpdated = y.yards_gained.ToList();
+                yardsUpdated.Add(yards);
+                y.yards_gained = yardsUpdated.ToArray();
+
+                var yardsUpdate = await client.From<Play>().Update(y);
+
+
+                return true;
+            }
+
+            Debug.WriteLine("Failed");
+            return false;
+
         }
 
         public async Task<List<Game>> GetGamesAsync()
@@ -530,6 +598,7 @@ namespace VarsityMetrics.DB_Models
             }
         }
 
+        // Gamelog and Schedule
         public async Task<List<Gamelog>> GetSchedule()
         {
             var schedule = await client.From<Gamelog>().Order(g => g.Date, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
@@ -561,6 +630,18 @@ namespace VarsityMetrics.DB_Models
                 GameId = id.Models.LastOrDefault().GameId
             };
             await client.From<GameStats>().Insert(newStats);
+            return true;
+        }
+
+        public async Task<List<PlayByPlay>> GetPlayByPlay(int opp, int quarter)
+        {
+            var plays = await client.From<PlayByPlay>().Where(p => p.GameId == opp).Where(p => p.Quarter == quarter).Get();
+            return plays.Models;
+        }
+
+        public async Task<bool> AddPlayToGame(PlayByPlay play)
+        {
+            await client.From<PlayByPlay>().Insert(play);
             return true;
         }
     }

@@ -16,6 +16,7 @@ namespace VarsityMetrics
 
 
             Routing.RegisterRoute(nameof(SchedulePage), typeof(SchedulePage));
+            Routing.RegisterRoute(nameof(GameStatEntryPage), typeof(GameStatEntryPage));
 
             _ = InitShellAsync();
 
