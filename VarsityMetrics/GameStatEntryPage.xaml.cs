@@ -37,7 +37,7 @@ public partial class GameStatEntryPage : ContentPage
 
     private async void GetPlays()
     {
-
+        playKey.Clear();
         List<string> playList = new List<string>();
         List<Play> plays = await App.db.GetPlays();
         foreach (Play play in plays)
