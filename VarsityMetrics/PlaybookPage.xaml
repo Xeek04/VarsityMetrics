@@ -54,16 +54,16 @@
 
                                     <StackLayout Grid.Column="1"
                                                  Grid.Row="0">
-                                        
-                                    <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
-                                           HorizontalOptions="Start"
-                                           Style="{StaticResource SubHeadline}"/>
-                                
-                                    <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+
+                                        <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
                                            HorizontalOptions="Start"
                                            Style="{StaticResource SubHeadline}"/>
 
-                                    <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
+                                        <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+                                           HorizontalOptions="Start"
+                                           Style="{StaticResource SubHeadline}"/>
+
+                                        <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
                                            HorizontalOptions="Start"
                                            Style="{StaticResource SubHeadline}"/>
                                     </StackLayout>
@@ -97,89 +97,58 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0"
-                               Source="{Binding ImageSource}"
-                               MaximumHeightRequest="500"
-                               WidthRequest="500"/>
+                                    <Image Grid.Column="0"
+                                       Aspect="Fill"
+                                       Source="{Binding ImageSource}"
+                                       HeightRequest="500"
+                                       WidthRequest="500"/>
 
-                    </VerticalStackLayout>
-                </ViewCell>
+                                    <Label Grid.Column="1"
+                                       Text="{Binding PlayName}"
+                                       Style="{StaticResource SubHeadline}"/>
 
-            </DataTemplate>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-    <Grid ColumnDefinitions="300,*"
-          RowSpacing="0"
-          ColumnSpacing="10"
-          Margin="10">
+                <HorizontalStackLayout Grid.Column="2"
+                                   HorizontalOptions="EndAndExpand"
+                                   Spacing="20">
 
-        <!-- Sidebar -->
-        <Border Style="{StaticResource SurfaceBorder}" Margin="0"
-                Grid.Column="0"
-                HeightRequest="150" VerticalOptions="Start">
-            <Grid RowDefinitions="auto,auto" ColumnDefinitions="*,*"
-                  ColumnSpacing="5" RowSpacing="5">
-
-                <Picker Grid.Row="0" Grid.Column="0"
-                        x:Name="OrderPicker"
+                    <Picker x:Name="OrderPicker"
                         Title="Select the order"
                         SelectedIndexChanged="OrderPicker_SelectedIndexChanged">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Default</x:String>
-                            <x:String>Name</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Default</x:String>
+                                <x:String>Name</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-                <Picker Grid.Row="0" Grid.Column="1"
-                        x:Name="TypePicker"
+                    <Picker x:Name="TypePicker"
                         Title="Select a play type"
                         SelectedIndexChanged="TypePicker_SelectedIndexChanged">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>All</x:String>
-                            <x:String>Offense</x:String>
-                            <x:String>Defense</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>All</x:String>
+                                <x:String>Offense</x:String>
+                                <x:String>Defense</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
 
-                <Button Grid.Row="1" Grid.Column="0"
-                        x:Name="DrawButton"
+                    <Button x:Name="DrawButton"
                         Text="Draw"
                         Clicked="DrawButton_Clicked"/>
 
-                <Button Grid.Row="1" Grid.Column="1"
-                        x:Name="AddButton"
+                    <Button x:Name="AddButton"
                         Text="Add"
                         Clicked="AddButton_Clicked"/>
 
-            </Grid>
-        </Border>
-
-        <!-- Main Page -->
-        <Border Style="{StaticResource SurfaceBorder}" Margin="0"
-                Grid.Column="1">
-            <VerticalStackLayout>
-            <Label Text="Playbook"
-                           Style="{StaticResource Headline}"/>
-            
-                <ScrollView>
-                    <VerticalStackLayout>
-
-                        <!-- Offense -->
-                        <ListView x:Name="OffenseList"
-                                  SelectionMode="Single"
-                                  ItemSelected="OffenseList_ItemSelected"
-                                  ItemTemplate="{StaticResource Key=PlayTemplate}">
-                            <ListView.Header>
-                                <Label Text="Offense"
-                                       x:Name="Offense"
-                                       Style="{StaticResource SubHeadline}"/>
-                            </ListView.Header>
-                        </ListView>
+                </HorizontalStackLayout>
 
                 <Button x:Name="StatsButton"
                         Text="+"
@@ -190,10 +159,8 @@
                         Clicked="StatsButton_Clicked"/>
 
 
-                    </VerticalStackLayout>
-                </ScrollView>
-            </VerticalStackLayout>
-        </Border>
-    </Grid>
+            </Grid>
+        </ScrollView>
+    </Frame>
 
 </ContentPage>
