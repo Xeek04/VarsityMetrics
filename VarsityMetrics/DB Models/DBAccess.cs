@@ -156,6 +156,17 @@ namespace VarsityMetrics.DB_Models
             var fileNaming = Path.Combine(type, name);
             await client.Storage.From("plays-images").Upload(path, fileNaming);
 
+            Play model = new Play
+            {
+                name = name,
+                formation = null,
+                type = type,
+                times_called = 0,
+                yards_gained = []
+            };
+
+            await client.From<Play>().Insert(model);
+
             return true;
 
         }

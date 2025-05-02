@@ -11,8 +11,7 @@ namespace VarsityMetrics.DB_Models
     [Table("Play")]
     public class Play : BaseModel
     {
-
-        [PrimaryKey, Column("play_id")]
+        [PrimaryKey("play_id")]
         public int play_id { get; set; }
 
         [Column("name")]
@@ -28,6 +27,6 @@ namespace VarsityMetrics.DB_Models
         public int times_called { get; set; }
 
         [Column("yards_gained")]
-        public int yards_gained { get; set; }
+        public int[] yards_gained { get; set; }
     }
 }
