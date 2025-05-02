@@ -528,32 +528,6 @@ namespace VarsityMetrics.DB_Models
             if (addedRecords != 0) { return true; } else { return false; }
         }
 
-        public async Task<bool> AddPlaybookStats(string name, string type, int yards)
-        {
-            await Init();
-            var fetch = await client.From<Play>().Where(x => x.name == name && x.type == type).Get();
-
-            var y = fetch.Models.FirstOrDefault();
-
-            if (y != null)
-            {
-                Debug.WriteLine(y);
-                y.times_called += 1;
-                var yardsUpdated = y.yards_gained.ToList();
-                yardsUpdated.Add(yards);
-                y.yards_gained = yardsUpdated.ToArray();
-
-                var yardsUpdate = await client.From<Play>().Update(y);
-
-
-                return true;
-            }
-
-            Debug.WriteLine("Failed");
-            return false;
-
-        }
-
         public async Task<List<Game>> GetGamesAsync()
         {
             await Init();
