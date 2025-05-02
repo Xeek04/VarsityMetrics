@@ -18,10 +18,7 @@ public partial class GameLogPage : ContentPage
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                if (GameVideoPlayer != null)
-                {
-                    GameVideoPlayer.Pause();
-                }
+                GameVideoPlayer?.Pause();
             });
         };
     }
@@ -29,6 +26,8 @@ public partial class GameLogPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        Window.MinimumHeight = 650;
+        Window.MinimumWidth = 890;
         await _viewModel.LoadGamesCommand.ExecuteAsync(null);
         await Task.Delay(500);
 
@@ -47,19 +46,19 @@ public partial class GameLogPage : ContentPage
 
     }
 
-    private void GameChanged(object sender, SelectionChangedEventArgs e)
-    {
-        int i = 0;
-        bool check = true;
-        while(check)
-        {
-            if (_viewModel.CurrentGame == null) { check = false; }
-            else if (_viewModel.ScheduleStats[i].GameId == _viewModel.CurrentGame.GameId)
-            {
-                _viewModel.CurrentStats = _viewModel.ScheduleStats[i];
-                check = false;
-            }
-            i++;
-        }
-    }
+    //private void GameChanged(object sender, SelectionChangedEventArgs e)
+    //{
+    //    int i = 0;
+    //    bool check = true;
+    //    while(check)
+    //    {
+    //        if (_viewModel.CurrentGame == null) { check = false; }
+    //      else if (_viewModel.ScheduleStats[i].GameId == _viewModel.CurrentGame.GameId)
+    //      {
+    //          _viewModel.CurrentStats = _viewModel.ScheduleStats[i];
+    //          check = false;
+    //      }
+    //      i++;
+    //  }
+    //}
 }

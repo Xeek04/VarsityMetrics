@@ -87,19 +87,32 @@ public partial class GameLogViewModel : ObservableObject
         try
         {
             IsBusy = true;
-            var games = await App.db.GetSchedule();
-            var stats = await App.db.GetScheduleStats();
+
+            var gamesTask = App.db.GetSchedule();
+            var statsTask = App.db.GetScheduleStats();
+            var games = await gamesTask;
+            Trace.WriteLine($"GameLogViewModel: Got games");
+            var stats = await statsTask;
+            Trace.WriteLine($"GameLogViewModel: Got stats");
             Schedule.Clear();
+            ScheduleStats.Clear();
             for(int i=0; i<games.Count; i++)
             {
                 Schedule.Add(games[i]);
                 ScheduleStats.Add(stats[i]);
             }
-            Trace.WriteLine("GameLogViewModel: Games loaded successfully");
-            if (Schedule.Count > 0) {
+            Trace.WriteLine($"GameLogViewModel: Games loaded successfully, currentGame = {CurrentGame}");
+            if (Schedule.Count > 0 & CurrentGame == null)
+            {
+                Trace.WriteLine("GameLogViewModel: CurrentGame set to last automatically");
                 //SelectedGame = Games.Last();
                 CurrentGame = Schedule.Last();
-                CurrentStats = ScheduleStats.Last();
+                
+                //reset selected item to highlight preselection
+                await Task.Delay(100);
+                var temp = CurrentGame;
+                CurrentGame = null;
+                CurrentGame = temp;
             }
         }
         catch (Exception ex)
@@ -120,22 +133,22 @@ public partial class GameLogViewModel : ObservableObject
         try
         {
             IsBusy = true;
-            Trace.WriteLine($"GameLogViewModel: selected game is {SelectedGame}");
+            //Trace.WriteLine($"GameLogViewModel: selected game is {SelectedGame}");
             if (SelectedGame != null)
             {
-                Trace.WriteLine($"GameLogViewModel: selected game not null");
+                //Trace.WriteLine($"GameLogViewModel: selected game not null");
                 int selectedGamePk = SelectedGame.Pk;
                 Footage film = await App.db.GetFootageByGameIdAsync(selectedGamePk);
                 MediaSource = film?.Uri;
             } else
             {
-                Trace.WriteLine($"GameLogViewModel: selected game null");
+                //Trace.WriteLine($"GameLogViewModel: selected game null");
                 NotNullVideo = false;
             }
         }
         catch (Exception ex)
         {
-            Trace.WriteLine($"GameLogViewModel: Error loading footage - {ex.Message}");
+            //Trace.WriteLine($"GameLogViewModel: Error loading footage - {ex.Message}");
         }
         finally
         {
@@ -176,6 +189,13 @@ public partial class GameLogViewModel : ObservableObject
             //TODO load film when game is changed
         }
     }
+
+    partial void OnCurrentGameChanged(Gamelog? value)
+    {
+        Trace.WriteLine($"GameLogViewModel: current game changed to {value?.BannerText}");
+        CurrentStats = ScheduleStats.Where(s => s.GameId == value?.GameId).First();
+    }
+
 
     // when the tabs are clicked
     partial void OnTeamModeChanged(bool value)
