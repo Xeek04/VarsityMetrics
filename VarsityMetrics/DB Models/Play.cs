@@ -1,4 +1,4 @@
-﻿using Supabase.Postgrest.Attributes;
+﻿﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
@@ -11,8 +11,7 @@ namespace VarsityMetrics.DB_Models
     [Table("Play")]
     public class Play : BaseModel
     {
-
-        [PrimaryKey, Column("play_id")]
+        [PrimaryKey("play_id")]
         public int play_id { get; set; }
 
         [Column("name")]
@@ -22,12 +21,12 @@ namespace VarsityMetrics.DB_Models
         public String? formation { get; set; }
 
         [Column("type")]
-        public String? type { get; set; } // file location on computer
+        public String? type { get; set; }
 
         [Column("times_called")]
         public int times_called { get; set; }
 
         [Column("yards_gained")]
-        public int yards_gained { get; set; }
+        public int[] yards_gained { get; set; }
     }
 }

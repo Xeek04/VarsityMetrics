@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace VarsityMetrics.DB_Models
 {
     [Table("PlayByPlay")]
-    class PlayByPlay : BaseModel
+    public class PlayByPlay : BaseModel
     {
         [PrimaryKey("id")]
         public int Id { get; set; }
@@ -17,14 +17,14 @@ namespace VarsityMetrics.DB_Models
         [Column("game_id")]
         public int GameId { get; set; }
 
-        [Column("player_id")]
-        public int[]? PlayerId { get; set; }
+        [Column("players")]
+        public string[]? Players { get; set; }
 
         [Column("yards")]
         public int? Yards { get; set; }
 
         [Column("yard_type")]
-        public int? YardType { get; set; }
+        public string? YardType { get; set; }
 
         [Column("sack")]
         public bool Sack { get; set; } = false;
@@ -48,6 +48,15 @@ namespace VarsityMetrics.DB_Models
         public bool TD { get; set; } = false;
 
         [Column("game_time")]
-        public int[]? GameTime { get; set; }
+        public string? GameTime { get; set; }
+
+        [Column("down")]
+        public int? Down { get; set; }
+
+        [Column("quarter")]
+        public int Quarter { get; set; } = 1;
+
+        [Column("play_id")]
+        public int? PlayId { get; set; }
     }
 }
