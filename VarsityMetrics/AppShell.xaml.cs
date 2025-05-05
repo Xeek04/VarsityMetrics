@@ -13,6 +13,7 @@
 
 
             Routing.RegisterRoute(nameof(SchedulePage), typeof(SchedulePage));
+            Routing.RegisterRoute(nameof(StatsIndividual), typeof(StatsIndividual));
 
         }
     }

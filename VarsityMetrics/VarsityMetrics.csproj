@@ -110,6 +110,9 @@
 	  <MauiXaml Update="SchedulePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="StatsIndividual.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="ViewModel\MyTeam.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

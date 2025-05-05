@@ -35,5 +35,8 @@ namespace VarsityMetrics
             Statistician,
             Player
         }
+
+        //key for navigation to StatsIndividual
+        public const String StatsIndividualNavKey = "Player";
     }
 }

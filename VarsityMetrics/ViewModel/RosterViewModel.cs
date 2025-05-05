@@ -40,7 +40,13 @@ public partial class RosterViewModel : ObservableObject
             IsBusy = true;
             Roster player = parameter as Roster;
             Trace.WriteLine($"RosterViewModel: Command parameter is {player.Fname}");
-            await Shell.Current.GoToAsync(nameof(SchedulePage));
+
+            var navigationParameter = new ShellNavigationQueryParameters
+            {
+                { Constants.StatsIndividualNavKey, player.Id.ToString() }
+            };
+
+            await Shell.Current.GoToAsync(nameof(StatsIndividual), navigationParameter);
         }
         catch (Exception ex)
         {
