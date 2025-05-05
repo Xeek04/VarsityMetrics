@@ -222,19 +222,31 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            var fileNaming = Path.Combine(type, name);
-            await client.Storage.From("plays-images").Upload(path, fileNaming);
-
             Play model = new Play
             {
                 name = name,
                 formation = null,
                 type = type,
                 times_called = 0,
-                yards_gained = []
+                yards_gained = [],
+                uri = null
             };
 
             await client.From<Play>().Insert(model);
+            var fetch = await client.From<Play>().Where(x => x.name == name && x.type == type).Get();
+            var update = fetch.Models.FirstOrDefault();
+
+            var fileNaming = Path.Combine(type, update.play_id.ToString());
+
+            await client.Storage.From("plays-images").Upload(path, fileNaming);
+
+            var upload = client.Storage.From("plays-images").GetPublicUrl(fileNaming);
+
+
+            update.uri = upload;
+
+            await client.From<Play>().Update(update);
+
 
             return true;
 
