@@ -87,7 +87,7 @@ public partial class PlaybookPage : ContentPage
 		public object PlayName { get; set; }
 		public object Stats { get; set; }
 	}
-	private void OffenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+	private void OffenseList_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
 	{
 		var selected = ((ListView)sender).SelectedItem as Plays;
 		if (selected == null)
@@ -98,7 +98,7 @@ public partial class PlaybookPage : ContentPage
 		//selected.Stats.Text() = "Testing";
     }
 
-    private void DefenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    private void DefenseList_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
     {
         var selected = ((ListView)sender).SelectedItem as Plays;
         if (selected == null)

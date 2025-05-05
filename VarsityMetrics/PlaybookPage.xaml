@@ -7,44 +7,41 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="PlayTemplate">
-                <ViewCell>
-                    <Grid Padding="10" 
-                                  ColumnSpacing="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                <Grid Padding="10" 
+                      ColumnSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0"
+                    <Image Grid.Column="0"
                                Aspect="Fill"
                                Source="{Binding ImageSource}"
                                HeightRequest="500"
                                WidthRequest="500"/>
 
-                        <StackLayout Grid.Column="1"
+                    <StackLayout Grid.Column="1"
                                      Grid.Row="0">
 
-                            <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
+                        <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                            <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+                        <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                            <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
+                        <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
-                        </StackLayout>
+                    </StackLayout>
 
-                    </Grid>
-                </ViewCell>
-
+                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -103,38 +100,34 @@
         <Border Style="{StaticResource SurfaceBorder}" Margin="0"
                 Grid.Column="1">
             <VerticalStackLayout>
-            <Label Text="Playbook"
+                <Label Text="Playbook"
                            Style="{StaticResource Headline}"/>
-            
-                <ScrollView>
-                    <VerticalStackLayout>
+                
+                <VerticalStackLayout>
 
                         <!-- Offense -->
-                        <ListView x:Name="OffenseList"
-                                  SelectionMode="Single"
-                                  ItemSelected="OffenseList_ItemSelected"
-                                  ItemTemplate="{StaticResource Key=PlayTemplate}">
-                            <ListView.Header>
-                                <Label Text="Offense"
-                                       x:Name="Offense"
-                                       Style="{StaticResource SubHeadline}"/>
-                            </ListView.Header>
-                        </ListView>
+                    <Label Text="Offense"
+                               x:Name="Offense"
+                               Style="{StaticResource SubHeadline}"/>
+                        
+                    <CollectionView x:Name="OffenseList"
+                                        SelectionMode="Single"
+                                        SelectionChanged="OffenseList_SelectionChanged"
+                                        ItemTemplate="{StaticResource PlayTemplate}"
+                                        HeightRequest="250"/>
 
-                        <!-- Defense -->
-                        <ListView x:Name="DefenseList"
-                                  SelectionMode="Single"
-                                  ItemSelected="DefenseList_ItemSelected"
-                                  ItemTemplate="{StaticResource Key=PlayTemplate}">
-                            <ListView.Header>
-                                <Label Text="Defense"
-                                       x:Name="Defense"
-                                       Style="{StaticResource SubHeadline}"/>
-                            </ListView.Header>
-                        </ListView>
+                    <!-- Defense -->
+                    <Label Text="Defense"
+                               x:Name="Defense"
+                               Style="{StaticResource SubHeadline}"/>
+                        
+                    <CollectionView x:Name="DefenseList"
+                                        SelectionMode="Single"
+                                        SelectionChanged="DefenseList_SelectionChanged"
+                                        ItemTemplate="{StaticResource PlayTemplate}"
+                                        HeightRequest="250"/>
 
-                    </VerticalStackLayout>
-                </ScrollView>
+                </VerticalStackLayout>
             </VerticalStackLayout>
         </Border>
     </Grid>
