@@ -8,20 +8,41 @@
         <ResourceDictionary>
             <DataTemplate x:Key="PlayTemplate">
                 <ViewCell>
-                    <VerticalStackLayout WidthRequest="550"
-                                         Padding="10">
-
-                        <Label Grid.Column="1"
-                               Grid.Row="0"
-                               Text="{Binding PlayName}"
-                               Style="{StaticResource SubHeadline}" HorizontalOptions="Start"/>
+                    <Grid Padding="10" 
+                                  ColumnSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
                         <Image Grid.Column="0"
+                               Aspect="Fill"
                                Source="{Binding ImageSource}"
-                               MaximumHeightRequest="500"
+                               HeightRequest="500"
                                WidthRequest="500"/>
 
-                    </VerticalStackLayout>
+                        <StackLayout Grid.Column="1"
+                                     Grid.Row="0">
+
+                            <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
+                                   HorizontalOptions="Start"
+                                   Style="{StaticResource SubHeadline}"/>
+
+                            <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+                                   HorizontalOptions="Start"
+                                   Style="{StaticResource SubHeadline}"/>
+
+                            <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
+                                   HorizontalOptions="Start"
+                                   Style="{StaticResource SubHeadline}"/>
+                        </StackLayout>
+
+                    </Grid>
                 </ViewCell>
 
             </DataTemplate>

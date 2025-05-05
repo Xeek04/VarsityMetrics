@@ -28,5 +28,14 @@ namespace VarsityMetrics.DB_Models
 
         [Column("yards_gained")]
         public int[] yards_gained { get; set; }
+
+        [PrimaryKey("play_id")]
+        public string? uri { get; set; }
+        public void SetURI()
+        {
+            // TODO implement
+        }
     }
+
+    
 }
