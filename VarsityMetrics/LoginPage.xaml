@@ -28,7 +28,8 @@
                     HorizontalTextAlignment="Center"/>
             
             <Entry Placeholder="Enter Email"
-                   x:Name="email"/>
+                   x:Name="email"
+                   Completed="LoginClicked"/>
 
             <Label x:Name="emailError"
                    TextColor="Red"
@@ -37,7 +38,8 @@
             <Grid>
                 <Entry Placeholder="Enter Password"
                         IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
-                        x:Name="password"/>
+                        x:Name="password"
+                        Completed="LoginClicked"/>
 
                 <CheckBox x:Name="HidePassword"
                         IsChecked="True"

@@ -32,14 +32,16 @@
 
 
             <Entry Placeholder="Enter your First Name"
-                   x:Name="FirstName"/>
+                   x:Name="FirstName"
+                   Completed="SignUpClicked"/>
 
             <Label x:Name="firstError"
                    TextColor="Red"
                    IsVisible="False"/>
 
             <Entry Placeholder="Enter your Last Name"
-                   x:Name="LastName"/>
+                   x:Name="LastName"
+                   Completed="SignUpClicked"/>
             
             <Label x:Name="lastError"
                    TextColor="Red"
@@ -48,7 +50,8 @@
                 <Grid>
                     <Entry Placeholder="Enter Password"
                        IsPassword="{Binding Source={x:Reference HidePassword}, Path=IsChecked}"
-                       x:Name="password"/>
+                       x:Name="password"
+                       Completed="SignUpClicked"/>
 
                     <CheckBox x:Name="HidePassword"
                           IsChecked="True"
@@ -60,14 +63,15 @@
                    IsVisible="False"/>
 
                 <Entry Placeholder="Enter Email"
-                   x:Name="email"/>
+                   x:Name="email"
+                   Completed="SignUpClicked"/>
 
                 <Label x:Name="emailError"
                    TextColor="Red"
                    IsVisible="False"/>
 
                 <Button Text="Sign Up"
-                    Clicked="SignInClicked"/>
+                    Clicked="SignUpClicked"/>
 
                 <Label x:Name="accountError"
                    Text="Account already exists with this username"

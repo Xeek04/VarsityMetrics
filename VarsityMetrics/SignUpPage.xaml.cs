@@ -10,7 +10,7 @@ public partial class SignUpPage : ContentPage
 		InitializeComponent();
     }
 
-    private async void SignInClicked(object sender, EventArgs e)
+    private async void SignUpClicked(object sender, EventArgs e)
     {
 
         int err = 0;
