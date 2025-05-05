@@ -5,21 +5,27 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
     <Frame Style="{StaticResource Surface}">
     <VerticalStackLayout>
-        <Grid ColumnDefinitions="*,*">
+        <Grid ColumnDefinitions="*,*,0.5*">
             <Button 
                 Text="Back"
-                Clicked="Button_Clicked"
+                Clicked="Back"
                 Grid.Column="0"
                 HorizontalOptions="Start"
             />
             <Button
-                Text="Edit Schedule"
-                Clicked="ShowEntries"
+                Text="Enter Scores"
+                Clicked="EditScores"
                 Grid.Column="1"
                 HorizontalOptions="End"
             />
-        </Grid>
-        <Grid x:Name="currentSchedule" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*" IsVisible="True">
+            <Button
+                Text="Edit Schedule"
+                Clicked="ShowEntries"
+                Grid.Column="2"
+                HorizontalOptions="End"
+            />
+            </Grid>
+        <Grid x:Name="currentSchedule" ColumnDefinitions="*,*,*,*,*,*,*" RowDefinitions="*" IsVisible="True">
             <Label
                 Text="Matchup"
                 Grid.Column="1"

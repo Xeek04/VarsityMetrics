@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="VarsityMetrics.AddPlaybookStats"
+                     BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
+
+    <Border Style="{StaticResource SurfaceBorder}">
+        <Grid RowDefinitions="55, 200, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+              ColumnDefinitions=".5*, Auto, .5*"
+              Padding="10"
+              RowSpacing="5"
+              ColumnSpacing="10">
+
+            <Label x:Name="Title"
+                   Grid.Column="1"
+                   Text="Add Playbook Stats"
+                   HorizontalOptions="Center"
+                   FontSize="Header"/>
+            
+
+            <Entry Placeholder="Enter Name"
+                   Grid.Column="1"
+                   Grid.Row="2"
+               x:Name="name"
+               Text="{Binding Name}"/>
+
+            <Label x:Name="NameError"
+                   Grid.Column="1"
+                   Grid.Row="3"
+               TextColor="Red"
+               IsVisible="False"/>
+
+            <Picker x:Name="TypePicker"
+                    Grid.Column="1"
+                    Grid.Row="4"
+                Title="Select the type of play">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Offense</x:String>
+                        <x:String>Defense</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+
+            <Label x:Name="TypeError"
+                   Grid.Column="1"
+                   Grid.Row="5"
+                   TextColor="Red"
+                   IsVisible="False"/>
+
+            <Entry x:Name="YardsGained"
+                   Grid.Column="1"
+                   Grid.Row="6"
+                   Placeholder="Enter the number of yards gained"
+                   Text="{Binding YardsGained}"/>
+
+            <Label x:Name="YardsError"
+                   Grid.Column="1"
+                   Grid.Row="7"
+                   TextColor="Red"
+                   IsVisible="False"/>
+
+            <Grid Grid.Column="1"
+                  Grid.Row="8"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="5">
+
+                <Button x:Name="confirm" Grid.Column="0"
+                        Text="Confirm"
+                        Clicked="confirm_Clicked"/>
+
+                <Button x:Name="cancel" Grid.Column="1"
+                        Text="Cancel"
+                        Clicked="cancel_Clicked"/>
+
+            </Grid>
+        </Grid>
+    </Border>
+</ContentPage>

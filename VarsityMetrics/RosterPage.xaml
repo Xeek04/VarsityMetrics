@@ -32,14 +32,14 @@
                Style="{StaticResource Headline}"
                FontSize="{OnIdiom Default=32, Phone=40}"/>
         
-        <Button 
+        <Button x:Name="EditButton"
             Grid.Row="1"
             Margin="20,0,0,0"
             Text="Edit"
             FontSize="{OnIdiom Phone=20}"
             HorizontalOptions="Start"
             Clicked="openEditRoster"/>
-        <Button 
+        <Button x:Name="ClearButton"
             Grid.Row="1"
             Margin="0,0,20,0"
             Text="Clear"
@@ -51,6 +51,21 @@
             <FlexLayout
                 Wrap="Wrap"
                 JustifyContent="SpaceEvenly">
+                
+                <!-- Full Roster -->
+                <!-- Offense -->
+                <!--<VerticalStackLayout Style="{StaticResource RosterColumns}">
+                    <Label
+                        Text="Offense"
+                        Style="{StaticResource SubHeadline}"
+                    />
+
+                    <Grid RowSpacing="5" ColumnDefinitions="*,*,*,*">
+
+                    </Grid>
+                </VerticalStackLayout>-->
+                <!-- Defense -->
+                <!-- Special Teams -->
 
                 <!-- Offense Column -->
                 <VerticalStackLayout Style="{StaticResource RosterColumns}">
@@ -60,7 +75,7 @@
                         Style="{StaticResource SubHeadline}"/>
                     <!--  -->
 
-                    <Grid RowSpacing="10" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
+                    <Grid x:Name="OffenseList" RowSpacing="10" RowDefinitions="*,*,*,*,*,*,*,*,*,*" Padding="30">
                         <Label
                             Grid.Row="0"
                             Text="QB"

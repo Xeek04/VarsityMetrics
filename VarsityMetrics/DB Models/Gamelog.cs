@@ -37,5 +37,8 @@ namespace VarsityMetrics.DB_Models
 
         [Column("banner_text")]
         public string BannerText => ForTeam + (HomeGame == true ? " vs " : " at ") + OppTeam;
+
+        [Column("stats_entered")]
+        public bool StatsEntered { get; set; } = false;
     }
 }

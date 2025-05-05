@@ -28,6 +28,7 @@ public partial class RosterPage : ContentPage
 		InitializeComponent();
         _viewModel = new RosterViewModel();
         BindingContext = _viewModel;
+        _ = InitShellAsync();
 
         gridKey.Add(QBButton, addQB);
         gridKey.Add(RBButton, addRB);
@@ -202,6 +203,15 @@ public partial class RosterPage : ContentPage
 
             }, i, 0, 1, positionView.ColumnDefinitions.Count);
             i++;
+        }
+    }
+    private async Task InitShellAsync()
+    {
+        string? role = await App.db.GetCurrentUserRoleAsync();
+        if (role == "Scout" || role == "Player")
+        {
+            // EditButton.IsVisible = false;
+            // ClearButton.IsVisible = false;
         }
     }
 }

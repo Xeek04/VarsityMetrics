@@ -1,4 +1,4 @@
-﻿using Supabase.Postgrest.Attributes;
+﻿﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,7 @@ namespace VarsityMetrics.DB_Models
         public String? formation { get; set; }
 
         [Column("type")]
-        public String? type { get; set; } // file location on computer
+        public String? type { get; set; }
 
         [Column("times_called")]
         public int times_called { get; set; }

@@ -11,17 +11,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography.Xml;
+using System.Collections.ObjectModel;
 
 namespace VarsityMetrics.DB_Models
 {
     public class DBAccess {
+
+        
+        public Supabase.Gotrue.User CurrentUser => client.Auth.CurrentUser;
 
         string path;
         private SQLiteAsyncConnection conn;
         private bool modified = false; //set this to true if the database tables have been modified. If you don't change it back then
         // the database will keep deleting itself on startup
 
-        private Client client;
+        public static Client client;
 
         public async Task Init()
         {
@@ -59,7 +64,7 @@ namespace VarsityMetrics.DB_Models
         //  
         //}
 
-        public async Task<bool> CheckLoginAsync(string email, string password)
+        public async Task<string?> CheckLoginAsync(string email, string password)
         {
             await Init();
             try
@@ -67,27 +72,91 @@ namespace VarsityMetrics.DB_Models
                 var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
                 if (matches == null)
                 {
-                    return false;
+                    return null;
                 }
-                else
-                {
-                    return true;
-                }
+                var currentUser = client.Auth.CurrentUser;
 
+                var response = await client.From<Accounts>()
+                    .Where(a => a.Email == currentUser.Email)
+                    .Get();
+
+                var account = response.Models.FirstOrDefault();
+                return account?.Role;
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<bool> ForgotPasswordEmail(string email)
+        {
+            await Init();
+
+            try
+            {
+                var send = client.Auth.ResetPasswordForEmail(email);
+
+                return true;
             }
             catch (Exception ex)
             {
                 return false;
             }
+
         }
 
-        /*public async Task<bool> ForgotPasswordEmail(string email)
+        public async Task<bool> ResetPasswordToken(string Email, string token)
         {
             await Init();
+            try
+            {
+                var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Recovery);
 
-        }*/
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        public async Task<bool> ResetPassword(string password)
+        {
+            var att = new Supabase.Gotrue.UserAttributes { Password = password };
+            await Init();
+            
+            try
+            {
+                var res = await client.Auth.Update(att);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+
+
+        }
 
         // returns true if there are no duplicates and a nonzero amount of records were inserted
+        public async Task<string?> GetCurrentUserRoleAsync()
+        {
+            var user = client.Auth.CurrentUser;
+            if (user == null)
+                return null;
+
+            var result = await client
+                .From<Accounts>()
+                .Where(a => a.Email == user.Email)
+                .Get();
+
+            return result.Models.FirstOrDefault()?.Role;
+        }
+
         public async Task<bool> InsertAccountAsync(string password, string email)
         {
             // returning an empty task is the async equivalent of void
@@ -115,7 +184,7 @@ namespace VarsityMetrics.DB_Models
             {
                 var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Signup);
                 var signIn = await client.Auth.SignIn(Email, password);
-                Debug.WriteLine(Email);
+
                 if (session != null | signIn != null)
                 {
                     var model = new Accounts
@@ -178,11 +247,33 @@ namespace VarsityMetrics.DB_Models
             return result.Models;
         }
 
+        public async Task<List<Roster>> GetUnit(string unit)
+        {
+            List<string> searchedUnit = new List<string>();
+            switch (unit)
+            {
+                case "offense":
+                    searchedUnit = ["QB", "RB", "WR", "TE", "OL"];
+                    break;
+                case "defense":
+                    searchedUnit = ["DE", "DT", "LB", "CB", "S"];
+                    break;
+                case "specialteams":
+                    searchedUnit = ["K", "P"];
+                    break;
+                default:
+                    searchedUnit = new List<string>();
+                    break;
+            }
+            var result = await client.From<Roster>().Filter(x => x.Position, Supabase.Postgrest.Constants.Operator.In, searchedUnit).Get();
+            return result.Models;
+        }
+
         public async Task<List<Roster>> GetRosterByPosition(string position)
         {
             //List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
             //return result.OrderBy(x => x.Number).ToList();
-            var result = await client.From<Roster>().Where(x => x.Position == position).Get();
+            var result = await client.From<Roster>().Where(x => x.Position == position).Order(x => x.Number, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
             return result.Models;
         }
 
@@ -294,15 +385,19 @@ namespace VarsityMetrics.DB_Models
         {
             public string ImageSource { get; set; }
             public string PlayName { get; set; }
-            public int times_called { get; set; }
-            public int[] yards_gained { get; set; }
+            public int Times_Called { get; set; }
+            public int[] Yards { get; set; }
+
+            public string Yards_Gained => Yards != null ? string.Join(", ", Yards) : "";
         }
 
-        public async Task<List<Stats>> RequestPictureAsync(string type)
+        public async Task<ObservableCollection<Stats>> RequestPictureAsync(string type)
         {
             await Init();
 
             var plays = await client.Storage.From("plays-images").List(type);
+
+            var offenseStats = await App.db.RequestPlayStatsAsync();
 
             List<string> urls = new List<string>();
             
@@ -310,11 +405,9 @@ namespace VarsityMetrics.DB_Models
             {
                 string imagePath = type + "/" + plays[i].Name;
                 var upload = client.Storage.From("plays-images").GetPublicUrl(imagePath);
-                Debug.WriteLine(upload);
                 urls.Add(upload + "|" + plays[i].Name);
             }
 
-            //var offenseStats = await App.db.RequestPlayStatsAsync();
 
             List<Stats> items = urls.Select(p => 
             {
@@ -323,10 +416,20 @@ namespace VarsityMetrics.DB_Models
                 {
                     ImageSource = split[0],
                     PlayName = split[1]
+
                 };
             }).ToList();
 
-            return items;
+            var Playbook = new ObservableCollection<Stats>
+                (items.Zip(offenseStats, (img, stat) => new Stats
+                {
+                    ImageSource = img.ImageSource,
+                    PlayName = img.PlayName,
+                    Times_Called = stat.times_called,
+                    Yards = stat.yards_gained
+                }));
+
+            return Playbook;
         }
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
@@ -343,12 +446,58 @@ namespace VarsityMetrics.DB_Models
             return null;
         }
 
+        public async Task<bool> AddPlaybookStats(string name, string type, int yards)
+        {
+            await Init();
+            var fetch = await client.From<Play>().Where(x => x.name == name && x.type == type).Get();
+
+            var y = fetch.Models.FirstOrDefault();
+
+            if (y != null)
+            {
+                Debug.WriteLine(y);
+                y.times_called += 1;
+                var yardsUpdated = y.yards_gained.ToList();
+                yardsUpdated.Add(yards);
+                y.yards_gained = yardsUpdated.ToArray();
+
+                var yardsUpdate = await client.From<Play>().Update(y);
+                
+
+                return true;
+            }
+
+            Debug.WriteLine("Failed");
+            return false;
+
+        }
+
         public async Task<List<Play>> RequestPlayStatsAsync()
         {
             await Init();
 
             var stats = await client.From<Play>().Select(p => new object[] {p.times_called, p.yards_gained}).Get();
             return stats.Models;
+        }
+
+        public async Task<List<Play>> GetPlays()
+        {
+            var playList = await client.From<Play>().Where(p => p.type == "Offense").Get();
+            return playList.Models;
+        }
+
+        public async Task<bool> UpdatePlayYardage(int play, int yards)
+        {
+            Play curr = await client.From<Play>().Where(p => p.play_id == play).Single();
+            int[] currYards = new int[curr.yards_gained.Count()+1];
+
+            currYards[currYards.Count() - 1] = yards;
+
+            await client.From<Play>().Where(p => p.play_id == play)
+                                        .Set(p => p.yards_gained, currYards)
+                                        .Set(p => p.times_called, currYards.Count())
+                                        .Update();
+            return true;
         }
         
         public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {
@@ -423,6 +572,7 @@ namespace VarsityMetrics.DB_Models
             }
         }
 
+        // Gamelog and Schedule
         public async Task<List<Gamelog>> GetSchedule()
         {
             var schedule = await client.From<Gamelog>().Order(g => g.Date, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
@@ -454,6 +604,18 @@ namespace VarsityMetrics.DB_Models
                 GameId = id.Models.LastOrDefault().GameId
             };
             await client.From<GameStats>().Insert(newStats);
+            return true;
+        }
+
+        public async Task<List<PlayByPlay>> GetPlayByPlay(int opp, int quarter)
+        {
+            var plays = await client.From<PlayByPlay>().Where(p => p.GameId == opp).Where(p => p.Quarter == quarter).Get();
+            return plays.Models;
+        }
+
+        public async Task<bool> AddPlayToGame(PlayByPlay play)
+        {
+            await client.From<PlayByPlay>().Insert(play);
             return true;
         }
     }

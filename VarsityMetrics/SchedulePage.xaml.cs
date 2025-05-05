@@ -10,9 +10,14 @@ public partial class SchedulePage : ContentPage
         PopulateSchedule();
 	}
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private void Back(object sender, EventArgs e)
     {
         Navigation.PopAsync();
+    }
+
+    private async void EditScores(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(GameStatEntryPage));
     }
 
     private void ShowEntries(object sender, EventArgs e)
@@ -127,5 +132,10 @@ public partial class SchedulePage : ContentPage
         date.Date = DateTime.Now;
         home.IsChecked = false;
         location.Text = null;
+    }
+
+    private async void PlayByPlay(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(GameStatEntryPage));
     }
 }

@@ -1,13 +1,9 @@
 namespace VarsityMetrics;
 
-public partial class EmailConfirmation : ContentPage
+public partial class ResetPasswordToken : ContentPage
 {
-	public static string Email;
-	public static string Password;
-	public static string FirstName;
-	public static string LastName;
-
-	public EmailConfirmation()
+    public static string Email;
+    public ResetPasswordToken()
 	{
 		InitializeComponent();
 	}
@@ -30,12 +26,13 @@ public partial class EmailConfirmation : ContentPage
             err = 1;
         }
 
-        if(err == 0)
+        if (err == 0)
         {
-            bool Confirmation = await App.db.ConfirmEmail(Email, Token.Text, Password, FirstName, LastName);
-		    if(Confirmation)
-		    {
-                App.Current.MainPage = new AppShell();
+            bool Confirmation = await App.db.ResetPasswordToken(Email, Token.Text);
+            if (Confirmation)
+            {
+                ResetPassword.Email = Email;
+                App.Current.MainPage = new ResetPassword();
             }
             else
             {
@@ -43,11 +40,11 @@ public partial class EmailConfirmation : ContentPage
                 tokenError.IsVisible = true;
             }
         }
-		
+
     }
 
     private async void cancel_Clicked(object sender, EventArgs e)
     {
-        App.Current.MainPage = new SignUpPage();
+        App.Current.MainPage = new ForgotPassword();
     }
 }

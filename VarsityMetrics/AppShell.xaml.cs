@@ -1,4 +1,7 @@
-﻿namespace VarsityMetrics
+﻿using Microsoft.Maui.ApplicationModel.Communication;
+using VarsityMetrics.DB_Models;
+
+namespace VarsityMetrics
 {
     public partial class AppShell : Shell
     {
@@ -14,7 +17,21 @@
 
             Routing.RegisterRoute(nameof(SchedulePage), typeof(SchedulePage));
             Routing.RegisterRoute(nameof(StatsIndividual), typeof(StatsIndividual));
+            Routing.RegisterRoute(nameof(GameStatEntryPage), typeof(GameStatEntryPage));
 
+            _ = InitShellAsync();
+
+
+        }
+        private async Task InitShellAsync()
+        {
+            string? role = await App.db.GetCurrentUserRoleAsync();
+            if (role == "Scout")
+            {
+                // PlayPage.IsVisible = false;
+                // GameLPage.IsVisible = false;
+                // MyTeamPage.IsVisible = false;
+            }
         }
     }
 }
