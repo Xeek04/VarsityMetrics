@@ -6,6 +6,7 @@ namespace VarsityMetrics;
 public partial class StatsIndividual : ContentPage
 {
     public Roster Player { get; set; }
+    public PlayerStats PlayerStats { get; set; }
 
     public StatsIndividual(Roster player)
     {
@@ -18,5 +19,7 @@ public partial class StatsIndividual : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        var query = App.db.StatQuery(Player.Fname, Player.Lname);
+        PlayerStats = await query;
     }
 }
