@@ -63,7 +63,7 @@ public partial class MyTeam : ContentPage
             {
                 Team_Id = createdTeam.Id,
                 Email = currentUserEmail,
-                Role = "Coach",
+                Role = Constants.Role.Coach,
             };
             await DBAccess.client.From<Teams>().Insert(selfEntry);
 
@@ -82,9 +82,24 @@ public partial class MyTeam : ContentPage
         }
 
         var email = await DisplayPromptAsync("Add Member", "Enter user email:");
-        var role = await DisplayPromptAsync("Add Member", "Enter role:");
 
-        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(role)) return;
+        if (string.IsNullOrWhiteSpace(email)) return;
+        // the actionSheet and following switch should contain all roles that a head coach can assign to an account
+        var role = await DisplayActionSheet("Add Member", "Cancel", null, "Coach", "Player");
+        Constants.Role newRole;
+
+        switch (role)
+        {
+            case "Coach":
+                newRole = Constants.Role.Coach;
+                break;
+            case "Player":
+                newRole = Constants.Role.Player;
+                break;
+
+            default:
+                return;
+        }
 
         var accountQuery = await DBAccess.client
             .From<DB_Models.Accounts>()
@@ -111,7 +126,7 @@ public partial class MyTeam : ContentPage
         {
             Team_Id = currentTeamId.Value,
             Email = email,
-            Role = role
+            Role = newRole
         };
 
         await DBAccess.client.From<Teams>().Insert(newMember);

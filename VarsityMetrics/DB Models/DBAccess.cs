@@ -64,7 +64,8 @@ namespace VarsityMetrics.DB_Models
         //  
         //}
 
-        public async Task<string?> CheckLoginAsync(string email, string password)
+        // returns null if unsuccessful, otherwise returns user's role
+        public async Task<Constants.Role?> CheckLoginAsync(string email, string password)
         {
             await Init();
             try
@@ -81,7 +82,15 @@ namespace VarsityMetrics.DB_Models
                     .Get();
 
                 var account = response.Models.FirstOrDefault();
-                return account?.Role;
+                if (account == null)
+                {
+                    return null ;
+                }
+                else
+                {
+                    Trace.WriteLine($"DBAccess: Role is {account.Role}");
+                    return account.Role;
+                }
 
             }
             catch (Exception ex)
@@ -142,8 +151,8 @@ namespace VarsityMetrics.DB_Models
 
         }
 
-        // returns true if there are no duplicates and a nonzero amount of records were inserted
-        public async Task<string?> GetCurrentUserRoleAsync()
+        // returns null if unsuccessful
+        public async Task<Constants.Role?> GetCurrentUserRoleAsync()
         {
             var user = client.Auth.CurrentUser;
             if (user == null)
@@ -154,7 +163,14 @@ namespace VarsityMetrics.DB_Models
                 .Where(a => a.Email == user.Email)
                 .Get();
 
-            return result.Models.FirstOrDefault()?.Role;
+            if (result.Models.Any())
+            {
+                return result.Models.FirstOrDefault().Role;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<bool> InsertAccountAsync(string password, string email)
@@ -192,7 +208,7 @@ namespace VarsityMetrics.DB_Models
                         Email = Email,
                         FirstName = FirstName,
                         LastName = LastName,
-                        Role = "Scout"
+                        Role = Constants.Role.Scout
                     };
 
                     await client.From<Accounts>()
@@ -211,7 +227,7 @@ namespace VarsityMetrics.DB_Models
 
         }
 
-        public async Task<bool> UploadTeammateAsync(string name, string role)
+        public async Task<bool> UploadTeammateAsync(string name, Constants.Role role)
         {
             await Init();
 
@@ -403,7 +419,7 @@ namespace VarsityMetrics.DB_Models
             public string Yards_Gained => Yards != null ? string.Join(", ", Yards) : "";
         }
 
-        public async Task<ObservableCollection<Stats>> RequestPictureAsync(string type)
+        public async Task<List<Play>> RequestPictureAsync(string type)
         {
             await Init();
 
@@ -441,7 +457,7 @@ namespace VarsityMetrics.DB_Models
                     Yards = stat.yards_gained
                 }));
 
-            return Playbook;
+            return null;
         }
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)

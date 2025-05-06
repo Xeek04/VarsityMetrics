@@ -3,27 +3,23 @@ using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics;
 
-[QueryProperty(nameof(PlayerId), Constants.StatsIndividualNavKey)]
 public partial class StatsIndividual : ContentPage
 {
-    public string PlayerId { get; set; }
-    public Roster player;
+    public Roster Player { get; set; }
+    public PlayerStats PlayerStats { get; set; }
 
-    public StatsIndividual()
+    public StatsIndividual(Roster player)
     {
         InitializeComponent();
+        Player = player;
+        BindingContext = this;
+        Trace.WriteLine($"Player is {Player.Fname}");
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-
-        // Load player data from DB using PlayerId
-        if (int.TryParse(PlayerId, out int id))
-        {
-            List<Roster> playerList = await App.db.GetRoster();
-            player = playerList.Where(p => p.Id.ToString() == PlayerId).FirstOrDefault();
-            // Use `player` as needed
-        }
+        var query = App.db.StatQuery(Player.Fname, Player.Lname);
+        PlayerStats = await query;
     }
 }

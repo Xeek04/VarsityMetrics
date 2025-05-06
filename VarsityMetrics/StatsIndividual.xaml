@@ -4,90 +4,15 @@
              x:Class="VarsityMetrics.StatsIndividual">
     <Border Style="{StaticResource SurfaceBorder}"
             Padding="5">
-        <VerticalStackLayout WidthRequest="700">
-            <Label Style="{StaticResource Headline}" HorizontalOptions="Start"
-                   Text="{Binding player.Firsname}"/>
-            <Grid x:Name="PassingView" IsVisible="False" RowDefinitions="*,*" ColumnDefinitions="*,*,*,*,*,*,*">
-                <Label
-    Text="Attempts"
-    Grid.Row="0"
-    Grid.Column="0"
-/>
-                <Label
-    Text="Completions"
-    Grid.Row="0"
-    Grid.Column="1"
-/>
-                <Label
-    Text="Comp %"
-    Grid.Row="0"
-    Grid.Column="2"
-/>
-                <Label
-    Text="Passing Yards"
-    Grid.Row="0"
-    Grid.Column="3"
-/>
-                <Label
-    Text="Passing TDs"
-    Grid.Row="0"
-    Grid.Column="4"
-/>
-                <Label
-    Text="Interceptions"
-    Grid.Row="0"
-    Grid.Column="5"
-/>
-                <Label
-    Text="YPA"
-    Grid.Row="0"
-    Grid.Column="6"
-/>
-
-                <Entry
-    x:Name="attsV"
-    Grid.Row="1"
-    Grid.Column="0"
-    IsReadOnly="True"
-/>
-                <Entry
-    x:Name="compV"
-    Grid.Row="1"
-    Grid.Column="1"
-    IsReadOnly="True"
-/>
-                <Entry
-    x:Name="compperV"
-    Grid.Row="1"
-    Grid.Column="2"
-    IsReadOnly="True"
-/>
-                <Entry
-    x:Name="passydsV"
-    Grid.Row="1"
-    Grid.Column="3"
-    IsReadOnly="True"
-/>
-                <Entry
-    x:Name="passtdsV"
-    Grid.Row="1"
-    Grid.Column="4"
-    IsReadOnly="True"
-/>
-                <Entry
-    x:Name="intsV"
-    Grid.Row="1"
-    Grid.Column="5"
-    IsReadOnly="True"
-/>
-                <Entry
-    x:Name="ypaV"
-    Grid.Row="1"
-    Grid.Column="6"
-    IsReadOnly="True"
-/>
-            </Grid>
-
+        <VerticalStackLayout>
+            
+            <Label Style="{StaticResource Headline}"
+                   HorizontalOptions="Start"
+                   Text="{Binding Player.Banner}"/>
+            <Label Style="{StaticResource SubHeadline}"
+                   HorizontalOptions="Start"
+                   Text="{Binding Player.Position}"/>
+            
         </VerticalStackLayout>
     </Border>
 </ContentPage>

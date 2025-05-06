@@ -11,6 +11,6 @@ public class MyTeam
   public String? Name { get; set; }
 
   [Column("role")]
-  public String? Role { get; set; }
+  public Constants.Role Role { get; set; }
 }
     

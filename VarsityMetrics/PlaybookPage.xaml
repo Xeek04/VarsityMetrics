@@ -28,18 +28,20 @@
                     <StackLayout Grid.Column="1"
                                      Grid.Row="0">
 
-                        <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
+                        <Label Text="{Binding name, StringFormat='Play Name: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                        <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+                        <Label Text="{Binding times_called, StringFormat='Times Called: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                        <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
+                        <Label Text="{Binding yards_gained, StringFormat='Yards Gained: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
                     </StackLayout>
+
+                </Grid>
 
                 </Grid>
             </DataTemplate>
@@ -99,36 +101,34 @@
         <!-- Main Page -->
         <Border Style="{StaticResource SurfaceBorder}" Margin="0"
                 Grid.Column="1">
-            <VerticalStackLayout>
-                <Label Text="Playbook"
-                           Style="{StaticResource Headline}"/>
+            <Grid RowDefinitions="auto,*" ColumnDefinitions="*">
                 
-                <VerticalStackLayout>
-
-                        <!-- Offense -->
-                    <Label Text="Offense"
+                <Label Text="Playbook"
+                       Style="{StaticResource Headline}" Grid.Row="0"/>
+                
+                <!-- Play List -->
+                <CollectionView x:Name="PlayList"
+                                SelectionMode="Single"
+                                IsGrouped="True"
+                                ItemsSource="{Binding Plays}"
+                                ItemTemplate="{StaticResource Key=PlayTemplate}"
+                                Grid.Row="1">
+                    <!-- Collection Header -->
+                    <CollectionView.Header>
+                        <Label Text="List Header"
                                x:Name="Offense"
                                Style="{StaticResource SubHeadline}"/>
-                        
-                    <CollectionView x:Name="OffenseList"
-                                        SelectionMode="Single"
-                                        SelectionChanged="OffenseList_SelectionChanged"
-                                        ItemTemplate="{StaticResource PlayTemplate}"
-                                        HeightRequest="250"/>
-
-                    <!-- Defense -->
-                    <Label Text="Defense"
-                               x:Name="Defense"
-                               Style="{StaticResource SubHeadline}"/>
-                        
-                    <CollectionView x:Name="DefenseList"
-                                        SelectionMode="Single"
-                                        SelectionChanged="DefenseList_SelectionChanged"
-                                        ItemTemplate="{StaticResource PlayTemplate}"
-                                        HeightRequest="250"/>
-
-                </VerticalStackLayout>
-            </VerticalStackLayout>
+                    </CollectionView.Header>
+                    <!-- Group Header -->
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding GroupName}"
+                                   Style="{StaticResource Headline}"
+                                   HorizontalOptions="Start"/>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
+            </Grid>
         </Border>
     </Grid>
 

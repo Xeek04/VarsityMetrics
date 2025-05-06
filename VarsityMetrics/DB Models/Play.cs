@@ -27,7 +27,7 @@ namespace VarsityMetrics.DB_Models
         public int times_called { get; set; }
 
         [Column("yards_gained")]
-        public int[] yards_gained { get; set; }
+        public int[]? yards_gained { get; set; }
 
         [Column("uri")]
         public string? uri { get; set; }
@@ -37,5 +37,16 @@ namespace VarsityMetrics.DB_Models
         }
     }
 
+    public class PlayGroup : List<Play>
+    {
+        public bool IsOffense;
+
+        public PlayGroup(bool isOffense)
+        {
+            IsOffense = isOffense;
+        }
+
+        public string GroupName => IsOffense == true ? "Offense" : "Defense";
+    }
     
 }

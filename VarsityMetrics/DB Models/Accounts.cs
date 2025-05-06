@@ -1,10 +1,5 @@
 ﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VarsityMetrics.DB_Models
 {
@@ -24,7 +19,7 @@ namespace VarsityMetrics.DB_Models
         public String LastName { get; set; }
 
         [Column("Role")]
-        public String? Role { get; set; }
+        public Constants.Role Role { get; set; }
 
     }
 

@@ -25,8 +25,8 @@ namespace VarsityMetrics
         }
         private async Task InitShellAsync()
         {
-            string? role = await App.db.GetCurrentUserRoleAsync();
-            if (role == "Scout")
+            Constants.Role? role = await App.db.GetCurrentUserRoleAsync();
+            if (role == Constants.Role.Scout)
             {
                 // PlayPage.IsVisible = false;
                 // GameLPage.IsVisible = false;
