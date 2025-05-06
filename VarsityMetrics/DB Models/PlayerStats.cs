@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Supabase;
 using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
+using Newtonsoft.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VarsityMetrics.DB_Models
 {
@@ -16,13 +18,13 @@ namespace VarsityMetrics.DB_Models
         public int Id { get; set; }
 
         [Column("fname")]
-        public String? Fname { get; set; }
+        public string? Fname { get; set; }
 
         [Column("lname")]
-        public String? Lname { get; set; }
+        public string? Lname { get; set; }
 
         [Column("position")]
-        public String? Position { get; set; }
+        public string? Position { get; set; }
 
         // Passing Stats
         [Column("pass_att")]
@@ -40,6 +42,15 @@ namespace VarsityMetrics.DB_Models
         [Column("interceptions")]
         public int? Interceptions{ get; set; }
 
+        [JsonIgnore]
+        public string PassCompletionPercentage => (PassComp == null) | (PassAtt == null) ? "-" : Math.Round((double)PassComp / (double)PassAtt * 100).ToString();
+
+        [JsonIgnore]
+        public string PassYardsPerAttempt => (PassYards == null) | (PassAtt == null) ? "-" : Math.Round((double)PassYards / (double)PassAtt).ToString();
+
+        [JsonIgnore]
+        public string PassYardsPerCompletion => (PassYards == null) | (PassComp == null) ? "-" : Math.Round((double)PassYards / (double)PassComp).ToString();
+
         // Rushing Stats
 
         [Column("rush_att")]
@@ -54,8 +65,11 @@ namespace VarsityMetrics.DB_Models
         [Column("fumbles")]
         public int? Fumbles { get; set; }
 
+        [JsonIgnore]
+        public string RushYardsPerAttempt => (RushYards == null) | (RushAtt == null) ? "-" : Math.Round((double)RushYards / (double)RushAtt).ToString();
+
         // Receiving Stats
-        
+
         [Column("targets")]
         public int? Targets { get; set; }
         
@@ -67,5 +81,8 @@ namespace VarsityMetrics.DB_Models
 
         [Column("rec_tds")]
         public int? RecTDs { get; set; }
+
+        [JsonIgnore]
+        public string RecYardsPerReception => (RecYards == null) | (Receptions == null) ? "-" : Math.Round((double)RecYards / (double)Receptions).ToString();
     }
 }

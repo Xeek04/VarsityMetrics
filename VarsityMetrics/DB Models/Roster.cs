@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace VarsityMetrics.DB_Models
 {
@@ -40,5 +41,11 @@ namespace VarsityMetrics.DB_Models
 
         [Column("injury")]
         public String? Injury { get; set; } = null;
+
+        [JsonIgnore]
+        public String FullName => $"{Fname} {Lname}";
+
+        [JsonIgnore]
+        public String Banner => Number == null ? FullName : $"{FullName} #{Number}";
     }
 }

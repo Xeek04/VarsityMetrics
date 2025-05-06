@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using VarsityMetrics;
 
 using VarsityMetrics.DB_Models;
 
@@ -41,12 +42,7 @@ public partial class RosterViewModel : ObservableObject
             Roster player = parameter as Roster;
             Trace.WriteLine($"RosterViewModel: Command parameter is {player.Fname}");
 
-            var navigationParameter = new ShellNavigationQueryParameters
-            {
-                { Constants.StatsIndividualNavKey, player.Id.ToString() }
-            };
-
-            await Shell.Current.GoToAsync(nameof(StatsIndividual), navigationParameter);
+            await Application.Current.MainPage.Navigation.PushAsync(new StatsIndividual(player));
         }
         catch (Exception ex)
         {
