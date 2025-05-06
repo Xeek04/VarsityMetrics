@@ -9,7 +9,7 @@
             <DataTemplate x:Key="PlayTemplate">
                 <ViewCell>
                     <Grid Padding="10" 
-                                  ColumnSpacing="5">
+                          ColumnSpacing="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -29,15 +29,15 @@
                         <StackLayout Grid.Column="1"
                                      Grid.Row="0">
 
-                            <Label Text="{Binding PlayName, StringFormat='Play Name: {0}'}"
+                            <Label Text="{Binding name, StringFormat='Play Name: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                            <Label Text="{Binding Times_Called, StringFormat='Times Called: {0}'}"
+                            <Label Text="{Binding times_called, StringFormat='Times Called: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                            <Label Text="{Binding Yards_Gained, StringFormat='Yards Gained: {0}'}"
+                            <Label Text="{Binding yards_gained, StringFormat='Yards Gained: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
                         </StackLayout>
@@ -103,38 +103,30 @@
         <Border Style="{StaticResource SurfaceBorder}" Margin="0"
                 Grid.Column="1">
             <VerticalStackLayout>
-            <Label Text="Playbook"
+                
+                <Label Text="Playbook"
                            Style="{StaticResource Headline}"/>
-            
-                <ScrollView>
-                    <VerticalStackLayout>
-
-                        <!-- Offense -->
-                        <ListView x:Name="OffenseList"
+                
+                <!-- Play List -->
+                <CollectionView x:Name="PlayList"
                                   SelectionMode="Single"
-                                  ItemSelected="OffenseList_ItemSelected"
+                                IsGrouped="True"
+                                  ItemsSource="{Binding Plays}"
                                   ItemTemplate="{StaticResource Key=PlayTemplate}">
-                            <ListView.Header>
-                                <Label Text="Offense"
+                    <CollectionView.Header>
+                        <Label Text="List Header"
                                        x:Name="Offense"
                                        Style="{StaticResource SubHeadline}"/>
-                            </ListView.Header>
-                        </ListView>
-
-                        <!-- Defense -->
-                        <ListView x:Name="DefenseList"
-                                  SelectionMode="Single"
-                                  ItemSelected="DefenseList_ItemSelected"
-                                  ItemTemplate="{StaticResource Key=PlayTemplate}">
-                            <ListView.Header>
-                                <Label Text="Defense"
-                                       x:Name="Defense"
-                                       Style="{StaticResource SubHeadline}"/>
-                            </ListView.Header>
-                        </ListView>
-
-                    </VerticalStackLayout>
-                </ScrollView>
+                    </CollectionView.Header>
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label Text="{Binding GroupName}"
+                                               Style="{StaticResource Headline}"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </Border>
     </Grid>

@@ -3,21 +3,54 @@ namespace VarsityMetrics;
 using System.Diagnostics;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
+using VarsityMetrics.DB_Models;
 
 public partial class PlaybookPage : ContentPage
 {
-	public PlaybookPage()
+	public List<PlayGroup> Plays;
+    List<Play> OffensePlays;
+    List<Play> DefensePlays;
+
+    public PlaybookPage()
 	{
 		InitializeComponent();
+		BindingContext = this;
         _ = InitShellAsync();
     }
 
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
+        //OffensePlays = await App.db.RequestPictureAsync("Offense");
+        //DefensePlays = await App.db.RequestPictureAsync("Defense");
+		//Plays = new List<PlayGroup>()
+		//{
+		//	OffensePlays as PlayGroup,
+		//	DefensePlays as PlayGroup
+		//};
 
-		OffenseList.ItemsSource = await App.db.RequestPictureAsync("Offense");
-		DefenseList.ItemsSource = await App.db.RequestPictureAsync("Defense");
+		Plays = new List<PlayGroup>
+		{
+			new PlayGroup(true) //Offense
+			{
+				new Play
+				{
+					name = "Attack",
+					times_called = 3,
+					yards_gained = [3, 4, 5]
+				}
+			},
+			new PlayGroup(false) //Defense
+			{
+                new Play
+                {
+                    name = "Defend",
+                    times_called = 4
+                }
+            }
+		};
+
+		PlayList.ItemsSource= Plays;
 	}
 
 
@@ -28,22 +61,7 @@ public partial class PlaybookPage : ContentPage
 
 	private async void OrderPicker_SelectedIndexChanged(object sender, EventArgs e)
 	{
-		var OrderPicker = (Picker)sender;
-		int selectedIndex = OrderPicker.SelectedIndex;
-
-		if (selectedIndex != -1)
-		{
-			if (OrderPicker.Items[selectedIndex] == "Name")
-			{
-				OffenseList.ItemsSource = await App.db.RequestOrderedPictureAsync("Offense");
-				DefenseList.ItemsSource = await App.db.RequestOrderedPictureAsync("Defense");
-			}
-			else
-			{
-				OffenseList.ItemsSource = await App.db.RequestPictureAsync("Offense");
-				DefenseList.ItemsSource = await App.db.RequestPictureAsync("Defense");
-			}
-		}
+		//TODO implement
 	}
 	private void TypePicker_SelectedIndexChanged(object sender, EventArgs e)
 	{
@@ -54,26 +72,17 @@ public partial class PlaybookPage : ContentPage
 		{
 			if (TypePicker.Items[selectedIndex] == "Offense")
 			{
-				Offense.IsVisible = true;
-				OffenseList.IsVisible = true;
-				Defense.IsVisible = false;
-				DefenseList.IsVisible = false;
+				//TODO implement
 			}
 			else if (TypePicker.Items[selectedIndex] == "Defense")
-			{
-				Defense.IsVisible = true;
-				DefenseList.IsVisible = true;
-				Offense.IsVisible = false;
-				OffenseList.IsVisible = false;
-			}
-			else
-			{
-				Defense.IsVisible = true;
-				Offense.IsVisible = true;
-				DefenseList.IsVisible = true;
-				OffenseList.IsVisible = true;
-			}
-		}
+            {
+                //TODO implement
+            }
+            else
+            {
+                //TODO implement
+            }
+        }
 	}
 
 	private void DrawButton_Clicked(object sender, EventArgs e)
@@ -81,33 +90,27 @@ public partial class PlaybookPage : ContentPage
 		Navigation.PushAsync(new DrawPlaybooks());
 	}
 
-	public class Plays
-	{
-		public object ImageSource { get; set; }
-		public object PlayName { get; set; }
-		public object Stats { get; set; }
-	}
-	private void OffenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-	{
-		var selected = ((ListView)sender).SelectedItem as Plays;
-		if (selected == null)
-		{
-			return;
-		}
+	//private void OffenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+	//{
+	//	var selected = ((ListView)sender).SelectedItem as Plays;
+	//	if (selected == null)
+	//	{
+	//		return;
+	//	}
 
-		//selected.Stats.Text() = "Testing";
-    }
+	//	//selected.Stats.Text() = "Testing";
+    //}
 
-    private void DefenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-    {
-        var selected = ((ListView)sender).SelectedItem as Plays;
-        if (selected == null)
-        {
-            return;
-        }
+    //private void DefenseList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    //{
+    //    var selected = ((ListView)sender).SelectedItem as Plays;
+    //    if (selected == null)
+    //    {
+    //        return;
+    //    }
 
         //selected.Stats.Text() = "Testing";
-    }
+    //}
 	
 	private async Task InitShellAsync()
 	{

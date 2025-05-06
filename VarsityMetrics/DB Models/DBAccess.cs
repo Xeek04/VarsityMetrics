@@ -391,7 +391,7 @@ namespace VarsityMetrics.DB_Models
             public string Yards_Gained => Yards != null ? string.Join(", ", Yards) : "";
         }
 
-        public async Task<ObservableCollection<Stats>> RequestPictureAsync(string type)
+        public async Task<List<Play>> RequestPictureAsync(string type)
         {
             await Init();
 
@@ -429,7 +429,7 @@ namespace VarsityMetrics.DB_Models
                     Yards = stat.yards_gained
                 }));
 
-            return Playbook;
+            return null;
         }
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
