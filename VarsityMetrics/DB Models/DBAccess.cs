@@ -65,7 +65,7 @@ namespace VarsityMetrics.DB_Models
         //}
 
         // returns null if unsuccessful, otherwise returns user's role
-        public async Task<Constants.Role?> CheckLoginAsync(string email, string password)
+        public async Task<Accounts> CheckLoginAsync(string email, string password)
         {
             await Init();
             try
@@ -81,15 +81,15 @@ namespace VarsityMetrics.DB_Models
                     .Where(a => a.Email == currentUser.Email)
                     .Get();
 
-                var account = response.Models.FirstOrDefault();
+                Accounts? account = response.Models.FirstOrDefault();
                 if (account == null)
                 {
-                    return null ;
+                    return null;
                 }
                 else
                 {
                     Trace.WriteLine($"DBAccess: Role is {account.Role}");
-                    return account.Role;
+                    return account;
                 }
 
             }
@@ -192,7 +192,7 @@ namespace VarsityMetrics.DB_Models
             }
         }
 
-        public async Task<bool> ConfirmEmail(string Email, string token, string password, string FirstName, string LastName)
+        public async Task<bool> ConfirmEmail(string Email, string token, string password, string FirstName, string LastName, Constants.Role role)
         {
             await Init();
             //var signIn = await client.Auth.SignIn(Supabase.Gotrue.Constants.SignInType.Email, email);
@@ -208,7 +208,7 @@ namespace VarsityMetrics.DB_Models
                         Email = Email,
                         FirstName = FirstName,
                         LastName = LastName,
-                        Role = Constants.Role.Scout
+                        Role = role
                     };
 
                     await client.From<Accounts>()

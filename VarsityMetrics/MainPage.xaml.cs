@@ -6,7 +6,8 @@ public partial class MainPage : ContentPage
         public MainPage()
         {
             InitializeComponent();
-            username.Text = "Welcome back, " + Username + "!";
+            
+            username.Text = App.CurrentUserAccount != null ? "Welcome back, " + App.CurrentUserAccount.FirstName + "!" : "Welcome Back!";
         }
 
     private void Button_Clicked(object sender, EventArgs e)

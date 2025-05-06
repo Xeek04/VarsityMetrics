@@ -16,13 +16,9 @@
                          Grid.Column="1">
                 <Label Text="Email:" FontSize="Large"/>
                 <Label x:Name="emailPres" />
-                <Button
-        Text="Light/Dark" 
-        Clicked="LightDark"
-/>
-                <Label Text="This text is green in light mode, and red in dark mode."
-        TextColor="{AppThemeBinding Light=Green, Dark=Red}" />
-            </VerticalStackLayout>
+                    <Button Text="Light/Dark" 
+                            Clicked="LightDark"/>
+                </VerticalStackLayout>
         
         </Grid>
         </Border>

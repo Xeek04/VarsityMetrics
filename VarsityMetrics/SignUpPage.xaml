@@ -70,6 +70,24 @@
                    TextColor="Red"
                    IsVisible="False"/>
 
+                <Picker HeightRequest="20"
+                        x:Name="RolePicker"
+                        Title="I am a...">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Coach</x:String>
+                            <x:String>Scout</x:String>
+                            <x:String>Player</x:String>
+                            <x:String>Admin</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+
+                <Label x:Name="roleError"
+                       Text="Please pick a role"
+                       TextColor="Red"
+                       IsVisible="False"/>
+
                 <Button Text="Sign Up"
                     Clicked="SignUpClicked"/>
 
