@@ -7,43 +7,41 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <DataTemplate x:Key="PlayTemplate">
-                <ViewCell>
-                    <Grid Padding="10" 
+                <Grid Padding="10" 
                           ColumnSpacing="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                        <Image Grid.Column="0"
+                    <Image Grid.Column="0"
                                Aspect="Fill"
                                Source="{Binding ImageSource}"
                                HeightRequest="500"
                                WidthRequest="500"/>
 
-                        <StackLayout Grid.Column="1"
+                    <StackLayout Grid.Column="1"
                                      Grid.Row="0">
 
-                            <Label Text="{Binding name, StringFormat='Play Name: {0}'}"
+                        <Label Text="{Binding name, StringFormat='Play Name: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                            <Label Text="{Binding times_called, StringFormat='Times Called: {0}'}"
+                        <Label Text="{Binding times_called, StringFormat='Times Called: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                            <Label Text="{Binding yards_gained, StringFormat='Yards Gained: {0}'}"
+                        <Label Text="{Binding yards_gained, StringFormat='Yards Gained: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
-                        </StackLayout>
+                    </StackLayout>
 
-                    </Grid>
-                </ViewCell>
+                </Grid>
 
             </DataTemplate>
         </ResourceDictionary>
@@ -102,32 +100,34 @@
         <!-- Main Page -->
         <Border Style="{StaticResource SurfaceBorder}" Margin="0"
                 Grid.Column="1">
-            <VerticalStackLayout>
+            <Grid RowDefinitions="auto,*" ColumnDefinitions="*">
                 
                 <Label Text="Playbook"
-                           Style="{StaticResource Headline}"/>
+                       Style="{StaticResource Headline}" Grid.Row="0"/>
                 
                 <!-- Play List -->
                 <CollectionView x:Name="PlayList"
-                                  SelectionMode="Single"
+                                SelectionMode="Single"
                                 IsGrouped="True"
-                                  ItemsSource="{Binding Plays}"
-                                  ItemTemplate="{StaticResource Key=PlayTemplate}">
+                                ItemsSource="{Binding Plays}"
+                                ItemTemplate="{StaticResource Key=PlayTemplate}"
+                                Grid.Row="1">
+                    <!-- Collection Header -->
                     <CollectionView.Header>
                         <Label Text="List Header"
-                                       x:Name="Offense"
-                                       Style="{StaticResource SubHeadline}"/>
+                               x:Name="Offense"
+                               Style="{StaticResource SubHeadline}"/>
                     </CollectionView.Header>
+                    <!-- Group Header -->
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <Label Text="{Binding GroupName}"
-                                               Style="{StaticResource Headline}"/>
-                            </ViewCell>
+                            <Label Text="{Binding GroupName}"
+                                   Style="{StaticResource Headline}"
+                                   HorizontalOptions="End"/>
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                 </CollectionView>
-            </VerticalStackLayout>
+            </Grid>
         </Border>
     </Grid>
 
