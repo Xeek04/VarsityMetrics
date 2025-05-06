@@ -207,8 +207,8 @@ public partial class RosterPage : ContentPage
     }
     private async Task InitShellAsync()
     {
-        string? role = await App.db.GetCurrentUserRoleAsync();
-        if (role == "Scout" || role == "Player")
+        Constants.Role? role = await App.db.GetCurrentUserRoleAsync();
+        if (role == Constants.Role.Scout || role == Constants.Role.Player)
         {
             // EditButton.IsVisible = false;
             // ClearButton.IsVisible = false;

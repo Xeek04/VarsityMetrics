@@ -21,7 +21,7 @@ namespace VarsityMetrics.DB_Models
         public string Email { get; set; }
 
         [Column("role")]
-        public string Role { get; set; }
+        public Constants.Role Role { get; set; }
 
     }
 

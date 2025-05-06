@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Microsoft.Maui.ApplicationModel.Communication;
@@ -43,9 +44,10 @@ public partial class LoginPage : ContentPage
         {
             try
             {
-                string? role = await App.db.CheckLoginAsync(email.Text, password.Text);
+                Constants.Role? role = await App.db.CheckLoginAsync(email.Text, password.Text);
+                Trace.WriteLine($"LoginPage: Role is {role} (type: {role.GetType()})");
 
-                if (!string.IsNullOrEmpty(role))
+                if (role != null) //TODO make sure this works
                 {
                     App.Current.MainPage = new AppShell();
                 }

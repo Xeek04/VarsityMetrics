@@ -32,8 +32,10 @@ namespace VarsityMetrics
         {
             // higher access levels should go at the top
             Coach,
-            Statistician,
-            Player
+            Scout,
+            Player,
+            None,
+            Admin
         }
 
         //key for navigation to StatsIndividual
