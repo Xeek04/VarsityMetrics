@@ -2,15 +2,16 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.EmailConfirmation">
-    <Grid RowDefinitions="50, 100, Auto, Auto, Auto, Auto"
+    <Border Style="{StaticResource SurfaceBorder}">
+        <Grid RowDefinitions="50, 100, Auto, Auto, Auto, Auto"
           ColumnDefinitions=".25*, .5*, .25*"
           Padding="10"
           ColumnSpacing="10"
           RowSpacing="20">
-        
+
         <Label Text="Email Confirmation"
+               Style="{StaticResource Headline}"
                FontSize="Header"
-               HorizontalTextAlignment="Center"
                Grid.Column="1"
                Grid.Row="0"/>
 
@@ -21,7 +22,6 @@
                Grid.Row="2"/>
 
         <Entry x:Name="Token"
-               Text="{Binding Token}"
                CharacterSpacing="10"
                MinimumWidthRequest="125"
                MaxLength="6"
@@ -48,5 +48,6 @@
                 Text="Cancel"
                 Clicked="cancel_Clicked"/>
 
-    </Grid>
+        </Grid>
+    </Border>
 </ContentPage>

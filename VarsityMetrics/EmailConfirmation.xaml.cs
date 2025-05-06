@@ -6,8 +6,9 @@ public partial class EmailConfirmation : ContentPage
 	public static string Password;
 	public static string FirstName;
 	public static string LastName;
+    public static Constants.Role Role;
 
-	public EmailConfirmation()
+    public EmailConfirmation()
 	{
 		InitializeComponent();
 	}
@@ -32,9 +33,16 @@ public partial class EmailConfirmation : ContentPage
 
         if(err == 0)
         {
-            bool Confirmation = await App.db.ConfirmEmail(Email, Token.Text, Password, FirstName, LastName);
+            bool Confirmation = await App.db.ConfirmEmail(Email, Token.Text, Password, FirstName, LastName, Role);
 		    if(Confirmation)
 		    {
+                App.CurrentUserAccount = new()
+                {
+                    Email = Email,
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Role = Role
+                };
                 App.Current.MainPage = new AppShell();
             }
             else

@@ -44,11 +44,11 @@ public partial class LoginPage : ContentPage
         {
             try
             {
-                Constants.Role? role = await App.db.CheckLoginAsync(email.Text, password.Text);
-                Trace.WriteLine($"LoginPage: Role is {role} (type: {role.GetType()})");
+                DB_Models.Accounts? account = await App.db.CheckLoginAsync(email.Text, password.Text);
 
-                if (role != null) //TODO make sure this works
+                if (account != null) //TODO make sure this works
                 {
+                    App.CurrentUserAccount = account;
                     App.Current.MainPage = new AppShell();
                 }
                 else

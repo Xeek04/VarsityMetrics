@@ -25,12 +25,20 @@ public partial class SignUpPage : ContentPage
             firstError.IsVisible = true;
             err = 1;
         }
+        else
+        {
+            firstError.IsVisible = false;
+        }
 
         if (LastName.Text == null | String.Equals(LastName.Text, ""))
         {
             lastError.Text = "Please fill in";
             lastError.IsVisible = true;
             err = 1;
+        }
+        else
+        {
+            lastError.IsVisible = false;
         }
 
         if (password.Text == null | String.Equals(password.Text, ""))
@@ -45,8 +53,12 @@ public partial class SignUpPage : ContentPage
             passwordError.IsVisible = true;
             err = 1;
         }
+        else
+        {
+            passwordError.IsVisible = false;
+        }
 
-        if(email.Text == null | String.Equals(email.Text,""))
+        if (email.Text == null | String.Equals(email.Text,""))
         {
             emailError.Text = "Please fill in";
             emailError.IsVisible = true;
@@ -57,6 +69,20 @@ public partial class SignUpPage : ContentPage
             emailError.Text = "Email is not in the proper format";
             emailError.IsVisible = true;
             err = 1;
+        }
+        else
+        {
+            emailError.IsVisible = false;
+        }
+
+        if (RolePicker.SelectedIndex == -1)
+        {
+            roleError.IsVisible = true;
+            err = 1;
+        }
+        else
+        {
+            roleError.IsVisible = false;
         }
 
         if (err == 0)
@@ -70,6 +96,14 @@ public partial class SignUpPage : ContentPage
                 EmailConfirmation.FirstName = FirstName.Text;
                 EmailConfirmation.LastName = LastName.Text;
 
+                EmailConfirmation.Role = RolePicker.SelectedItem switch
+                {
+                    "Coach" => Constants.Role.Coach,
+                    "Scout" => Constants.Role.Scout,
+                    "Player" => Constants.Role.Player,
+                    "Admin" => Constants.Role.Admin,
+                    _ => Constants.Role.Player,
+                };
                 App.Current.MainPage = new EmailConfirmation();
             }
             else
