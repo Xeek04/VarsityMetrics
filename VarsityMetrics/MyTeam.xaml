@@ -2,87 +2,83 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.MyTeam">
-    <VerticalStackLayout x:Name="LayoutVerticale">
+    <Border Style="{StaticResource SurfaceBorder}">
+        <VerticalStackLayout Spacing="10">
 
-        
-        <Button x:Name="CreateTeamButton"
-            Text="Create Team"
-                Clicked="CreateTeamButton_Clicked"
-                BackgroundColor="#007AFF"
-                TextColor="Black"/>
 
-        
-        <Button Text="Add Member"
-                Clicked="AddMemberButton_Clicked"
-                BackgroundColor="#007AFF"
-                TextColor="Black"/>
+            <Button x:Name="CreateTeamButton"
+                Text="Create Team"
+                    Clicked="CreateTeamButton_Clicked"/>
 
-       
-        <Label Text="Team Members:"
-               FontAttributes="Bold"
-               FontSize="Medium"
-               Margin="0,20,0,0" />
 
-       
-        <CollectionView x:Name="TeamMembersCollectionView"
-                        ItemsSource="{Binding TeamMembers}"
-                        SelectionMode="None">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame BorderColor="LightGray"
-                           CornerRadius="8"
-                           Padding="10"
-                           Margin="0,5">
+            <Button Text="Add Member"
+                    Clicked="AddMemberButton_Clicked"/>
 
-                        <StackLayout Orientation="Horizontal" VerticalOptions="Center">
-                            <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
-                                <Label Text="{Binding Email}"
-                                       FontAttributes="Bold" />
-                                <Label Text="{Binding Role}" 
-                                       FontSize="Small" 
-                                       TextColor="Gray"/>
+
+            <Label Text="Team Members:"
+                   FontAttributes="Bold"
+                   FontSize="Medium"
+                   Margin="0,20,0,0" />
+
+
+            <CollectionView x:Name="TeamMembersCollectionView"
+                            ItemsSource="{Binding TeamMembers}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="LightGray"
+                               CornerRadius="8"
+                               Padding="10"
+                               Margin="0,5">
+
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding Email}"
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding Role}" 
+                                           FontSize="Small" 
+                                           TextColor="Gray"/>
+                                </StackLayout>
+                                <Button Text="Edit"
+                                        Clicked="EditRoleButton_Clicked"
+                                        CommandParameter="{Binding .}"/>
                             </StackLayout>
-                            <Button Text="Edit"
-                                    Clicked="EditRoleButton_Clicked"
-                                    CommandParameter="{Binding .}"
-                                    BackgroundColor="#007AFF"
-                                    TextColor="Black"/>
-                        </StackLayout>
 
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <ListView Grid.Row="1"
-          Grid.Column="1"
-          x:Name="MyTeamList">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid ColumnSpacing="10"
-                            Padding="10">
-                            
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ListView Grid.Row="1"
+              Grid.Column="1"
+              x:Name="MyTeamList">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid ColumnSpacing="10"
+                                Padding="10">
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
 
 
-                            <Label Grid.Column="0"
-                                   TextColor="AntiqueWhite"
-                                Text="{Binding Name}"/>
-                            <Label Grid.Column="1"
-                                   TextColor="Aquamarine"
-                                Text="{Binding Role}"/>
-                            
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </VerticalStackLayout>
+                                <Label Grid.Column="0"
+                                       TextColor="AntiqueWhite"
+                                    Text="{Binding Name}"/>
+                                <Label Grid.Column="1"
+                                       TextColor="Aquamarine"
+                                    Text="{Binding Role}"/>
+
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </Border>
 </ContentPage>
