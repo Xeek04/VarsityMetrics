@@ -419,11 +419,16 @@ namespace VarsityMetrics.DB_Models
             public string Yards_Gained => Yards != null ? string.Join(", ", Yards) : "";
         }
 
-        public async Task<List<Play>> RequestPictureAsync(string type)
+        public async Task<List<Play>> RequestPictureAsync()
         {
             await Init();
 
-            var plays = await client.Storage.From("plays-images").List(type);
+            var plays = await client.From<Play>().Order("type", Supabase.Postgrest.Constants.Ordering.Descending).Get();
+            return plays.Models;
+            //Supabase.Postgrest.Responses.ModeledResponse
+            //Supabase.Postgrest.Constants.Ordering
+
+            /*var plays = await client.Storage.From("plays-images").List(type);
 
             var offenseStats = await App.db.RequestPlayStatsAsync();
 
@@ -457,7 +462,15 @@ namespace VarsityMetrics.DB_Models
                     Yards = stat.yards_gained
                 }));
 
-            return null;
+            return null;*/
+        }
+
+        public async Task UpdatePlayAscync(Play play)
+        {
+            await Init();
+
+            await client.From<Play>().Where(p => p.play_id == play.play_id).Set(p => p.yards_gained, play.yards_gained).Update();
+            await client.From<Play>().Where(p => p.play_id == play.play_id).Set(p => p.times_called, play.times_called + 1).Update();
         }
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
