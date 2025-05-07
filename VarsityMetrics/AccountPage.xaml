@@ -7,21 +7,33 @@
     <ScrollView>
         <Border Style="{StaticResource SurfaceBorder}">
        
-        <Grid RowDefinitions="Auto"
+        <Grid RowDefinitions="Auto, 350,Auto"
       ColumnSpacing="10"
       RowSpacing="10">
 
             <VerticalStackLayout Padding="30,0"
                                  Spacing="20"
-                                 Grid.Column="1">
-                <Label Text="Email:" FontSize="Large"/>
+                                 Grid.Column="1"
+                                 Grid.Row="0"
+                                 HorizontalOptions="Center">
+                
+                <Label Text="Email:" FontSize="Large"
+                       HorizontalOptions="Center"/>
                 <Label x:Name="emailPres" />
+                
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Padding="30,0"
+                                     Spacing="20"
+                                     Grid.Column="1"
+                                     Grid.Row="3"
+                                     HorizontalOptions="Center"
+                                     MinimumWidthRequest="250">
                     <Button Text="Light/Dark" 
                             Clicked="LightDark"/>
 
                     <Button Text="Log Out"
                         Clicked="LogOut_Clicked"/>
-                
                 </VerticalStackLayout>
         
         </Grid>
