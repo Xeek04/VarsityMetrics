@@ -317,7 +317,6 @@ public partial class PlaybookPage : ContentPage
 			var yardsList = selectedPlay.Base.yards_gained?.ToList() ?? new List<int>();
 			yardsList.Add(newYards);
 			selectedPlay.Base.yards_gained = yardsList.ToArray();
-			selectedPlay.Base.times_called = selectedPlay.Base.times_called + 1;
 
 			//refresh display
 			var parentGroup = GroupedPlays.FirstOrDefault(g => g.Type == selectedPlay.type);

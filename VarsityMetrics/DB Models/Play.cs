@@ -50,7 +50,7 @@ namespace VarsityMetrics.DB_Models
 
         public string YardsDisplay =>
             Base.yards_gained != null && Base.yards_gained.Length > 0
-            ? $"Yards Gained: {string.Join(", ", Base.yards_gained):F1}" :
+            ? $"Most recent yardage: {string.Join(", ", Base.yards_gained.Skip(Math.Max(0, Base.yards_gained.Length - 10))):F1}" :
             "";
 
         public string Average =>
