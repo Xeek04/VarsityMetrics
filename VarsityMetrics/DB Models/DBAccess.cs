@@ -238,6 +238,9 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
+            var response = await client.From<Teams>().Where(t => t.Email == CurrentUser.Email).Get();
+            var team = response.Models.FirstOrDefault();
+
             Play model = new Play
             {
                 name = name,
@@ -245,7 +248,8 @@ namespace VarsityMetrics.DB_Models
                 type = type,
                 times_called = 0,
                 yards_gained = [],
-                uri = null
+                uri = null,
+                team_id = team.Team_Id
             };
 
             await client.From<Play>().Insert(model);
@@ -423,7 +427,10 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            var plays = await client.From<Play>().Order("type", Supabase.Postgrest.Constants.Ordering.Descending).Get();
+            var response = await client.From<Teams>().Where(t => t.Email == CurrentUser.Email).Get();
+            var team = response.Models.FirstOrDefault();
+
+            var plays = await client.From<Play>().Where(p => p.team_id == team.Team_Id).Order("type", Supabase.Postgrest.Constants.Ordering.Descending).Get();
             return plays.Models;
             //Supabase.Postgrest.Responses.ModeledResponse
             //Supabase.Postgrest.Constants.Ordering
