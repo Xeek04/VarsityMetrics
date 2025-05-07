@@ -12,12 +12,16 @@
       RowSpacing="10">
 
             <VerticalStackLayout Padding="30,0"
-                         Spacing="20"
-                         Grid.Column="1">
+                                 Spacing="20"
+                                 Grid.Column="1">
                 <Label Text="Email:" FontSize="Large"/>
                 <Label x:Name="emailPres" />
                     <Button Text="Light/Dark" 
                             Clicked="LightDark"/>
+
+                    <Button Text="Log Out"
+                        Clicked="LogOut_Clicked"/>
+                
                 </VerticalStackLayout>
         
         </Grid>

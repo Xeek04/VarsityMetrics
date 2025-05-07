@@ -65,6 +65,11 @@ namespace VarsityMetrics.DB_Models
         //}
 
         // returns null if unsuccessful, otherwise returns user's role
+
+        public async Task LogOutAsync()
+        {
+            await client.Auth.SignOut();
+        }
         public async Task<Accounts> CheckLoginAsync(string email, string password)
         {
             await Init();

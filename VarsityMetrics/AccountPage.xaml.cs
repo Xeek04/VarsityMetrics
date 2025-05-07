@@ -36,4 +36,11 @@ public partial class AccountPage : ContentPage
         }
     }
 
+    private async void LogOut_Clicked(object sender, EventArgs e)
+    {
+        await App.db.LogOutAsync();
+
+        App.Current.MainPage = new LoginPage();
+
+    }
 }
