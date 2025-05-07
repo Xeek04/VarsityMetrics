@@ -80,7 +80,7 @@ public partial class PlaybookPage : ContentPage
 
 		var playView = plays.Select(p => new PlayView(p));
 
-		var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g));
+		var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "Offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g));
 
 		GroupedPlays.Clear();
 		foreach ( var group in grouped)
@@ -99,8 +99,44 @@ public partial class PlaybookPage : ContentPage
 
 	private async void OrderPicker_SelectedIndexChanged(object sender, EventArgs e)
 	{
-		//TODO implement
-	}
+        var OrderPicker = (Picker)sender;
+        int selectedIndex = OrderPicker.SelectedIndex;
+
+		if(selectedIndex != -1)
+		{
+			if (OrderPicker.Items[selectedIndex] == "Default")
+			{
+                var plays = await App.db.RequestPictureAsync();
+
+                var playView = plays.Select(p => new PlayView(p));
+
+                var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "Offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g));
+
+                GroupedPlays.Clear();
+                foreach (var group in grouped)
+                    GroupedPlays.Add(group);
+
+
+                PlayList.ItemsSource = GroupedPlays;
+            }
+			else if(OrderPicker.Items[selectedIndex] == "Name")
+			{
+                var plays = await App.db.RequestPictureAsync();
+
+                var playView = plays.Select(p => new PlayView(p));
+
+                var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "Offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)));
+
+                GroupedPlays.Clear();
+                foreach (var group in grouped)
+                    GroupedPlays.Add(group);
+
+
+                PlayList.ItemsSource = GroupedPlays;
+            }
+		}
+        //TODO implement
+    }
 	private void TypePicker_SelectedIndexChanged(object sender, EventArgs e)
 	{
 		var TypePicker = (Picker)sender;
@@ -159,11 +195,6 @@ public partial class PlaybookPage : ContentPage
 			// DrawButton.IsVisible = false;
 		}
 	}
-
-    private void StatsButton_Clicked(object sender, EventArgs e)
-    {
-		Navigation.PushAsync(new AddPlaybookStats());
-    }
 
     private async void PlayList_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
