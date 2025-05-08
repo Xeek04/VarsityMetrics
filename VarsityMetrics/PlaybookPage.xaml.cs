@@ -28,7 +28,7 @@ using System.Text.RegularExpressions;
 	}
 public partial class PlaybookPage : ContentPage
 {
-	public List<PlayGroup> Plays;
+	public List<Play> Plays;
     List<Play> OffensePlays;
     List<Play> DefensePlays;
 
@@ -80,18 +80,18 @@ public partial class PlaybookPage : ContentPage
             }
 		};*/
 
-		var plays = await App.db.RequestPictureAsync();
+		Plays = await App.db.RequestPictureAsync();
 
-		var playView = plays.Select(p => new PlayView(p));
+		var playView = Plays.Select(p => new PlayView(p));
 
 		var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "Offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g));
 
-		GroupedPlays.Clear();
+		/*GroupedPlays.Clear();
 		foreach ( var group in grouped)
-			GroupedPlays.Add(group);
+			GroupedPlays.Add(group);*/
 
 		
-        PlayList.ItemsSource = GroupedPlays;
+        PlayList.ItemsSource = grouped;
     }
 
 
@@ -108,9 +108,8 @@ public partial class PlaybookPage : ContentPage
 
 		if(selectedIndex != -1)
 		{
-            var plays = await App.db.RequestPictureAsync();
 
-            var playView = plays.Select(p => new PlayView(p));
+            var playView = Plays.Select(p => new PlayView(p));
 
             if (OrderPicker.Items[selectedIndex] == "Default")
 			{
@@ -136,12 +135,12 @@ public partial class PlaybookPage : ContentPage
                 }
 
 
-                GroupedPlays.Clear();
+                /*GroupedPlays.Clear();
                 foreach (var group in grouped)
-                    GroupedPlays.Add(group);
+                    GroupedPlays.Add(group);*/
 
 
-                PlayList.ItemsSource = GroupedPlays;
+                PlayList.ItemsSource = grouped;
             }
 			else
 			{
@@ -166,12 +165,12 @@ public partial class PlaybookPage : ContentPage
                         .ToList();
                 }
 
-                GroupedPlays.Clear();
+                /*GroupedPlays.Clear();
                 foreach (var group in grouped)
-                    GroupedPlays.Add(group);
+                    GroupedPlays.Add(group);*/
 
 
-                PlayList.ItemsSource = GroupedPlays;
+                PlayList.ItemsSource = grouped;
             }
 		}
     }
@@ -182,9 +181,8 @@ public partial class PlaybookPage : ContentPage
 
 		if (selectedIndex != -1)
 		{
-            var plays = await App.db.RequestPictureAsync();
 
-            var playView = plays.Select(p => new PlayView(p));
+            var playView = Plays.Select(p => new PlayView(p));
 
             if (TypePicker.Items[selectedIndex] == "Offense")
 			{
@@ -202,12 +200,12 @@ public partial class PlaybookPage : ContentPage
                         .ToList();
                 }
 
-                GroupedPlays.Clear();
+                /*GroupedPlays.Clear();
                 foreach (var group in grouped)
-                    GroupedPlays.Add(group);
+                    GroupedPlays.Add(group);*/
 
 
-                PlayList.ItemsSource = GroupedPlays;
+                PlayList.ItemsSource = grouped;
             }
 			else if (TypePicker.Items[selectedIndex] == "Defense")
             {
@@ -228,12 +226,12 @@ public partial class PlaybookPage : ContentPage
                 
 
 
-                GroupedPlays.Clear();
+                /*GroupedPlays.Clear();
                 foreach (var group in grouped)
-                    GroupedPlays.Add(group);
+                    GroupedPlays.Add(group);*/
 
 
-                PlayList.ItemsSource = GroupedPlays;
+                PlayList.ItemsSource = grouped;
             }
 			else
 			{
@@ -250,12 +248,12 @@ public partial class PlaybookPage : ContentPage
 						.Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)));
                 }
 
-                GroupedPlays.Clear();
+                /*GroupedPlays.Clear();
                 foreach (var group in grouped)
-                    GroupedPlays.Add(group);
+                    GroupedPlays.Add(group);*/
 
 
-                PlayList.ItemsSource = GroupedPlays;
+                PlayList.ItemsSource = grouped;
             }
 
         }
