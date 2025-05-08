@@ -16,9 +16,10 @@ using System.Collections.ObjectModel;
 
 namespace VarsityMetrics.DB_Models
 {
-    public class DBAccess {
+    public class DBAccess
+    {
 
-        
+
         public Supabase.Gotrue.User CurrentUser => client.Auth.CurrentUser;
 
         string path;
@@ -65,11 +66,6 @@ namespace VarsityMetrics.DB_Models
         //}
 
         // returns null if unsuccessful, otherwise returns user's role
-
-        public async Task LogOutAsync()
-        {
-            await client.Auth.SignOut();
-        }
         public async Task<Accounts> CheckLoginAsync(string email, string password)
         {
             await Init();
@@ -141,7 +137,7 @@ namespace VarsityMetrics.DB_Models
         {
             var att = new Supabase.Gotrue.UserAttributes { Password = password };
             await Init();
-            
+
             try
             {
                 var res = await client.Auth.Update(att);
@@ -151,7 +147,7 @@ namespace VarsityMetrics.DB_Models
             {
                 return false;
             }
-            
+
 
 
         }
@@ -243,9 +239,6 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            var response = await client.From<Teams>().Where(t => t.Email == CurrentUser.Email).Get();
-            var team = response.Models.FirstOrDefault();
-
             Play model = new Play
             {
                 name = name,
@@ -253,8 +246,7 @@ namespace VarsityMetrics.DB_Models
                 type = type,
                 times_called = 0,
                 yards_gained = [],
-                uri = null,
-                team_id = team.Team_Id
+                uri = null
             };
 
             await client.From<Play>().Insert(model);
@@ -432,10 +424,7 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            var response = await client.From<Teams>().Where(t => t.Email == CurrentUser.Email).Get();
-            var team = response.Models.FirstOrDefault();
-
-            var plays = await client.From<Play>().Where(p => p.team_id == team.Team_Id).Order("type", Supabase.Postgrest.Constants.Ordering.Descending).Get();
+            var plays = await client.From<Play>().Order("type", Supabase.Postgrest.Constants.Ordering.Ascending).Get();
             return plays.Models;
             //Supabase.Postgrest.Responses.ModeledResponse
             //Supabase.Postgrest.Constants.Ordering
@@ -515,7 +504,7 @@ namespace VarsityMetrics.DB_Models
                 y.yards_gained = yardsUpdated.ToArray();
 
                 var yardsUpdate = await client.From<Play>().Update(y);
-                
+
 
                 return true;
             }
@@ -529,7 +518,7 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            var stats = await client.From<Play>().Select(p => new object[] {p.times_called, p.yards_gained}).Get();
+            var stats = await client.From<Play>().Select(p => new object[] { p.times_called, p.yards_gained }).Get();
             return stats.Models;
         }
 
@@ -542,7 +531,7 @@ namespace VarsityMetrics.DB_Models
         public async Task<bool> UpdatePlayYardage(int play, int yards)
         {
             Play curr = await client.From<Play>().Where(p => p.play_id == play).Single();
-            int[] currYards = new int[curr.yards_gained.Count()+1];
+            int[] currYards = new int[curr.yards_gained.Count() + 1];
 
             currYards[currYards.Count() - 1] = yards;
 
@@ -552,9 +541,10 @@ namespace VarsityMetrics.DB_Models
                                         .Update();
             return true;
         }
-        
-        public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {
-            
+
+        public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null)
+        {
+
             await Init();
             // input validation
             // if date is invalid return false
@@ -613,7 +603,7 @@ namespace VarsityMetrics.DB_Models
             if (footage == null)
             {
                 Trace.WriteLine("DBAccess: No footage found. Inserting...");
-                int addedRecords = await conn.InsertAsync(new Footage { Uri = video, GameId = gameId, PlayId = null}); //insert record
+                int addedRecords = await conn.InsertAsync(new Footage { Uri = video, GameId = gameId, PlayId = null }); //insert record
                 if (addedRecords != 0) { return true; } else { return false; }
             }
             else
@@ -630,8 +620,8 @@ namespace VarsityMetrics.DB_Models
         {
             var schedule = await client.From<Gamelog>().Order(g => g.Date, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
             return schedule.Models;
-        }        
-        
+        }
+
         public async Task<List<GameStats>> GetScheduleStats()
         {
             var schedule = await client.From<GameStats>().Get();

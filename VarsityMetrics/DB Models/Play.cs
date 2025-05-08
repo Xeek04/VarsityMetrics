@@ -1,4 +1,4 @@
-﻿﻿using Supabase.Postgrest.Attributes;
+﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
@@ -34,9 +34,6 @@ namespace VarsityMetrics.DB_Models
         [Column("uri")]
         public string? uri { get; set; }
 
-        [Column("team_id")]
-        public int? team_id { get; set; }
-        
     }
     public class PlayView
     {
@@ -49,11 +46,11 @@ namespace VarsityMetrics.DB_Models
         public string Name => Base.name;
         public string type => Base.type;
         public int TimesCalled => Base.times_called;
-        public string ImageSource => Base.uri;
+        public string? ImageSource => Base.uri;
 
         public string YardsDisplay =>
             Base.yards_gained != null && Base.yards_gained.Length > 0
-            ? $"Most recent yardage: {string.Join(", ", Base.yards_gained.Skip(Math.Max(0, Base.yards_gained.Length - 10))):F1}" :
+            ? $"Yards Gained: {string.Join(", ", Base.yards_gained):F1}" :
             "";
 
         public string Average =>
@@ -64,7 +61,7 @@ namespace VarsityMetrics.DB_Models
 
     public class PlayGroup : ObservableCollection<PlayView>
     {
-        public string Type {  get; set; }
+        public string Type { get; set; }
 
         public PlayGroup(string type, IEnumerable<PlayView> plays) : base(plays)
         {
@@ -72,5 +69,5 @@ namespace VarsityMetrics.DB_Models
         }
 
     }
-    
+
 }

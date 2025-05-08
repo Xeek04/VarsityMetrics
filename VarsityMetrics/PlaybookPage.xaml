@@ -42,12 +42,12 @@
                                IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
                                HorizontalOptions="Start"
                                Style="{StaticResource SubHeadline}"/>
-                        
+
                         <Label Text="{Binding Average}"
                                IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
                                HorizontalOptions="Start"
                                Style="{StaticResource SubHeadline}"/>
-                        
+
                     </StackLayout>
 
                 </Grid>
@@ -102,7 +102,7 @@
                         x:Name="AddButton"
                         Text="Add"
                         Clicked="AddButton_Clicked"/>
-                
+
             </Grid>
         </Border>
 
@@ -110,10 +110,10 @@
         <Border Style="{StaticResource SurfaceBorder}" Margin="0"
                 Grid.Column="1">
             <Grid RowDefinitions="auto,*" ColumnDefinitions="*">
-                
+
                 <Label Text="Playbook"
                        Style="{StaticResource Headline}" Grid.Row="0"/>
-                
+
                 <!-- Play List -->
                 <CollectionView x:Name="PlayList"
                                 SelectionMode="Single"
@@ -127,7 +127,7 @@
                         <Label Text="Select a Play to update its stats."
                                x:Name="Offense"
                                Style="{StaticResource SubHeadline}"/>
-                    </CollectionView.Header> 
+                    </CollectionView.Header>
                     <!-- Group Header -->
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
