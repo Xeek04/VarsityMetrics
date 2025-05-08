@@ -470,9 +470,16 @@ namespace VarsityMetrics.DB_Models
         {
             await Init();
 
-            await client.From<Play>().Where(p => p.play_id == play.play_id).Set(p => p.yards_gained, play.yards_gained).Update();
-            await client.From<Play>().Where(p => p.play_id == play.play_id).Set(p => p.times_called, play.times_called + 1).Update();
+            await client
+                .From<Play>()
+                .Where(p => p.play_id == play.play_id)
+                .Set(p => p.yards_gained, play.yards_gained)
+                .Set(p => p.times_called, play.times_called)
+                .Update();
         }
+
+
+
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
         {
