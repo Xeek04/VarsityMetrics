@@ -2,8 +2,10 @@
 using Supabase.Postgrest.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VarsityMetrics.DB_Models
@@ -31,22 +33,44 @@ namespace VarsityMetrics.DB_Models
 
         [Column("uri")]
         public string? uri { get; set; }
-        public void SetURI()
+
+        [Column("team_id")]
+        public int? team_id { get; set; }
+        
+    }
+    public class PlayView
+    {
+        public Play Base { get; }
+        public PlayView(Play play)
         {
-            // TODO implement
+            Base = play;
         }
+
+        public string Name => Base.name;
+        public string type => Base.type;
+        public int TimesCalled => Base.times_called;
+        public string ImageSource => Base.uri;
+
+        public string YardsDisplay =>
+            Base.yards_gained != null && Base.yards_gained.Length > 0
+            ? $"Most recent yardage: {string.Join(", ", Base.yards_gained.Skip(Math.Max(0, Base.yards_gained.Length - 10))):F1}" :
+            "";
+
+        public string Average =>
+            Base.yards_gained != null && Base.yards_gained.Length > 0
+            ? $"Average: {Base.yards_gained.Average():F1} yds" :
+            "";
     }
 
-    public class PlayGroup : List<Play>
+    public class PlayGroup : ObservableCollection<PlayView>
     {
-        public bool IsOffense;
+        public string Type {  get; set; }
 
-        public PlayGroup(bool isOffense)
+        public PlayGroup(string type, IEnumerable<PlayView> plays) : base(plays)
         {
-            IsOffense = isOffense;
+            Type = type;
         }
 
-        public string GroupName => IsOffense == true ? "Offense" : "Defense";
     }
     
 }

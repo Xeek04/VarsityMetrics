@@ -2,10 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:VarsityMetrics"
              x:Class="VarsityMetrics.PlaybookPage"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
     <ContentPage.Resources>
         <ResourceDictionary>
+            <local:OffenseOnly x:Key="OffenseOnly"/>
             <DataTemplate x:Key="PlayTemplate">
                 <Grid Padding="10" 
                       ColumnSpacing="5">
@@ -28,22 +30,28 @@
                     <StackLayout Grid.Column="1"
                                      Grid.Row="0">
 
-                        <Label Text="{Binding name, StringFormat='Play Name: {0}'}"
+                        <Label Text="{Binding Name, StringFormat='Play Name: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                        <Label Text="{Binding times_called, StringFormat='Times Called: {0}'}"
+                        <Label Text="{Binding TimesCalled, StringFormat='Times Called: {0}'}"
                                    HorizontalOptions="Start"
                                    Style="{StaticResource SubHeadline}"/>
 
-                        <Label Text="{Binding yards_gained, StringFormat='Yards Gained: {0}'}"
-                                   HorizontalOptions="Start"
-                                   Style="{StaticResource SubHeadline}"/>
+                        <Label Text="{Binding YardsDisplay}"
+                               IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource SubHeadline}"/>
+                        
+                        <Label Text="{Binding Average}"
+                               IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource SubHeadline}"/>
+                        
                     </StackLayout>
 
                 </Grid>
 
-                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -94,7 +102,7 @@
                         x:Name="AddButton"
                         Text="Add"
                         Clicked="AddButton_Clicked"/>
-
+                
             </Grid>
         </Border>
 
@@ -109,20 +117,21 @@
                 <!-- Play List -->
                 <CollectionView x:Name="PlayList"
                                 SelectionMode="Single"
+                                SelectionChanged="PlayList_SelectionChanged"
                                 IsGrouped="True"
                                 ItemsSource="{Binding Plays}"
                                 ItemTemplate="{StaticResource Key=PlayTemplate}"
                                 Grid.Row="1">
                     <!-- Collection Header -->
                     <CollectionView.Header>
-                        <Label Text="List Header"
+                        <Label Text="Select a Play to update its stats."
                                x:Name="Offense"
                                Style="{StaticResource SubHeadline}"/>
-                    </CollectionView.Header>
+                    </CollectionView.Header> 
                     <!-- Group Header -->
                     <CollectionView.GroupHeaderTemplate>
                         <DataTemplate>
-                            <Label Text="{Binding GroupName}"
+                            <Label Text="{Binding Type}"
                                    Style="{StaticResource Headline}"
                                    HorizontalOptions="Start"/>
                         </DataTemplate>
