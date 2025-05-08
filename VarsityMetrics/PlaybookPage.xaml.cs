@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Views;
 using VarsityMetrics.DB_Models;
+using System.Text.RegularExpressions;
 
 public class OffenseOnly : IValueConverter
 {
@@ -30,6 +31,9 @@ public partial class PlaybookPage : ContentPage
     public List<Play> Plays;
     List<Play> OffensePlays;
     List<Play> DefensePlays;
+
+    public string Order = "Default";
+    public string TypeSelector = "All";
 
     public ObservableCollection<PlayGroup> GroupedPlays { get; set; } = new();
 
@@ -82,12 +86,12 @@ public partial class PlaybookPage : ContentPage
 
         var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "Offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g));
 
-        GroupedPlays.Clear();
-        foreach (var group in grouped)
-            GroupedPlays.Add(group);
+        /*GroupedPlays.Clear();
+		foreach ( var group in grouped)
+			GroupedPlays.Add(group);*/
 
 
-        PlayList.ItemsSource = GroupedPlays;
+        PlayList.ItemsSource = grouped;
     }
 
 
@@ -104,40 +108,62 @@ public partial class PlaybookPage : ContentPage
 
         if (selectedIndex != -1)
         {
-            Debug.WriteLine(selectedIndex);
+
+            var playView = Plays.Select(p => new PlayView(p));
+
             if (OrderPicker.Items[selectedIndex] == "Default")
             {
-                Debug.WriteLine("Default");
-                var plays = await App.db.RequestPictureAsync();
-                Debug.WriteLine(plays.Count);
-                var playView = plays.Select(p => new PlayView(p));
-                Debug.WriteLine("playview");
-                var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "Offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g));
-                Debug.WriteLine("grouped");
-                /*GroupedPlays.Clear();
-                Debug.WriteLine("Clear");
-                Debug.WriteLine(GroupedPlays.Count);
-                foreach (var group in grouped)
+                Order = "Default";
+
+                var grouped = playView.GroupBy(p => p.type)
+                    .OrderBy(g => g.Key == "Offense" ? 0 : 1)
+                    .Select(g => new PlayGroup(g.Key, g));
+
+                if (String.Equals(TypeSelector, "Offense"))
                 {
-                    Debug.WriteLine($"Group type: {group.Type}");
-                    GroupedPlays.Add(group); // <-- this may crash
-                    Debug.WriteLine("Added");
+                    grouped = playView.Where(p => p.type == "Offense")
+                        .GroupBy(p => p.type)
+                        .Select(g => new PlayGroup(g.Key, g))
+                        .ToList();
+                }
+                else if (String.Equals(TypeSelector, "Defense"))
+                {
+                    grouped = playView.Where(p => p.type == "Defense")
+                        .GroupBy(p => p.type)
+                        .Select(g => new PlayGroup(g.Key, g))
+                        .ToList();
                 }
 
-                Debug.WriteLine("for");*/
+
+                /*GroupedPlays.Clear();
+                foreach (var group in grouped)
+                    GroupedPlays.Add(group);*/
 
 
                 PlayList.ItemsSource = grouped;
-                Debug.WriteLine("Playlist");
-
             }
-            else if (OrderPicker.Items[selectedIndex] == "Name")
+            else
             {
-                var plays = await App.db.RequestPictureAsync();
+                Order = "Name";
 
-                var playView = plays.Select(p => new PlayView(p));
+                var grouped = playView.GroupBy(p => p.type)
+                    .OrderBy(g => g.Key == "Offense" ? 0 : 1)
+                    .Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)));
 
-                var grouped = playView.GroupBy(p => p.type).OrderBy(g => g.Key == "Offense" ? 0 : 1).Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)));
+                if (String.Equals(TypeSelector, "Offense"))
+                {
+                    grouped = playView.Where(p => p.type == "Offense")
+                        .GroupBy(p => p.type)
+                        .Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)))
+                        .ToList();
+                }
+                else if (String.Equals(TypeSelector, "Defense"))
+                {
+                    grouped = playView.Where(p => p.type == "Defense")
+                        .GroupBy(p => p.type)
+                        .Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)))
+                        .ToList();
+                }
 
                 /*GroupedPlays.Clear();
                 foreach (var group in grouped)
@@ -147,27 +173,89 @@ public partial class PlaybookPage : ContentPage
                 PlayList.ItemsSource = grouped;
             }
         }
-        //TODO implement
     }
-    private void TypePicker_SelectedIndexChanged(object sender, EventArgs e)
+    private async void TypePicker_SelectedIndexChanged(object sender, EventArgs e)
     {
         var TypePicker = (Picker)sender;
         int selectedIndex = TypePicker.SelectedIndex;
 
         if (selectedIndex != -1)
         {
+
+            var playView = Plays.Select(p => new PlayView(p));
+
             if (TypePicker.Items[selectedIndex] == "Offense")
             {
-                //TODO implement
+                TypeSelector = "Offense";
+
+                var grouped = playView.Where(p => p.type == "Offense")
+                    .GroupBy(p => p.type)
+                    .Select(g => new PlayGroup(g.Key, g))
+                    .ToList();
+                if (String.Equals(Order, "Name"))
+                {
+                    grouped = playView.Where(p => p.type == "Offense")
+                        .GroupBy(p => p.type)
+                        .Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)))
+                        .ToList();
+                }
+
+                /*GroupedPlays.Clear();
+                foreach (var group in grouped)
+                    GroupedPlays.Add(group);*/
+
+
+                PlayList.ItemsSource = grouped;
             }
             else if (TypePicker.Items[selectedIndex] == "Defense")
             {
-                //TODO implement
+                TypeSelector = "Defense";
+
+                var grouped = playView.Where(p => p.type == "Defense")
+                    .GroupBy(p => p.type)
+                    .Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)))
+                    .ToList();
+
+                if (String.Equals(Order, "Name"))
+                {
+                    grouped = playView.Where(p => p.type == "Defense")
+                        .GroupBy(p => p.type)
+                        .Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)))
+                        .ToList();
+                }
+
+
+
+                /*GroupedPlays.Clear();
+                foreach (var group in grouped)
+                    GroupedPlays.Add(group);*/
+
+
+                PlayList.ItemsSource = grouped;
             }
             else
             {
-                //TODO implement
+                TypeSelector = "All";
+
+                var grouped = playView.GroupBy(p => p.type)
+                    .OrderBy(g => g.Key == "Offense" ? 0 : 1)
+                    .Select(g => new PlayGroup(g.Key, g));
+
+                if (String.Equals(Order, "Name"))
+                {
+                    grouped = playView.GroupBy(p => p.type)
+                        .OrderBy(g => g.Key == "Offense" ? 0 : 1)
+                        .Select(g => new PlayGroup(g.Key, g.OrderBy(p => p.Name)));
+                }
+
+                /*GroupedPlays.Clear();
+                foreach (var group in grouped)
+                    GroupedPlays.Add(group);*/
+
+
+                PlayList.ItemsSource = grouped;
             }
+
         }
     }
 
@@ -227,7 +315,6 @@ public partial class PlaybookPage : ContentPage
             var yardsList = selectedPlay.Base.yards_gained?.ToList() ?? new List<int>();
             yardsList.Add(newYards);
             selectedPlay.Base.yards_gained = yardsList.ToArray();
-            selectedPlay.Base.times_called = selectedPlay.Base.times_called + 1;
 
             //refresh display
             var parentGroup = GroupedPlays.FirstOrDefault(g => g.Type == selectedPlay.type);
