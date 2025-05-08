@@ -65,9 +65,15 @@ namespace VarsityMetrics.DB_Models
         //}
 
         // returns null if unsuccessful, otherwise returns user's role
+
+        public async Task LogOutAsync()
+        {
+            await client.Auth.RefreshSession();
+            await client.Auth.SignOut();
+        }
         public async Task<Accounts> CheckLoginAsync(string email, string password)
         {
-            await Init();
+            await client.Auth.RefreshSession();
             try
             {
                 var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
@@ -101,7 +107,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> ForgotPasswordEmail(string email)
         {
-            await Init();
+            await client.Auth.RefreshSession();
 
             try
             {
@@ -118,7 +124,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> ResetPasswordToken(string Email, string token)
         {
-            await Init();
+            await client.Auth.RefreshSession();
             try
             {
                 var session = await client.Auth.VerifyOTP(Email, token, Supabase.Gotrue.Constants.EmailOtpType.Recovery);
@@ -135,8 +141,8 @@ namespace VarsityMetrics.DB_Models
         public async Task<bool> ResetPassword(string password)
         {
             var att = new Supabase.Gotrue.UserAttributes { Password = password };
-            await Init();
-            
+            await client.Auth.RefreshSession();
+
             try
             {
                 var res = await client.Auth.Update(att);
@@ -154,6 +160,7 @@ namespace VarsityMetrics.DB_Models
         // returns null if unsuccessful
         public async Task<Constants.Role?> GetCurrentUserRoleAsync()
         {
+            await client.Auth.RefreshSession();
             var user = client.Auth.CurrentUser;
             if (user == null)
                 return null;
@@ -176,7 +183,7 @@ namespace VarsityMetrics.DB_Models
         public async Task<bool> InsertAccountAsync(string password, string email)
         {
             // returning an empty task is the async equivalent of void
-            await Init();
+            await client.Auth.RefreshSession();
 
             try
             {
@@ -194,7 +201,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> ConfirmEmail(string Email, string token, string password, string FirstName, string LastName, Constants.Role role)
         {
-            await Init();
+            await client.Auth.RefreshSession();
             //var signIn = await client.Auth.SignIn(Supabase.Gotrue.Constants.SignInType.Email, email);
             try
             {
@@ -229,14 +236,14 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> UploadTeammateAsync(string name, Constants.Role role)
         {
-            await Init();
+            await client.Auth.RefreshSession();
 
             int addedPlayers = await conn.InsertAsync(new MyTeam { Name = name, Role = role });
             if (addedPlayers != 0) { return true; } else { return false; }
         }
         public async Task<bool> UploadPictureAsync(string path, string name, string type)
         {
-            await Init();
+            await client.Auth.RefreshSession();
 
             Play model = new Play
             {
@@ -270,6 +277,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Roster>> GetRoster()
         {
+            await client.Auth.RefreshSession();
             //return await conn.Table<Roster>().ToListAsync();
             var result = await client.From<Roster>().Get();
             return result.Models;
@@ -277,6 +285,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Roster>> GetUnit(string unit)
         {
+            await client.Auth.RefreshSession();
             List<string> searchedUnit = new List<string>();
             switch (unit)
             {
@@ -299,6 +308,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Roster>> GetRosterByPosition(string position)
         {
+            await client.Auth.RefreshSession();
             //List<Roster> result = await conn.Table<Roster>().Where(x => (x.Position == position)).ToListAsync();
             //return result.OrderBy(x => x.Number).ToList();
             var result = await client.From<Roster>().Where(x => x.Position == position).Order(x => x.Number, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
@@ -307,6 +317,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> AddPlayer(string firstName, string lastName, string position, string height, string weight, int number)
         {
+            await client.Auth.RefreshSession();
             //await Init();
 
             //await conn.InsertAsync(new Roster { Fname = firstName, Lname = lastName, Position = position, Height = height, Weight = weight, Number = number });
@@ -334,6 +345,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> AddPlayerStats(PlayerStats stats)
         {
+            await client.Auth.RefreshSession();
             //await Init();
             //await conn.ExecuteAsync(("UPDATE PlayerStats SET passing_yards = null WHERE Fname = 'Joe' AND Lname = 'Burrow';"));
             PlayerStats current = await client.From<PlayerStats>().Where(x => x.Fname == stats.Fname && x.Lname == stats.Lname).Single();
@@ -373,6 +385,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<PlayerStats> StatQuery(string fname, string lname)
         {
+            await client.Auth.RefreshSession();
             //return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
             PlayerStats result = await client.From<PlayerStats>().Where(x => x.Fname == fname && x.Lname == lname).Single();
             return result;
@@ -380,6 +393,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<string>> GetPlayerList()
         {
+            await client.Auth.RefreshSession();
             //List<Roster> roster = await conn.Table<Roster>().ToListAsync();
             //roster.OrderBy(x => x.Lname).ToList();
             var query = await client.From<Roster>().Order(x => x.Lname, Supabase.Postgrest.Constants.Ordering.Descending).Get();
@@ -394,6 +408,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> ClearRoster()
         {
+            await client.Auth.RefreshSession();
             //await Init();
 
             //await conn.DeleteAllAsync<Roster>();
@@ -405,7 +420,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<MyTeam>> RequestTeammateAsync()
         {
-            await Init();
+            await client.Auth.RefreshSession();
 
             return await conn.Table<MyTeam>().ToListAsync();
         }
@@ -421,7 +436,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Play>> RequestPictureAsync(string type)
         {
-            await Init();
+            await client.Auth.RefreshSession();
 
             var plays = await client.Storage.From("plays-images").List(type);
 
@@ -457,7 +472,15 @@ namespace VarsityMetrics.DB_Models
                     Yards = stat.yards_gained
                 }));
 
-            return null;
+            return null;*/
+        }
+
+        public async Task UpdatePlayAscync(Play play)
+        {
+            await client.Auth.RefreshSession();
+
+            await client.From<Play>().Where(p => p.play_id == play.play_id).Set(p => p.yards_gained, play.yards_gained).Update();
+            await client.From<Play>().Where(p => p.play_id == play.play_id).Set(p => p.times_called, play.times_called + 1).Update();
         }
 
         public async Task<List<Play>> RequestOrderedPictureAsync(string type)
@@ -476,7 +499,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> AddPlaybookStats(string name, string type, int yards)
         {
-            await Init();
+            await client.Auth.RefreshSession();
             var fetch = await client.From<Play>().Where(x => x.name == name && x.type == type).Get();
 
             var y = fetch.Models.FirstOrDefault();
@@ -502,7 +525,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Play>> RequestPlayStatsAsync()
         {
-            await Init();
+            await client.Auth.RefreshSession();
 
             var stats = await client.From<Play>().Select(p => new object[] {p.times_called, p.yards_gained}).Get();
             return stats.Models;
@@ -510,12 +533,14 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Play>> GetPlays()
         {
+            await client.Auth.RefreshSession();
             var playList = await client.From<Play>().Where(p => p.type == "Offense").Get();
             return playList.Models;
         }
 
         public async Task<bool> UpdatePlayYardage(int play, int yards)
         {
+            await client.Auth.RefreshSession();
             Play curr = await client.From<Play>().Where(p => p.play_id == play).Single();
             int[] currYards = new int[curr.yards_gained.Count()+1];
 
@@ -528,9 +553,9 @@ namespace VarsityMetrics.DB_Models
             return true;
         }
         
-        public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null) {
-            
-            await Init();
+        public async Task<bool> InsertGameAsync(string opponent, int year, int month, int day, int? ourScore = null, int? theirScore = null)
+        {
+            await client.Auth.RefreshSession();
             // input validation
             // if date is invalid return false
             if ((1000 < year) || (year > 9999))
@@ -558,14 +583,14 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<Game>> GetGamesAsync()
         {
-            await Init();
+            await client.Auth.RefreshSession();
             return await conn.Table<Game>().ToListAsync();
         }
 
         public async Task<Footage> GetFootageByGameIdAsync(int gameId)
         {
             Trace.WriteLine($"DBAccess: Fetching footage for game {gameId}");
-            await Init();
+            await client.Auth.RefreshSession();
 
             var footage = await conn.Table<Footage>().FirstOrDefaultAsync(f => f.GameId == gameId);
 
@@ -581,7 +606,7 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<bool> UploadVideoAsync(int gameId, string video)
         {
-            await Init();
+            await client.Auth.RefreshSession();
 
             var footage = await conn.Table<Footage>().FirstOrDefaultAsync(f => f.GameId == gameId);
 
@@ -603,18 +628,21 @@ namespace VarsityMetrics.DB_Models
         // Gamelog and Schedule
         public async Task<List<Gamelog>> GetSchedule()
         {
+            await client.Auth.RefreshSession();
             var schedule = await client.From<Gamelog>().Order(g => g.Date, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
             return schedule.Models;
         }        
         
         public async Task<List<GameStats>> GetScheduleStats()
         {
+            await client.Auth.RefreshSession();
             var schedule = await client.From<GameStats>().Get();
             return schedule.Models;
         }
 
         public async Task<bool> AddGame(string opponent, DateTime date, bool home, string location)
         {
+            await client.Auth.RefreshSession();
             Gamelog newGame = new Gamelog
             {
                 ForTeam = "Ruston High",
@@ -637,12 +665,14 @@ namespace VarsityMetrics.DB_Models
 
         public async Task<List<PlayByPlay>> GetPlayByPlay(int opp, int quarter)
         {
+            await client.Auth.RefreshSession();
             var plays = await client.From<PlayByPlay>().Where(p => p.GameId == opp).Where(p => p.Quarter == quarter).Get();
             return plays.Models;
         }
 
         public async Task<bool> AddPlayToGame(PlayByPlay play)
         {
+            await client.Auth.RefreshSession();
             await client.From<PlayByPlay>().Insert(play);
             return true;
         }
