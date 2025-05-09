@@ -20,6 +20,9 @@ public partial class GameStatEntryViewModel : ObservableObject
     private bool entryMode;
 
     [ObservableProperty]
+    private bool player2IsVisible = false;
+
+    [ObservableProperty]
     private bool q1SIsVisible;
 
     [ObservableProperty]
@@ -78,6 +81,12 @@ public partial class GameStatEntryViewModel : ObservableObject
 
     [ObservableProperty]
     private string? time = "15:00";
+
+    [ObservableProperty]
+    private bool touchdown = false;
+
+    [ObservableProperty]
+    private string player1Title = "Rusher";
 
     // Async commands
     public IAsyncRelayCommand PopulatePickersCommand { get; }
@@ -217,16 +226,23 @@ public partial class GameStatEntryViewModel : ObservableObject
         Q3Plays.Clear();
         Q4Plays.Clear();
 
-        var q1 = await App.db.GetPlayByPlay(gameId, 1);
+
+        var q1Task = App.db.GetPlayByPlay(gameId, 1);
+        var q2Task = App.db.GetPlayByPlay(gameId, 2);
+        var q3Task = App.db.GetPlayByPlay(gameId, 3);
+        var q4Task = App.db.GetPlayByPlay(gameId, 4);
+
+
+        var q1 = await q1Task;
         foreach (var p in q1) Q1Plays.Add(p);
 
-        var q2 = await App.db.GetPlayByPlay(gameId, 2);
+        var q2 = await q2Task;
         foreach (var p in q2) Q2Plays.Add(p);
 
-        var q3 = await App.db.GetPlayByPlay(gameId, 3);
+        var q3 = await q3Task;
         foreach (var p in q3) Q3Plays.Add(p);
 
-        var q4 = await App.db.GetPlayByPlay(gameId, 4);
+        var q4 = await q4Task;
         foreach (var p in q4) Q4Plays.Add(p);
         Trace.WriteLine($"GameStatEntryViewModel: LoadPlaysAsync complete. Q1:{q1.Count()}, Q2:{q2.Count()}, Q3:{q3.Count()}, Q4:{q4.Count()}, ");
         Trace.WriteLine($"GameStatEntryViewModel: Totals: {Q1Plays.Count()}, {Q2Plays.Count()}, {Q3Plays.Count()}, {Q4Plays.Count()}");
@@ -286,8 +302,10 @@ public partial class GameStatEntryViewModel : ObservableObject
             Yards = int.Parse(Yards),
             PlayId = SelectedPlay.play_id,
             Players = SelectedYardageType == "Pass"
-                ? [ SelectedPlayer1.AbvName, SelectedPlayer2.AbvName ]
-                : [ SelectedPlayer1.AbvName ]
+                ? [SelectedPlayer1.AbvName, SelectedPlayer2.AbvName]
+                : [SelectedPlayer1.AbvName],
+            TD = Touchdown
+            
         };
 
         switch (play.Quarter)
@@ -306,6 +324,11 @@ public partial class GameStatEntryViewModel : ObservableObject
                 break;
         }
 
+        //reset
+        if (Touchdown)
+        {
+            SelectedDown = 1;
+        }
 
         await App.db.AddPlayToGame(play);
         await App.db.AddPlaybookStats(SelectedPlay.name, "Offense", int.Parse(Yards));
@@ -360,6 +383,20 @@ public partial class GameStatEntryViewModel : ObservableObject
             Trace.WriteLine($"GameStatEntryViewModel: Selected game is {value.OppTeam}");
             StartIsEnabled = true;
             _ = LoadPlaysSafeAsync(value.GameId);
+        }
+    }
+
+    partial void OnSelectedYardageTypeChanged(string? value)
+    {
+        if (value == "Pass")
+        {
+            Player1Title = "Passer";
+            Player2IsVisible = true;
+        }
+        else
+        {
+            Player1Title = "Rusher";
+            Player2IsVisible = false;
         }
     }
 
