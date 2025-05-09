@@ -322,9 +322,10 @@ namespace VarsityMetrics.DB_Models
                 Number = number,
             };
             await client.From<Roster>().Insert(rmodel);
-            var current = await client.From<Roster>().Where(x => x.Fname == firstName && x.Lname == lastName).Single();
+            var current = await client.From<Roster>().Get();
             PlayerStats smodel = new PlayerStats
             {
+                Id = current.Models.LastOrDefault().Id,
                 Fname = firstName,
                 Lname = lastName,
                 Position = position

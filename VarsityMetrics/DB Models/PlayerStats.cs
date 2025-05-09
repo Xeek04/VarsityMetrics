@@ -14,7 +14,7 @@ namespace VarsityMetrics.DB_Models
     [Table("PlayerStats")]
     public class PlayerStats : BaseModel
     {
-        [PrimaryKey("id")]
+        [PrimaryKey,Column("player_id")]
         public int Id { get; set; }
 
         [Column("fname")]
