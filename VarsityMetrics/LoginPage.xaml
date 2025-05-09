@@ -6,7 +6,7 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
 
     <!--ColumnDefinitions=".5*, .25*, .5*"-->
-    <Grid RowDefinitions="50, Auto"
+    <Grid RowDefinitions="250, Auto"
           Padding="10"
           ColumnSpacing="10"
           RowSpacing="10">
@@ -15,7 +15,11 @@
             <ColumnDefinition Width="{OnIdiom Default=300, Phone=.70*}" />
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
         </Grid.ColumnDefinitions>
-
+        <Image
+            Grid.Row="0"
+            Grid.Column="1"
+            Source="logo.png"
+        />
         <Border Style="{StaticResource SurfaceBorder}" 
                Grid.Column="1"
                Grid.Row="1">
