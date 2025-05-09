@@ -53,6 +53,7 @@ public partial class StatsPage : ContentPage
                     break;
             }
         }
+        
     }
 
     private void StatSelection(object sender, EventArgs e)
@@ -64,13 +65,16 @@ public partial class StatsPage : ContentPage
         confirm.IsVisible = false;
 
         addplayerstats.IsVisible = false;
+        showplayerstats.IsVisible = false;
         playerListStats.IsVisible = true;
+        GetRoster();
     }
 
     private async void ShowStats(object sender, EventArgs e)
     {
         if (playerListStats.SelectedItem != null)
         {
+            Picker playerSelection = (Picker)sender;
             string[] player = playerListStats.SelectedItem.ToString().Replace(",", null).Split();
             PlayerStats stats = await App.db.StatQuery(player[1], player[0]);
             PassingView.IsVisible = false;
@@ -118,12 +122,15 @@ public partial class StatsPage : ContentPage
         rushbutton.IsVisible = true;
         recbutton.IsVisible = true;
         showplayerstats.IsVisible = false;
+        addplayerstats.IsVisible = false;
         confirm.IsVisible = true;
+        GetRoster();
     }
 
     private void BackButton(object sender, EventArgs e)
     {
         HideAll();
+        GetRoster();
     }
 
     private async void ConfirmAdd(object sender, EventArgs e)

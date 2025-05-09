@@ -48,9 +48,7 @@
             BackgroundColor="Red"/>
         
         <ScrollView Grid.Row="2">
-            <FlexLayout
-                Wrap="Wrap"
-                JustifyContent="SpaceEvenly">
+            <StackLayout>
                 
                 <!-- Full Roster -->
                 <!-- Offense -->
@@ -386,7 +384,7 @@
 
 
                 </VerticalStackLayout>
-            </FlexLayout>
+            </StackLayout>
         </ScrollView>
     </Grid>
     </Border>
