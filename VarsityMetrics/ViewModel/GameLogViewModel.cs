@@ -193,7 +193,14 @@ public partial class GameLogViewModel : ObservableObject
     partial void OnCurrentGameChanged(Gamelog? value)
     {
         Trace.WriteLine($"GameLogViewModel: current game changed to {value?.BannerText}");
-        CurrentStats = ScheduleStats.Where(s => s.GameId == value?.GameId).First();
+        if (value != null)
+        {
+            CurrentStats = ScheduleStats.Where(s => s.GameId == value?.GameId).First();
+        }
+        else
+        {
+            CurrentStats = ScheduleStats.Last();
+        }
     }
 
 
