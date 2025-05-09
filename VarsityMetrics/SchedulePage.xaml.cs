@@ -2,6 +2,8 @@ using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics;
 
+// TODO edit layout for small page size
+
 public partial class SchedulePage : ContentPage
 {
 	public SchedulePage()

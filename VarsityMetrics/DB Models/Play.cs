@@ -34,6 +34,9 @@ namespace VarsityMetrics.DB_Models
         [Column("uri")]
         public string? uri { get; set; }
 
+        [Column("team_id")]
+        public int? team_id { get; set; }
+
     }
     public class PlayView
     {

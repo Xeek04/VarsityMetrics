@@ -7,11 +7,11 @@
     <ScrollView>
         <Border Style="{StaticResource SurfaceBorder}">
        
-        <Grid RowDefinitions="Auto, 350,Auto"
-      ColumnSpacing="10"
-      RowSpacing="10">
+        <Grid RowDefinitions="*, 350,*"
+              ColumnSpacing="10"
+              RowSpacing="10">
 
-            <VerticalStackLayout Padding="30,0"
+            <VerticalStackLayout Padding="30"
                                  Spacing="20"
                                  Grid.Column="1"
                                  Grid.Row="0"
@@ -21,9 +21,9 @@
                        HorizontalOptions="Center"/>
                 <Label x:Name="emailPres" />
                 
-                </VerticalStackLayout>
+            </VerticalStackLayout>
 
-                <VerticalStackLayout Padding="30,0"
+            <VerticalStackLayout Padding="30"
                                      Spacing="20"
                                      Grid.Column="1"
                                      Grid.Row="3"
@@ -34,7 +34,7 @@
 
                     <Button Text="Log Out"
                         Clicked="LogOut_Clicked"/>
-                </VerticalStackLayout>
+            </VerticalStackLayout>
         
         </Grid>
         </Border>
