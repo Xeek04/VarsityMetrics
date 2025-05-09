@@ -108,7 +108,7 @@ public partial class MyTeam : ContentPage
 
         if (!accountQuery.Models.Any())
         {
-            await DisplayAlert("Error", "User does not have an account.", "OK");
+            await DisplayAlert("Error", "We couldn't find the user. Make sure the email is spelled correctly and that the user has an account.", "OK");
             return;
         }
         var existingTeamQuery = await DBAccess.client

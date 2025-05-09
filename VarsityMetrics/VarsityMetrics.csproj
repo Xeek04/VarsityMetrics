@@ -71,9 +71,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="AddTeamPlayer.xaml.cs">
-	    <DependentUpon>AddTeamPlayer.xaml</DependentUpon>
-	  </Compile>
 	  <Compile Update="NewRoster.xaml.cs">
 	    <DependentUpon>NewRoster.xaml</DependentUpon>
 	  </Compile>
@@ -99,9 +96,6 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="AddPlaybookStats.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="AddTeamPlayer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="EmailConfirmation.xaml">
