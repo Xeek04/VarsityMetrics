@@ -46,7 +46,7 @@ public partial class LoginPage : ContentPage
             {
                 DB_Models.Accounts? account = await App.db.CheckLoginAsync(email.Text, password.Text);
 
-                if (account != null) //TODO make sure this works
+                if (account != null)
                 {
                     App.CurrentUserAccount = account;
                     App.Current.MainPage = new AppShell();
