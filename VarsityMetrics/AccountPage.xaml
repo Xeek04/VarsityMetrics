@@ -2,41 +2,44 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.AccountPage"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
 
-    <ScrollView>
-        <Border Style="{StaticResource SurfaceBorder}">
-       
-        <Grid RowDefinitions="*, 350,*"
-              ColumnSpacing="10"
-              RowSpacing="10">
+    <Grid RowDefinitions="50, 350,*"
+      Padding="10"
+      ColumnSpacing="10"
+      RowSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
+            <ColumnDefinition Width="{OnIdiom Default=300, Phone=.70*}" />
+            <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
+        </Grid.ColumnDefinitions>
 
-            <VerticalStackLayout Padding="30"
-                                 Spacing="20"
-                                 Grid.Column="1"
-                                 Grid.Row="0"
-                                 HorizontalOptions="Center">
-                
-                <Label Text="Email:" FontSize="Large"
-                       HorizontalOptions="Center"/>
-                <Label x:Name="emailPres" />
-                
-            </VerticalStackLayout>
+        <Border Style="{StaticResource SurfaceBorder}" 
+                Grid.Column="1"
+                Grid.Row="1">
+            <Grid RowDefinitions="Auto,*,Auto,Auto"
+                  RowSpacing="10"
+                  Padding="10">
+                <Label Text="Email:"
+               Style="{StaticResource Headline}"
+               HorizontalOptions="Center"
+               Grid.Row="0" />
 
-            <VerticalStackLayout Padding="30"
-                                     Spacing="20"
-                                     Grid.Column="1"
-                                     Grid.Row="3"
-                                     HorizontalOptions="Center"
-                                     MinimumWidthRequest="250">
-                    <Button Text="Light/Dark" 
-                            Clicked="LightDark"/>
+                <Label x:Name="emailPres"
+               HorizontalOptions="Center"
+               Grid.Row="1" />
 
-                    <Button Text="Log Out"
-                        Clicked="LogOut_Clicked"/>
-            </VerticalStackLayout>
-        
-        </Grid>
+                <Button Text="Light/Dark"
+                Clicked="LightDark"
+                Grid.Row="2" />
+
+                <Button Text="Log Out"
+                Clicked="LogOut_Clicked"
+                Grid.Row="3" />
+            </Grid>
+
         </Border>
-    </ScrollView>
+    </Grid>
+
 </ContentPage>
