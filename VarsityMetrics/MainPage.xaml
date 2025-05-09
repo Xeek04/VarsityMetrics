@@ -28,7 +28,7 @@
                                            Style="{StaticResource SubHeadline}"
                                            HorizontalOptions="Start"
                                            Margin="0,0,0,0"/>
-                                    <Label Text="September 5, RH vs LSU (Home) &#10;September 12, RH vs Louisiana Tech (Home) &#10;September 19, RH vs UNO (Away)"
+                                    <Label Text="May 9, RH vs Catholic High (Home) &#10;May 11, RH vs Parkview Baptist (Home) &#10;May 15, RH vs Dutch Town (Away)"
                                            Margin="0,35,0,10"
                                            FontSize="18"
                                            HorizontalOptions="Fill" />
