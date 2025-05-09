@@ -28,24 +28,6 @@ namespace VarsityMetrics.DB_Models
 
         public static Client client;
 
-        public async Task Init()
-        {
-            if (modified)
-            {
-                File.Delete(path);
-                modified = false;
-            }
-            Trace.WriteLine($"DBAccess: Init() (file path: {path}");
-            if (conn is not null)
-            {
-                return;
-            }
-
-            conn = new SQLiteAsyncConnection(path, Constants.Flags);
-            // create all tables
-            await conn.CreateTablesAsync<Game, Player, MyTeam>();
-            //await conn.CreateTablesAsync<Footage, Roster, PlayerStats>(); // tables with foreign keys
-        }
 
         public DBAccess(String databasePath)
         {
@@ -73,7 +55,6 @@ namespace VarsityMetrics.DB_Models
         }
         public async Task<Accounts> CheckLoginAsync(string email, string password)
         {
-            await client.Auth.RefreshSession();
             try
             {
                 var matches = await client.Auth.SignIn(email, password); // queries accounts table for records with username and password matching input
@@ -393,6 +374,14 @@ namespace VarsityMetrics.DB_Models
             //return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
             PlayerStats result = await client.From<PlayerStats>().Where(x => x.Fname == fname && x.Lname == lname).Single();
             return result;
+        }
+
+        public async Task<List<PlayerStats>> GetPlayerStatsAsync()
+        {
+            await client.Auth.RefreshSession();
+            //return await conn.Table<PlayerStats>().Where(x => (x.Fname == fname && x.Lname == lname)).FirstAsync();
+            var query = await client.From<PlayerStats>().Order(p => p.Lname, Supabase.Postgrest.Constants.Ordering.Ascending).Get();
+            return query.Models;
         }
 
         public async Task<List<string>> GetPlayerList()
