@@ -15,6 +15,8 @@ public partial class RosterPage : ContentPage
     private Label NumberLabel = new Label { Text = "No." };
     private Button Confirm = new Button { Text = ">", CommandParameter = null };
 
+    private Label entryError = new Label { Text = "Please fill out all the entries.", TextColor = Color.FromArgb("#FF0000"), IsVisible = true };
+
     private Entry Fname = new Entry();
     private Entry Lname = new Entry();
     private Entry HeightP = new Entry();
@@ -68,12 +70,44 @@ public partial class RosterPage : ContentPage
     }
     private async void addPlayer(string position)
     {
-        await App.db.AddPlayer(Fname.Text, Lname.Text, position, HeightP.Text, Weight.Text, int.Parse(Number.Text));
-        List<Roster> something = await App.db.GetRoster();
+        int err = 0;
 
-        populateRoster(viewKey.FirstOrDefault(x => x.Value == position).Key);
-        //var test = await App.db.StatQuery(Fname.Text, Lname.Text);
-        clearEntries();
+        if(Fname.Text == null | String.Equals(Fname.Text, ""))
+        {
+            err = 1;
+        }
+        if (Lname.Text == null | String.Equals(Lname.Text, ""))
+        {
+            err = 1;
+        }
+        if (HeightP.Text == null | String.Equals(HeightP.Text, ""))
+        {
+            err = 1;
+        }
+        if (Weight.Text == null | String.Equals(Weight.Text, ""))
+        {
+            err = 1;
+        }
+        if (Number.Text == null | String.Equals(Number.Text, ""))
+        {
+            err = 1;
+        }
+
+        if(err == 0)
+        {
+            entryError.IsVisible = false;
+
+            await App.db.AddPlayer(Fname.Text, Lname.Text, position, HeightP.Text, Weight.Text, int.Parse(Number.Text));
+            List<Roster> something = await App.db.GetRoster();
+
+            populateRoster(viewKey.FirstOrDefault(x => x.Value == position).Key);
+            //var test = await App.db.StatQuery(Fname.Text, Lname.Text);
+            clearEntries();
+        }
+        else
+        {
+            entryError.IsVisible = true;
+        }
     }
 
     private async void clearRoster(object sender, EventArgs e)
@@ -108,6 +142,9 @@ public partial class RosterPage : ContentPage
             view.Add(HeightP, 2, 1);
             view.Add(Weight, 3, 1);
             view.Add(Number, 4, 1);
+
+            //view.Add(entryError, 5, 2);
+            //Check other pages for error handling on empty entries
 
             clearEntries();
             Confirm.CommandParameter = addButton.CommandParameter;
