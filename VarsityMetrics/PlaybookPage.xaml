@@ -47,6 +47,21 @@
                                IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
                                HorizontalOptions="Start"
                                Style="{StaticResource SubHeadline}"/>
+                        
+                        <Label Text="{Binding Stand}"
+                               IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource SubHeadline}"/>
+
+                        <Label Text="{Binding Highest}"
+                               IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource SubHeadline}"/>
+
+                        <Label Text="{Binding Lowest}"
+                               IsVisible="{Binding Type, Converter={StaticResource OffenseOnly}}"
+                               HorizontalOptions="Start"
+                               Style="{StaticResource SubHeadline}"/>
 
                     </StackLayout>
 

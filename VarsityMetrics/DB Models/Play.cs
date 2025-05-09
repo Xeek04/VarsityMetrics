@@ -60,6 +60,21 @@ namespace VarsityMetrics.DB_Models
             Base.yards_gained != null && Base.yards_gained.Length > 0
             ? $"Average: {Base.yards_gained.Average():F1} yds" :
             "";
+
+        public string Stand =>
+            Base.yards_gained != null && Base.yards_gained.Length > 0
+            ? $"Standard Deviation: {Math.Round(Math.Sqrt(Base.yards_gained.Average(y => Math.Pow(y - Base.yards_gained.Average(), 2))), 1)}" :
+            "";
+
+        public string Highest =>
+            Base.yards_gained != null && Base.yards_gained.Length > 0
+            ? $"Most yards gained: {Base.yards_gained.Max()}" :
+            "";
+
+        public string Lowest =>
+            Base.yards_gained != null && Base.yards_gained.Length > 0
+            ? $"Lowest yards gained: {Base.yards_gained.Min()}" :
+            "";
     }
 
     public class PlayGroup : ObservableCollection<PlayView>
