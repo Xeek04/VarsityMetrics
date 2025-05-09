@@ -1,3 +1,4 @@
+using Microsoft.IdentityModel.Tokens;
 using VarsityMetrics.DB_Models;
 
 namespace VarsityMetrics;
@@ -9,6 +10,11 @@ public partial class SchedulePage : ContentPage
 	public SchedulePage()
 	{
 		InitializeComponent();
+        Loaded += (s, e) =>
+        {
+            Window.MinimumHeight = 300;
+            Window.MinimumWidth = 750;
+        };
         PopulateSchedule();
 	}
 
@@ -50,21 +56,21 @@ public partial class SchedulePage : ContentPage
             currentSchedule.AddWithSpan(new Label
             { 
                 Text = game.ForTeam + " " + (game.HomeGame == true ? "vs" : "@") + " " + game.OppTeam,
-                HorizontalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.Start,
                 FontAttributes = FontAttributes.Italic
-            },i,0,1,3);
+            },i,0,1,1);
             currentSchedule.Add(new Label 
             {
-                Text = game.Date.ToString(),
-                HorizontalOptions = LayoutOptions.Center,
+                Text = game.Date?.ToString("d"),
+                HorizontalOptions = LayoutOptions.Start,
                 FontAttributes = FontAttributes.Italic
-            },3,i);
+            },1,i);
             currentSchedule.Add(new Label 
             {
-                Text = game.Location,
-                HorizontalOptions = LayoutOptions.Center,
+                Text = (game.Location.IsNullOrEmpty() ? "-" : game.Location),
+                HorizontalOptions = LayoutOptions.Start,
                 FontAttributes = FontAttributes.Italic
-            },4,i);
+            },2,i);
             i++;
         }
     }
@@ -88,12 +94,14 @@ public partial class SchedulePage : ContentPage
             {
                 Text = game.OppTeam,
                 HorizontalOptions= LayoutOptions.Center,
+                MinimumWidthRequest = 175,
                 IsReadOnly = true
             },0,i);
             gameEditor.Add(new Entry 
             {
-                Text = game.Date.ToString(),
+                Text = game.Date?.ToString("d"),
                 HorizontalOptions= LayoutOptions.Center,
+                MinimumWidthRequest = 88,
                 IsReadOnly = true
             },1,i);
             gameEditor.Add(new CheckBox 
@@ -106,6 +114,7 @@ public partial class SchedulePage : ContentPage
             {
                 Text = game.Location,
                 HorizontalOptions= LayoutOptions.Center,
+                MinimumWidthRequest=175,
                 IsReadOnly = true
             },3,i);
             i++;
@@ -120,6 +129,11 @@ public partial class SchedulePage : ContentPage
 
     private async void Confirm(object sender, EventArgs e)
     {
+        if (opp.Text.IsNullOrEmpty())
+        {
+            // TODO encourage user to type in opponent
+            return;
+        }
         await App.db.AddGame(opp.Text ?? "null", date.Date, home.IsChecked, location.Text);
         inputEntries.IsVisible = false;
         addGame.IsVisible = true;
