@@ -160,7 +160,7 @@
                     Grid.Column="6"
                     />
                     <Label
-                    Text="Last Play"
+                    Text="Touchdown"
                     Grid.Row="0"
                     Grid.Column="7"
                     />
@@ -212,7 +212,7 @@
                     />
                     <Picker
                     x:Name="player1"
-                    Title="Passer/Rusher"
+                    Title="{Binding Player1Title}"
                     ItemsSource="{Binding Players}"
                     ItemDisplayBinding="{Binding AbvName}"
                     SelectedItem="{Binding SelectedPlayer1, Mode=TwoWay}"
@@ -227,6 +227,7 @@
                     SelectedItem="{Binding SelectedPlayer2, Mode=TwoWay}"
                     Grid.Row="2"
                     Grid.Column="5"
+                    IsVisible="{Binding Player2IsVisible}"
                     />
                     <Picker
                     x:Name="playBook"
@@ -237,7 +238,8 @@
                     Grid.Column="6"
                     />
                     <CheckBox
-                    x:Name="gameEnd"
+                    x:Name="Touchdown"
+                    IsChecked="{Binding Touchdown}"
                     Grid.Row="1"
                     Grid.Column="7"
                     />

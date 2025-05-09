@@ -82,6 +82,10 @@ namespace VarsityMetrics.DB_Models
                     result += " rush";
                 }
                 result += " for " + Yards + " yards";
+                if (TD)
+                {
+                    result += " TOUCHDOWN";
+                }
                 return result;
             }
         }
