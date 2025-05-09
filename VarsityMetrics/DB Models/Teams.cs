@@ -24,6 +24,4 @@ namespace VarsityMetrics.DB_Models
         public Constants.Role Role { get; set; }
 
     }
-
-    // TODO add any necessary security measures (salt, pepper, hashing)
 }

@@ -3,9 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="VarsityMetrics.SchedulePage"
              BackgroundColor="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}">
-    <Frame Style="{StaticResource Surface}">
-    <VerticalStackLayout>
-        <Grid ColumnDefinitions="*,*,0.5*">
+    <Border Style="{StaticResource SurfaceBorder}" MaximumWidthRequest="1100">
+    <VerticalStackLayout Spacing="10"
+                         MaximumWidthRequest="1000">
+            <Label Style="{StaticResource Headline}"
+               Text="Edit Schedule"/>
+            <!-- Navigation -->
+        <Grid ColumnDefinitions="*,*,150"
+              ColumnSpacing="5">
             <Button 
                 Text="Back"
                 Clicked="Back"
@@ -25,30 +30,41 @@
                 HorizontalOptions="End"
             />
             </Grid>
-        <Grid x:Name="currentSchedule" ColumnDefinitions="*,*,*,*,*,*,*" RowDefinitions="*" IsVisible="True">
+        <!-- Schedule (Normal) -->
+        <Grid x:Name="currentSchedule"
+              ColumnDefinitions="250,85,150" RowDefinitions="*"
+              WidthRequest="500"
+              HorizontalOptions="Center"
+              IsVisible="True">
             <Label
                 Text="Matchup"
-                Grid.Column="1"
+                Grid.Column="0"
                 Grid.Row="0"
-                HorizontalOptions="Center"
+                HorizontalOptions="Start"
                 FontSize="Medium"
             />
             <Label
                 Text="Date"
-                Grid.Column="3"
+                Grid.Column="1"
                 Grid.Row="0"
-                HorizontalOptions="Center"
+                HorizontalOptions="Start"
                 FontSize="Medium"
             />
             <Label
                 Text="Location"
-                Grid.Column="4"
+                Grid.Column="2"
                 Grid.Row="0"
-                HorizontalOptions="Center"
+                HorizontalOptions="Start"
                 FontSize="Medium"
             />
         </Grid>
-        <Grid x:Name="gameEditor" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*" IsVisible="False">
+        <!-- Schedule (Edit Mode)-->
+        <Grid ColumnDefinitions="200,100,90,200,150" RowDefinitions="*"
+              RowSpacing="3" ColumnSpacing="10"
+              WidthRequest="790"
+              HorizontalOptions="Center"
+              x:Name="gameEditor"
+              IsVisible="False">
             <Label
                 Text="Opponent"
                 Grid.Column="0"
@@ -61,28 +77,35 @@
                 Grid.Row="0"
                 HorizontalOptions="Center"
             />
-            <Label
+                <Label
                 Text="Home Game"
                 Grid.Column="2"
                 Grid.Row="0"
                 HorizontalOptions="Center"
             />
-            <Label
+                <Label
                 Text="Location (Optional)"
                 Grid.Column="3"
                 Grid.Row="0"
                 HorizontalOptions="Center"
             />
         </Grid>
-        <Grid x:Name="inputEntries" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*" IsVisible="False">
+        <!-- New Game Input -->
+        <Grid ColumnDefinitions="180,138,107,190,150" RowDefinitions="*"
+              WidthRequest="790"
+              HorizontalOptions="Center"
+              x:Name="inputEntries"
+              IsVisible="False">
             <Entry
                 x:Name="opp"
+                WidthRequest="175"
+                Margin="20,0,0,0"
                 Grid.Column="0"
             />
             <DatePicker
                 x:Name="date"
                 Grid.Column="1"
-                HorizontalOptions="Center"
+                HorizontalOptions="End"
             />
             <CheckBox
                 x:Name="home"
@@ -91,6 +114,7 @@
             />
             <Entry
                 x:Name="location"
+                WidthRequest="175"
                 Grid.Column="3"
             />
             <Button
@@ -108,5 +132,5 @@
             Clicked="ShowInput"
         />
     </VerticalStackLayout>
-    </Frame>
+    </Border>
 </ContentPage>

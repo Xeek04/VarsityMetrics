@@ -23,5 +23,4 @@ namespace VarsityMetrics.DB_Models
 
     }
 
-    // TODO add any necessary security measures (salt, pepper, hashing)
 }

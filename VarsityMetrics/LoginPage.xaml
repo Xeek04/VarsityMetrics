@@ -6,19 +6,30 @@
              BackgroundColor="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}">
 
     <!--ColumnDefinitions=".5*, .25*, .5*"-->
-    <Grid RowDefinitions="50, Auto"
+    <Grid RowDefinitions="250, Auto"
           Padding="10"
           ColumnSpacing="10"
           RowSpacing="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
-            <ColumnDefinition Width="{OnIdiom Default=300, Phone=.70*}" />
+            <ColumnDefinition Width="{OnIdiom Default=400, Phone=.70*}" />
             <ColumnDefinition Width="{OnIdiom Default=.5*, Phone=.15*}" />
         </Grid.ColumnDefinitions>
-
+        <Image
+            Grid.Row="0"
+            Grid.Column="1"
+            Source="logo.png"
+        />
+        <Label Style="{StaticResource Headline}"
+               FontSize="Header"
+               Grid.Row="0"
+               Grid.Column="1"
+               Text="VarsityMetrics"
+               VerticalOptions="End"/>
         <Border Style="{StaticResource SurfaceBorder}" 
                Grid.Column="1"
-               Grid.Row="1">
+               Grid.Row="1"
+                WidthRequest="300">
             <StackLayout Spacing="10">
                 <Label Text="Login"
                        FontSize="{OnIdiom Default=Header, Phone=60}"

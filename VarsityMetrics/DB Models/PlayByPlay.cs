@@ -1,10 +1,12 @@
 ﻿using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
+using Supabase.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace VarsityMetrics.DB_Models
 {
@@ -58,5 +60,30 @@ namespace VarsityMetrics.DB_Models
 
         [Column("play_id")]
         public int? PlayId { get; set; }
+
+        [JsonIgnore]
+        public string Description
+        {
+            get
+            {
+                if (Players == null || Players.Count() == 0) return "";
+
+                string result = Players[0];
+                if (YardType == "Pass" && Players.Count() == 2)
+                {
+                    result += " pass to " + Players[1];
+                }
+                else if (YardType == "Pass" && Players.Count() == 1)
+                {
+                    result += " pass";
+                }
+                else
+                {
+                    result += " rush";
+                }
+                result += " for " + Yards + " yards";
+                return result;
+            }
+        }
     }
 }

@@ -8,13 +8,14 @@ using Supabase.Postgrest.Attributes;
 using Supabase.Postgrest.Models;
 using Newtonsoft.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.IdentityModel.Tokens;
 
 namespace VarsityMetrics.DB_Models
 {
     [Table("PlayerStats")]
     public class PlayerStats : BaseModel
     {
-        [PrimaryKey("id")]
+        [PrimaryKey,Column("player_id")]
         public int Id { get; set; }
 
         [Column("fname")]
@@ -84,5 +85,8 @@ namespace VarsityMetrics.DB_Models
 
         [JsonIgnore]
         public string RecYardsPerReception => (RecYards == null) | (Receptions == null) ? "-" : Math.Round((double)RecYards / (double)Receptions).ToString();
+
+        [JsonIgnore]
+        public string AbvName => (Fname.IsNullOrEmpty()) | (Lname == null) ? $"PlayerID: {Id}" : $"{Fname.First()}. {Lname}";
     }
 }
